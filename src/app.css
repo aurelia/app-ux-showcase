@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+styles.header {
+  background: ${$design.primary};
+  color: ${$design.primaryForeground};
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  padding: 16px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+styles.router-view {
+}

@@ -1,0 +1,15 @@
+<template>
+  <require from="./swatches.css#ux"></require>
+
+  Swatches
+
+  <div repeat.for="swatch of swatches">
+    <template if.bind="swatch.colors">
+      ${swatch.name}
+      <div repeat.for="color of swatch.colors" css="background: ${color.hex}">
+        <div>${color.name}</div>
+        <div>${color.hex}</div>
+      </div>
+    </template>
+  </div>
+</template>

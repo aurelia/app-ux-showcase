@@ -133,6 +133,15 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          {
+            "name": "aurelia-ux",
+            "path": "../node_modules/aurelia-ux/dist/amd",
+            "main": "index",
+            "resources": [
+              "./button/ux-button.html",
+              "./button/ux-button-theme.css"
+            ]
           }
         ]
       }

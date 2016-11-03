@@ -1,3 +1,9 @@
 export class App {
-  message = 'Hello World!';
+  configureRouter(config, router) {
+    config.map([
+      { route: '', redirect: 'home' },
+      { route: 'home', moduleId: 'home' },
+      { route: 'swatches', moduleId: 'swatches', name: 'swatches' }
+    ]);
+  }
 }
