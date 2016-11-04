@@ -27,7 +27,7 @@ npm install aurelia-cli -g
 
 ## Application Setup
 
-Once you've setup your machine (or if it's been previous setup), you simply need to install the dependencies. From within the `app-contacts` folder, execute the following command:
+Once you've setup your machine (or if it's been previous setup), you simply need to install the dependencies. From within the app folder, execute the following command:
 
 ```
 npm install
@@ -35,7 +35,7 @@ npm install
 
 ## Running The App
 
-To run the app, execute the following command from within the app-contacts folder:
+To run the app, execute the following command from within the app folder:
 
 ```
 au run
