@@ -9,17 +9,15 @@ function makeSwatches() {
     let value = swatches[key];
 
     if (typeof value === 'string') {
-      return {
-        name: key,
-        color: value
-      };
+      return null;
     } else {
       return {
         name: key,
-        colors: makeSwatch(value)
+        colors: makeSwatch(value),
+        p500: value.p500
       };
     }
-  });
+  }).filter(x => x !== null);
 }
 
 function makeSwatch(swatch): string | any[] {

@@ -1,17 +1,37 @@
 <template>
+  <require from='./common.css#ux'></require>
   <require from="./swatches.css#ux"></require>
 
-  Swatches
+  <main styles.main>
+    <h2 styles.header>Swatches</h2>
 
-  <ux-button>Test Button</ux-button>
+    <p styles.description>
+      Swatches provide sets of colors, both primaries and accents, based on the
+      color theory behind Material Design. It is recommended that you select one
+      primary and one accent color for your app, each with a normal, light and dark shade.
+    </p>
 
-  <div repeat.for="swatch of swatches">
-    <template if.bind="swatch.colors">
-      ${swatch.name}
-      <div repeat.for="color of swatch.colors" css="background: ${color.hex}">
-        <div>${color.name}</div>
-        <div>${color.hex}</div>
-      </div>
-    </template>
-  </div>
+    <div styles.swatches>
+      <section repeat.for="swatch of swatches" styles.swatch>
+        <ul>
+          <li css="background: ${swatch.p500}">
+            <div styles.name>
+              ${swatch.name}
+            </div>
+
+            <div styles.color>
+              <div>p500</div>
+              <div>${swatch.p500}</div>
+            </div>
+          </li>
+
+          <li repeat.for="color of swatch.colors" styles.color css="background: ${color.hex}">
+            <div>${color.name}</div>
+            <div>${color.hex}</div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
 </template>

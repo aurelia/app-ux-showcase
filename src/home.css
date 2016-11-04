@@ -1,0 +1,16 @@
+styles.toc {
+  border-left: 5px solid;
+  padding-left: 20px;
+  margin-top: 60px;
+  border-left-color: ${$design.primary}
+}
+
+styles.item {
+  font-size: 20px;
+  line-height: 40px;
+}
+
+styles.link {
+  text-decoration: none;
+  color: ${$design.primary}
+}

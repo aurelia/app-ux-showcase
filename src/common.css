@@ -1,0 +1,19 @@
+styles.main {
+  padding: 80px 80px 40px;
+}
+
+styles.header {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 32px;
+  margin-bottom: 30px;
+}
+
+styles.description {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  margin-bottom: 0;
+  margin: 40px 0 20px 0;
+  max-width: 940px;
+}

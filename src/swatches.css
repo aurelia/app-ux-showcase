@@ -1,15 +1,29 @@
-styles.swatch {
+styles.swatches {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 60px;
+}
 
+styles.swatch {
+  width: 360px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+
+styles.name {
+  padding: 10px 15px 11px;
+  font-size: 13px;
+  line-height: 24px;
+  margin-bottom: 53px;
 }
 
 styles.color {
-
-}
-
-styles.color-name {
-
-}
-
-styles.color-hex {
-  
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 10px 15px 11px;
+  font-size: 13px;
+  line-height: 24px;
 }

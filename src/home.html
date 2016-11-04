@@ -1,5 +1,23 @@
 <template>
-  <h2>Welcome</h2>
+  <require from='./common.css#ux'></require>
+  <require from="./home.css#ux"></require>
 
-  <a route-href="route: swatches">Swatches</a>
+  <main styles.main>
+
+    <h2 styles.header>Welcome</h2>
+
+    <p styles.description>
+      This is a sample app which demonstrates various features of the Aurelia UX Library.
+      We will expand this app over time as we build out various features.
+      Please see below for a list of things to explore.
+    </p>
+
+    <nav styles.toc>
+      <h3>Features</h3>
+      <ul>
+        <li styles.item><a route-href="route: swatches" styles.link>Swatches</a></li>
+      </ul>
+    </nav>
+
+  </main>
 </template>

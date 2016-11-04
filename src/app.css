@@ -8,6 +8,11 @@ html, body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 styles.header {
   background: ${$design.primary};
   color: ${$design.primaryForeground};
@@ -17,5 +22,6 @@ styles.header {
   line-height: 24px;
 }
 
-styles.router-view {
+styles.page {
+  overflow-y: scroll;
 }
