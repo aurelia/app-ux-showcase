@@ -15,17 +15,17 @@
       <section repeat.for="swatch of swatches" styles.swatch>
         <ul>
           <li css="background: ${swatch.p500}">
-            <div styles.name>
+            <div styles.swatch-name>
               ${swatch.name}
             </div>
 
-            <div styles.color>
+            <div styles.color-row>
               <div>p500</div>
               <div>${swatch.p500}</div>
             </div>
           </li>
 
-          <li repeat.for="color of swatch.colors" styles.color css="background: ${color.hex}">
+          <li repeat.for="color of swatch.colors" styles.color-row css="background: ${color.hex}">
             <div>${color.name}</div>
             <div>${color.hex}</div>
           </li>

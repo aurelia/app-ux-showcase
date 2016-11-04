@@ -11,7 +11,7 @@
     "aurelia-animator-css": "^1.0.0",
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.0",
-    "aurelia-ux": "^0.1.8",
+    "aurelia-ux": "^0.1.10",
     "bluebird": "^3.4.1"
   },
   "peerDependencies": {},
