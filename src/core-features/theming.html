@@ -1,0 +1,28 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./theming.css#ux"></require>
+
+  <main styles.main>
+
+    <h2 styles.header>Theming</h2>
+
+    <p styles.description>
+      All UX styles can include binding expressions. They can be bound against your
+      custom style models, and/or against generally available properties such as
+      platform and design language.
+    </p>
+
+
+    <section>
+      <div styles.property-row>
+        <label styles.label>Design Primary</label>
+        <input type="color" value.bind="ux.design.primary">
+      </div>
+
+      <div>
+        <label styles.label>Design Primary Foreground</label>
+        <input type="color" value.bind="ux.design.primaryForeground">
+      </div>
+    </section>
+  </main>
+</template>

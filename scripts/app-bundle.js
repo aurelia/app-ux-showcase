@@ -6,8 +6,9 @@ define('app',["require", "exports"], function (require, exports) {
         App.prototype.configureRouter = function (config, router) {
             config.map([
                 { route: '', redirect: 'home' },
-                { route: 'home', moduleId: 'home', name: 'home' },
-                { route: 'swatches', moduleId: 'swatches', name: 'swatches' }
+                { route: 'home', moduleId: './home', name: 'home' },
+                { route: 'swatches', moduleId: './core-features/swatches', name: 'swatches' },
+                { route: 'theming', moduleId: './core-features/theming', name: 'theming' }
             ]);
         };
         return App;
@@ -57,7 +58,7 @@ define('main',["require", "exports", './environment'], function (require, export
     exports.configure = configure;
 });
 
-define('swatches',["require", "exports", 'aurelia-ux'], function (require, exports, aurelia_ux_1) {
+define('core-features/swatches',["require", "exports", 'aurelia-ux'], function (require, exports, aurelia_ux_1) {
     "use strict";
     var Swatches = (function () {
         function Swatches() {
@@ -1356,12 +1357,38 @@ define('aurelia-ux/button/ux-button-theme',["require", "exports", '../styles/dec
     exports.UxButtonTheme = UxButtonTheme;
 });
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('core-features/theming',["require", "exports", 'aurelia-ux', 'aurelia-dependency-injection'], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1) {
+    "use strict";
+    var Theming = (function () {
+        function Theming(ux) {
+            this.ux = ux;
+        }
+        Theming = __decorate([
+            aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX), 
+            __metadata('design:paramtypes', [Object])
+        ], Theming);
+        return Theming;
+    }());
+    exports.Theming = Theming;
+});
+
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./reset.css\"></require>\n  <require from=\"./app.css#ux\"></require>\n\n  <header styles.header>\n    <h1>Aurelia UX</h1>\n  </header>\n\n  <router-view styles.page></router-view>\n</template>\n"; });
 define('text!app.css', ['module'], function(module) { module.exports = "* {\n  box-sizing: border-box;\n}\n\nhtml, body {\n  width: 100%;\n  height: 100%;\n  font-family: 'Source Sans Pro', sans-serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n}\n\nstyles.header {\n  background: ${$design.primary};\n  color: ${$design.primaryForeground};\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n  padding: 16px;\n  font-size: 18px;\n  line-height: 24px;\n}\n\nstyles.page {\n  overflow-y: scroll;\n}\n"; });
-define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from='./common.css#ux'></require>\n  <require from=\"./home.css#ux\"></require>\n\n  <main styles.main>\n\n    <h2 styles.header>Welcome</h2>\n\n    <p styles.description>\n      This is a sample app which demonstrates various features of the Aurelia UX Library.\n      We will expand this app over time as we build out various features.\n      Please see below for a list of things to explore.\n    </p>\n\n    <nav styles.toc>\n      <h3>Core Features</h3>\n      <ul>\n        <li styles.item><a route-href=\"route: swatches\" styles.link>Swatches</a></li>\n      </ul>\n    </nav>\n\n  </main>\n</template>\n"; });
-define('text!common.css', ['module'], function(module) { module.exports = "styles.main {\n  padding: 80px 80px 40px;\n}\n\nstyles.header {\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 32px;\n  margin-bottom: 30px;\n}\n\nstyles.description {\n  font-size: 20px;\n  font-weight: 400;\n  line-height: 32px;\n  margin-bottom: 0;\n  margin: 40px 0 20px 0;\n  max-width: 940px;\n}\n"; });
-define('text!swatches.html', ['module'], function(module) { module.exports = "<template>\n  <require from='./common.css#ux'></require>\n  <require from=\"./swatches.css#ux\"></require>\n\n  <main styles.main>\n    <h2 styles.header>Swatches</h2>\n\n    <p styles.description>\n      Swatches provide sets of colors, both primaries and accents, based on the\n      color theory behind Material Design. It is recommended that you select one\n      primary and one accent color for your app, each with a normal, light and dark shade.\n    </p>\n\n    <div styles.swatches>\n      <section repeat.for=\"swatch of swatches\" styles.swatch>\n        <ul>\n          <li css=\"background: ${swatch.p500}\">\n            <div styles.swatch-name>\n              ${swatch.name}\n            </div>\n\n            <div styles.color-row>\n              <div>p500</div>\n              <div>${swatch.p500}</div>\n            </div>\n          </li>\n\n          <li repeat.for=\"color of swatch.colors\" styles.color-row css=\"background: ${color.hex}\">\n            <div>${color.name}</div>\n            <div>${color.hex}</div>\n          </li>\n        </ul>\n      </section>\n    </div>\n  </main>\n\n</template>\n"; });
-define('text!home.css', ['module'], function(module) { module.exports = "styles.toc {\n  border-left: 5px solid;\n  padding-left: 20px;\n  margin-top: 60px;\n  border-left-color: ${$design.primary}\n}\n\nstyles.item {\n  font-size: 20px;\n  line-height: 40px;\n}\n\nstyles.link {\n  text-decoration: none;\n  color: ${$design.primary}\n}\n"; });
+define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from='./common.css#ux'></require>\n  <require from=\"./home.css#ux\"></require>\n\n  <main styles.main>\n\n    <h2 styles.header>Welcome</h2>\n\n    <p styles.description>\n      This is a sample app which demonstrates various features of the Aurelia UX Library.\n      We will expand this app over time as we build out more features.\n      Please see below for a list of things to explore.\n    </p>\n\n    <nav styles.toc>\n      <h3 styles.toc-header>Core Features</h3>\n      <ul>\n        <li styles.item><a route-href=\"route: swatches\" styles.link>Swatches</a></li>\n        <li styles.item><a route-href=\"route: theming\" styles.link>Theming</a></li>\n      </ul>\n    </nav>\n\n  </main>\n</template>\n"; });
+define('text!common.css', ['module'], function(module) { module.exports = "styles.main {\n  padding: 80px 80px 40px;\n}\n\nstyles.header {\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 32px;\n  margin-bottom: 30px;\n  color: ${$design.primary};\n}\n\nstyles.description {\n  font-size: 20px;\n  font-weight: 400;\n  line-height: 32px;\n  margin-bottom: 0;\n  margin: 40px 0 20px 0;\n  max-width: 940px;\n  color: ${$swatches.black};\n}\n"; });
+define('text!core-features/swatches.html', ['module'], function(module) { module.exports = "<template>\n  <require from='../common.css#ux'></require>\n  <require from=\"./swatches.css#ux\"></require>\n\n  <main styles.main>\n    <h2 styles.header>Swatches</h2>\n\n    <p styles.description>\n      Swatches provide sets of colors, both primaries and accents, based on the\n      color theory behind Material Design. It is recommended that you select one\n      primary and one accent color for your app, each with a normal, light and dark shade.\n    </p>\n\n    <div styles.swatches>\n      <section repeat.for=\"swatch of swatches\" styles.swatch>\n        <ul>\n          <li css=\"background: ${swatch.p500}\">\n            <div styles.swatch-name>\n              ${swatch.name}\n            </div>\n\n            <div styles.color-row>\n              <div>p500</div>\n              <div>${swatch.p500}</div>\n            </div>\n          </li>\n\n          <li repeat.for=\"color of swatch.colors\" styles.color-row css=\"background: ${color.hex}\">\n            <div>${color.name}</div>\n            <div>${color.hex}</div>\n          </li>\n        </ul>\n      </section>\n    </div>\n  </main>\n\n</template>\n"; });
+define('text!home.css', ['module'], function(module) { module.exports = "styles.toc {\n  border-left: 5px solid;\n  padding-left: 20px;\n  margin-top: 60px;\n  border-left-color: ${$design.primary}\n}\n\nstyles.toc-header {\n  line-height: 40px;\n}\n\nstyles.item {\n  font-size: 20px;\n  line-height: 40px;\n}\n\nstyles.link {\n  text-decoration: none;\n  color: ${$design.primary}\n}\n"; });
 define('text!reset.css', ['module'], function(module) { module.exports = "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n"; });
-define('text!swatches.css', ['module'], function(module) { module.exports = "styles.swatches {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-top: 60px;\n}\n\nstyles.swatch {\n  width: 360px;\n  margin-bottom: 40px;\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n}\n\nstyles.swatch-name {\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n  margin-bottom: 53px;\n}\n\nstyles.color-row {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n}\n"; });
+define('text!core-features/swatches.css', ['module'], function(module) { module.exports = "styles.swatches {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-top: 60px;\n}\n\nstyles.swatch {\n  width: 360px;\n  margin-bottom: 40px;\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n}\n\nstyles.swatch-name {\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n  margin-bottom: 53px;\n}\n\nstyles.color-row {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n}\n"; });
+define('text!core-features/theming.css', ['module'], function(module) { module.exports = "styles.property-row {\n  margin: 24px 0;\n}\n\nstyles.label {\n  display: block;\n  margin-bottom: 16px;\n}\n"; });
+define('text!core-features/theming.html', ['module'], function(module) { module.exports = "<template>\n  <require from='../common.css#ux'></require>\n  <require from=\"./theming.css#ux\"></require>\n\n  <main styles.main>\n\n    <h2 styles.header>Theming</h2>\n\n    <p styles.description>\n      All UX styles can include binding expressions. They can be bound against your\n      custom style models, and/or against generally available properties such as\n      platform and design language.\n    </p>\n\n\n    <section>\n      <div styles.property-row>\n        <label styles.label>Design Primary</label>\n        <input type=\"color\" value.bind=\"ux.design.primary\">\n      </div>\n\n      <div>\n        <label styles.label>Design Primary Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryForeground\">\n      </div>\n    </section>\n  </main>\n</template>\n"; });
 //# sourceMappingURL=app-bundle.js.map
