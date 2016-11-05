@@ -25,9 +25,9 @@
             </div>
           </li>
 
-          <li repeat.for="color of swatch.colors" styles.color-row css="background: ${color.hex}">
+          <li repeat.for="color of swatch.colors" styles.color-row css="background: ${color.value}">
             <div>${color.name}</div>
-            <div>${color.hex}</div>
+            <div>${color.value}</div>
           </li>
         </ul>
       </section>

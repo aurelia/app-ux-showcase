@@ -24,7 +24,7 @@ function makeSwatch(swatch): string | any[] {
   return Object.keys(swatch).map(key => {
     return {
       name: key,
-      hex: swatch[key]
+      value: swatch[key]
     };
   }).sort(sortColors);
 }
