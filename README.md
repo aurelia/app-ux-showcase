@@ -38,7 +38,7 @@ npm install
 To run the app, execute the following command from within the app folder:
 
 ```
-au run
+au run --env dev
 ```
 
 See [the CLI documentation](https://github.com/aurelia/cli) for other available commands or type `au help` on the command line.
