@@ -1,7 +1,15 @@
 styles.toc {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-top: 60px;
+}
+
+styles.toc-category {
   border-left: 5px solid;
   padding-left: 20px;
-  margin-top: 60px;
+  margin-right: 120px;
   border-left-color: ${$design.primary}
 }
 

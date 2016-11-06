@@ -11,8 +11,8 @@
       primary and one accent color for your app, each with a normal, light and dark shade.
     </p>
 
-    <div styles.swatches>
-      <section repeat.for="swatch of swatches" styles.swatch>
+    <section styles.swatches>
+      <div repeat.for="swatch of swatches" styles.swatch>
         <ul>
           <li css="background: ${swatch.p500}">
             <div styles.swatch-name>
@@ -30,8 +30,8 @@
             <div>${color.value}</div>
           </li>
         </ul>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
 </template>

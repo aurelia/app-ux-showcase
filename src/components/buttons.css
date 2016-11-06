@@ -1,0 +1,25 @@
+styles.feature {
+  margin-top: 60px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+styles.figure {
+  background: ${$swatches.grey.p200};
+  display: flex;
+  width: 360px;
+  height: 360px;
+  position:relative;
+  margin-bottom: 20px;
+}
+
+styles.figure > ux-button {
+  margin: auto;
+}
+
+styles.figure > code {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}

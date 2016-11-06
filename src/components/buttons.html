@@ -1,0 +1,83 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./buttons.css#ux"></require>
+
+  <main styles.main>
+    <h2 styles.header>Buttons</h2>
+
+    <p styles.description>
+      The <code>&lt;ux-button&gt;...&lt;/ux-button&gt;</code> element is used to indicate that a user can take an action.
+      It comes in three types: <em>flat</em>, <em>raised</em> (default) and <em>fab</em> which can be configured either on the button instance or on the theme object, using the <em>type</em> property.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-button type="flat">Button</ux-button>
+
+        <code>
+          type="flat"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button>Button</ux-button>
+
+        <code>
+          type="raised"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button type="fab">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          type="fab"
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      Buttons also come in three sizes: <em>small</em>, <em>medium</em> (default) and <em>large</em> which can be configured either on the button instance or on the theme object, using the <em>size</em> property.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-button size="small" type="flat">Button</ux-button>
+        <ux-button size="small">Button</ux-button>
+        <ux-button size="small" type="fab">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          size="small"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button type="flat">Button</ux-button>
+        <ux-button>Button</ux-button>
+        <ux-button type="fab">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          size="medium"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button size="large" type="flat">Button</ux-button>
+        <ux-button size="large">Button</ux-button>
+        <ux-button size="large" type="fab">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          size="large"
+        </code>
+      </figure>
+    </section>
+  </main>
+</template>
