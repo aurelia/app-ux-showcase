@@ -1,5 +1,6 @@
 import {AureliaUX} from 'aurelia-ux';
 import {inject} from 'aurelia-dependency-injection';
+import {routes} from './routes';
 
 @inject(AureliaUX)
 export class App {
@@ -12,14 +13,24 @@ export class App {
 
   configureRouter(config, router) {
     this.router = router;
-    config.map([
-      { route: '', redirect: 'introduction' },
-      { route: 'introduction', moduleId: './home', name: 'introduction', title: 'Introduction' },
+    config.map(routes);
+  }
+}
 
-      { route: 'swatches', moduleId: './core-features/swatches', name: 'swatches', title: 'Swatches', nav: true },
-      { route: 'theming', moduleId: './core-features/theming', name: 'theming', title: 'Theming', nav: true },
+export class CategoriesValueConverter {
+  toView(navModels) {
+    let categories = new Map();
 
-      { route: 'buttons', moduleId: './components/buttons', name: 'buttons', title: 'Buttons', nav: true }
-    ]);
+    for(let model of navModels) {
+      let routes = categories.get(model.settings.category);
+
+      if (!routes) {
+        categories.set(model.settings.category, routes = []);
+      }
+
+      routes.push(model);
+    }
+
+    return categories;
   }
 }

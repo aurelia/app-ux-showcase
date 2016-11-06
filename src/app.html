@@ -10,9 +10,15 @@
     <span styles.product-name>Aurelia UX</span>
 
     <ul styles.nav-list>
-      <li styles.nav-item repeat.for="nav of router.navigation" class="${nav.isActive ? 'active' : ''}">
-        <a href.bind="nav.href">${nav.title}</a>
-      </li>
+      <template repeat.for="[category, routes] of router.navigation | categories">
+        <li styles.nav-category>
+          <span>${category.title}</span>
+        </li>
+
+        <li styles.nav-item repeat.for="nav of routes" class="${nav.isActive ? 'active' : ''}">
+          <a href.bind="nav.href">${nav.title}</a>
+        </li>
+      </template>
     </ul>
   </nav>
 

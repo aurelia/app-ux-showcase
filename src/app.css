@@ -50,14 +50,18 @@ styles.nav {
 
 styles.nav-list {
   align-self: stretch;
-  margin-top: 20px;
-
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid ${$swatches.grey.p300};
   display: flex;
   flex-direction: column;
 }
 
-styles.nav-item {
+styles.nav-category {
   padding: 12px 0 12px 24px;
+}
+
+styles.nav-item {
   transition: all 300ms;
 }
 
@@ -72,7 +76,7 @@ styles.nav-item > a {
   color: ${$design.primary};
   display: block;
   transition: all 300ms;
-
+  margin: 12px 0 12px 24px;
   border-left: 2px solid transparent;
   padding-left: 8px;
 }
