@@ -8,7 +8,7 @@
     </h1>
 
     <p styles.description>
-      The <code>ux-button<code> element is used to indicate that a user can take an action.
+      The <code>ux-button</code> element is used to indicate that a user can take an action.
       It comes in three types: <em>flat</em>, <em>raised</em> (default) and <em>fab</em> which can be configured either on the button instance or on the theme object, using the <em>type</em> property.
     </p>
 
@@ -78,6 +78,49 @@
 
         <code>
           size="large"
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      Material buttons have a ripple effect by default, however that can be turned off using the <code>effect</code> property.
+      As with all properties, this can be specified per design language, using the design language prefix.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-button type="flat" effect="none">Button</ux-button>
+        <ux-button effect="none">Button</ux-button>
+        <ux-button type="fab" effect="none">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          effect="none"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button type="flat" effect="ripple">Button</ux-button>
+        <ux-button effect="ripple">Button</ux-button>
+        <ux-button type="fab" effect="ripple">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          effect="ripple"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-button type="flat" material-effect="ripple">Button</ux-button>
+        <ux-button material-effect="ripple">Button</ux-button>
+        <ux-button type="fab" material-effect="ripple">
+          <span style="font-size: 26px">+</span>
+        </ux-button>
+
+        <code>
+          material-effect="ripple"
         </code>
       </figure>
     </section>
