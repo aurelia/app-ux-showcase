@@ -76,14 +76,24 @@ styles.nav-item > a {
   color: ${$design.primary};
   display: block;
   transition: all 300ms;
-  margin: 12px 0 12px 24px;
-  border-left: 2px solid transparent;
-  padding-left: 8px;
+  padding: 12px 0;
+  margin-left: 24px;
+}
+
+styles.nav-item > a:before {
+  content: '.';
+  display: inline-block;
+  color: transparent;
+  width: 2px;
+  margin-right: 8px;
 }
 
 styles.nav-item.active > a {
   color: ${$design.accent};
-  border-color: ${$design.accent};
+}
+
+styles.nav-item.active > a:before {
+  background-color: ${$design.accent};
 }
 
 styles.logo {
