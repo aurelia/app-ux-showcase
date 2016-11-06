@@ -1,5 +1,5 @@
 styles.feature {
-  margin-top: 60px;
+  margin: 40px 0 40px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -8,8 +8,8 @@ styles.feature {
 styles.figure {
   background: ${$swatches.grey.p200};
   display: flex;
-  width: 360px;
-  height: 360px;
+  width: 320px;
+  height: 320px;
   position:relative;
   margin-bottom: 20px;
 }

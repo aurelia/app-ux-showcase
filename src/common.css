@@ -1,5 +1,5 @@
 styles.main {
-  padding: 80px 80px 40px;
+  padding: 40px 40px 40px;
 }
 
 styles.header {
@@ -14,8 +14,7 @@ styles.description {
   font-size: 20px;
   font-weight: 400;
   line-height: 32px;
-  margin-bottom: 0;
-  margin: 40px 0 20px 0;
   max-width: 940px;
   color: ${$swatches.black};
+  margin-bottom: 40px;
 }

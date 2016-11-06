@@ -3,11 +3,11 @@ styles.swatches {
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 styles.swatch {
-  width: 360px;
+  width: 320px;
   margin-bottom: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }

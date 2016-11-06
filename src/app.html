@@ -2,9 +2,25 @@
   <require from="./reset.css"></require>
   <require from="./app.css#ux"></require>
 
-  <header styles.header>
-    <h1>Aurelia UX</h1>
-  </header>
+  <nav styles.nav>
+    <a href="#/introduction">
+      <img styles.logo src="../images/aurelia-icon-128x128.png">
+    </a>
 
-  <router-view styles.page></router-view>
+    <span styles.product-name>Aurelia UX</span>
+
+    <ul styles.nav-list>
+      <li styles.nav-item repeat.for="nav of router.navigation" class="${nav.isActive ? 'active' : ''}">
+        <a href.bind="nav.href">${nav.title}</a>
+      </li>
+    </ul>
+  </nav>
+
+  <section styles.main>
+    <header styles.header>
+      <h1>${router.currentInstruction.config.navModel.title}</h1>
+    </header>
+
+    <router-view styles.page></router-view>
+  </section>
 </template>
