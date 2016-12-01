@@ -140,7 +140,9 @@
             "main": "index",
             "resources": [
               "./button/ux-button.html",
-              "./button/ux-button-theme.css"
+              "./button/ux-button-theme.css",
+              "./tooltip/ux-tooltip.html",
+              "./tooltip/ux-tooltip-theme.css"
             ]
           }
         ]

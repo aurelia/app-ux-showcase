@@ -1,0 +1,184 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./tooltips.css#ux"></require>
+
+  <main styles.main>
+    <h1 styles.header>
+      &lt;ux-tooltip&gt;&lt;/ux-tooltip&gt;
+    </h1>
+
+    <p styles.description>
+      The <code>ux-tooltip</code> element is a text label that appear when the user hovers over, focuses on, or touches an element is used to indicate that a user can take an action.
+      It comes in 4 positions: <em>top</em>, <em>right</em>,  <em>bottom</em>(default) and <em>left</em> which can be configured either on the tooltip instance or on the theme object, using the <em>position</em> property.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-tooltip position="top">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          position="top"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tooltip position="right">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          position="right"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tooltip>
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          position="bottom" (default)
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tooltip position="left">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          position="left"
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      Material tooltips have a ease effect by default, however that can be turned off using the <code>effect</code> property.
+      As with all properties, this can be specified per design language, using the design language prefix.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-tooltip effect="none">
+          <div slot="tooltip-target">
+            <ux-button type="flat">Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip effect="none">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip effect="none">
+          <div slot="tooltip-target">
+            <ux-button type="fab">
+              <span style="font-size: 26px">+</span>
+            </ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          effect="none"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+
+        <ux-tooltip effect="ease">
+          <div slot="tooltip-target">
+            <ux-button type="flat">Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip effect="ease">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip effect="ease">
+          <div slot="tooltip-target">
+            <ux-button type="fab">
+              <span style="font-size: 26px">+</span>
+            </ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          effect="ease"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tooltip material-effect="ease">
+          <div slot="tooltip-target">
+            <ux-button type="flat">Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip material-effect="ease">
+          <div slot="tooltip-target">
+            <ux-button>Button</ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+        <ux-tooltip material-effect="ease">
+          <div slot="tooltip-target">
+            <ux-button type="fab">
+              <span style="font-size: 26px">+</span>
+            </ux-button>
+          </div>
+          <div slot="tooltip-content">
+            Tooltip
+          </div>
+        </ux-tooltip>
+
+        <code>
+          material-effect="ease"
+        </code>
+      </figure>
+    </section>
+  </main>
+</template>
