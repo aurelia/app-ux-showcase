@@ -1,3 +1,6 @@
 node_modules
 .idea
 .DS_STORE
+scripts
+!scripts/require.js
+!scripts/text.js
