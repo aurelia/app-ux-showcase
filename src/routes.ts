@@ -13,5 +13,6 @@ export let routes = [
   { settings: { category: coreFeatures }, route: 'swatches', moduleId: './core-features/swatches', name: 'swatches', title: 'Swatches', nav: true },
   { settings: { category: coreFeatures }, route: 'theming', moduleId: './core-features/theming', name: 'theming', title: 'Theming', nav: true },
 
-  { settings: { category: components }, route: 'buttons', moduleId: './components/buttons', name: 'buttons', title: 'Buttons', nav: true }
+  { settings: { category: components }, route: 'buttons', moduleId: './components/buttons', name: 'buttons', title: 'Buttons', nav: true },
+  { settings: { category: components }, route: 'tooltips', moduleId: './components/tooltips', name: 'tooltips', title: 'Tooltips', nav: true }
 ]
