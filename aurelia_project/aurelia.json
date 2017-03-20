@@ -135,12 +135,23 @@
             "env": "dev"
           },
           {
+            "name": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "main": "aurelia-validation"
+          },
+          {
             "name": "aurelia-ux",
             "path": "../node_modules/aurelia-ux/dist/amd",
             "main": "index",
             "resources": [
               "./button/ux-button.html",
-              "./button/ux-button-theme.css"
+              "./button/ux-button-theme.css",
+              "./input/ux-input.html",
+              "./input/ux-input-theme.css",
+              "./input-info/ux-input-info.html",
+              "./input-info/ux-input-info-theme.css",
+              "./textarea/ux-textarea.html",
+              "./textarea/ux-textarea-theme.css"
             ]
           }
         ]

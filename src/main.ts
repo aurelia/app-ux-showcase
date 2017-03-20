@@ -14,6 +14,7 @@ export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .feature('resources')
+    .plugin('aurelia-validation')
     .plugin('aurelia-ux');
 
   if (environment.debug) {

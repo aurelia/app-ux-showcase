@@ -1,0 +1,226 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./textarea.css#ux"></require>
+  <main styles.main>
+
+    <h1 styles.header>
+      &lt;ux-textarea&gt;&lt;/ux-textarea&gt;
+    </h1>
+    <p styles.description>
+      The <code>ux-textarea</code> element allows users to input data.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea value.bind="uxInputSingleLine"></ux-textarea>
+        </div>
+
+        <div class="add-padding">
+          value: ${uxInputSingleLine}
+        </div>
+
+        <code>
+          default
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      The <code>ux-textarea</code> extends many native functions of the standard input control.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea disabled value="Disabled Input"></ux-textarea>
+        </div>
+
+        <ux-textarea class="full-width" disabled value="Disabled Input"></ux-textarea>
+
+        <code>
+          disabled
+        </code>
+      </figure>
+
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea readonly value="Read Only Input"></ux-textarea>
+        </div>
+
+        <ux-textarea class="full-width" readonly value="Read Only Input"></ux-textarea>
+
+        <code>
+          readonly
+        </code>
+      </figure>
+
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea placeholder="Text goes in this field"></ux-textarea>
+        </div>
+
+        <code>
+          placeholder="Value Here"
+        </code>
+      </figure>
+
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea rows="5" placeholder="Text goes in this field"></ux-textarea>
+        </div>
+        <code>
+          rows="number"
+        </code>
+      </figure>
+
+    </section>
+
+    <p styles.description>
+      The <code>ux-textarea</code> has a few classes to help with styling.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea class="has-error" value="Error!"></ux-textarea>
+        </div>
+
+        <ux-textarea class="full-width has-error" value="Error!"></ux-textarea>
+
+        <code>
+          class="has-error"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-textarea class="full-width" value.bind="uxInputFullWidth"></ux-textarea>
+
+        <div class="add-padding">
+          value: ${uxInputFullWidth}
+        </div>
+
+        <code>
+          class="full-width"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <div class="add-padding">
+          <ux-textarea class="show-grip"></ux-textarea>
+        </div>
+
+        <code>
+          class="show-grip"
+        </code>
+      </figure>
+    </section>
+
+    <h2 styles.header>Aurelia Validation</h2>
+    <p styles.description>
+      The <code>ux-textarea</code> has native support for the Aurelia Validation plugin.
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+
+        <div class="add-padding">
+          <form submit.delegate="submit()">
+
+            <ux-input class="form-control" validation-errors.bind="firstNameErrors" class.bind="firstNameErrors.length ? 'has-error' : ''" view-model.ref="errorDemo1" placeholder="First Name" value.bind="firstName & validate"></ux-input>
+            <ux-input-info target.bind="errorDemo1">
+              <span if.bind="firstNameErrors.length">${firstNameErrors[0].error.message}</span>
+            </ux-input-info>
+
+            <ux-textarea validation-errors.bind="descriptionErrors" class.bind="descriptionErrors.length ? 'has-error' : ''" view-model.ref="errorDemo2" class="form-control" placeholder="Description" maxlength="500" value.bind="description & validate"></ux-textarea>
+            <ux-input-info ux-input-counter target.bind="errorDemo2">
+              <span if.bind="descriptionErrors.length">${descriptionErrors[0].error.message}</span>
+              <span if.bind="!descriptionErrors.length">john@example.com</span>
+            </ux-input-info>
+
+
+            <ux-button type="raised" size="small" class="btn btn-primary">Submit</ux-button>
+          </form>
+
+        </div>
+        <code>
+          
+        </code>
+      </figure>
+    </section>
+
+    <h2 styles.header>auto-resize</h2>
+    <p styles.description>
+      The <code>ux-textarea</code> has an auto-resize attribute to allow the textarea to grow in height as needed to accomodate the input.
+    </p>
+
+
+    <section styles.feature>
+
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea auto-resize></ux-textarea>
+        </div>
+
+        <code>
+          auto-resize
+        </code>
+      </figure>
+
+    </section>
+
+
+    <h2 styles.header>Input Info Box & Input Counter</h2>
+    <p styles.description>
+      The <code>ux-textarea</code> has a sibling element that will display the current character count or current characters remaining. If a max attribute is present on the <code>ux-textarea</code> element then the counter will display the total characters remaining, otherwise it will default to displaying the total characters. This element can also display hint text or error text as well.
+    </p>
+
+    <section styles.feature>
+
+      <figure styles.figure class="add-padding">
+        <div class="add-padding">
+          <ux-textarea view-model.ref="ibicDemo1"></ux-textarea>
+          <ux-input-info ux-input-counter target.bind="ibicDemo1"></ux-input-info>
+        </div>
+
+        <code>
+          &lt;ux-input-info input-counter /&gt;
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <div class="add-padding">
+          <ux-textarea view-model.ref="ibicDemo2" maxlength="10"></ux-textarea>
+          <ux-input-info ux-input-counter target.bind="ibicDemo2"></ux-input-info>
+        </div>
+
+        <code>
+          &lt;ux-input-info input-counter maxlength="10" /&gt;
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <div class="add-padding">
+          <ux-textarea view-model.ref="ibicDemo3"></ux-textarea>
+          <ux-input-info target.bind="ibicDemo3">I am a message</ux-input-info>
+        </div>
+
+        <code>
+          &lt;ux-input-info&gt;message&lt;/ux-input-info&gt;
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <div class="add-padding">
+          <ux-textarea view-model.ref="ibicDemo3" maxlength="10"></ux-textarea>
+          <ux-input-info ux-input-counter target.bind="ibicDemo3">I am a message</ux-input-info>
+        </div>
+
+        <code>
+          Combined
+        </code>
+      </figure>
+
+    </section>
+  </main>
+</template>
