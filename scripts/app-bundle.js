@@ -11,7 +11,8 @@ define('routes',["require", "exports"], function (require, exports) {
         { route: 'introduction', moduleId: './home', name: 'introduction', title: 'Introduction' },
         { settings: { category: coreFeatures }, route: 'swatches', moduleId: './core-features/swatches', name: 'swatches', title: 'Swatches', nav: true },
         { settings: { category: coreFeatures }, route: 'theming', moduleId: './core-features/theming', name: 'theming', title: 'Theming', nav: true },
-        { settings: { category: components }, route: 'buttons', moduleId: './components/buttons', name: 'buttons', title: 'Buttons', nav: true }
+        { settings: { category: components }, route: 'buttons', moduleId: './components/buttons', name: 'buttons', title: 'Buttons', nav: true },
+        { settings: { category: components }, route: 'inputs', moduleId: './components/inputs', name: 'inputs', title: 'Inputs', nav: true }
     ];
 });
 
@@ -24,7 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('app',["require", "exports", 'aurelia-ux', 'aurelia-dependency-injection', './routes'], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1, routes_1) {
+define('app',["require", "exports", "aurelia-ux", "aurelia-dependency-injection", "./routes"], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1, routes_1) {
     "use strict";
     var App = (function () {
         function App(ux) {
@@ -35,12 +36,12 @@ define('app',["require", "exports", 'aurelia-ux', 'aurelia-dependency-injection'
             this.router = router;
             config.map(routes_1.routes);
         };
-        App = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX), 
-            __metadata('design:paramtypes', [Object])
-        ], App);
         return App;
     }());
+    App = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX),
+        __metadata("design:paramtypes", [Object])
+    ], App);
     exports.App = App;
     var CategoriesValueConverter = (function () {
         function CategoriesValueConverter() {
@@ -81,7 +82,7 @@ define('home',["require", "exports"], function (require, exports) {
     exports.Home = Home;
 });
 
-define('main',["require", "exports", './environment'], function (require, exports, environment_1) {
+define('main',["require", "exports", "./environment"], function (require, exports, environment_1) {
     "use strict";
     Promise.config({
         longStackTraces: environment_1.default.debug,
@@ -93,6 +94,7 @@ define('main',["require", "exports", './environment'], function (require, export
         aurelia.use
             .standardConfiguration()
             .feature('resources')
+            .plugin('aurelia-validation')
             .plugin('aurelia-ux');
         if (environment_1.default.debug) {
             aurelia.use.developmentLogging();
@@ -115,7 +117,42 @@ define('components/buttons',["require", "exports"], function (require, exports) 
     exports.Buttons = Buttons;
 });
 
-define('core-features/swatches',["require", "exports", 'aurelia-ux'], function (require, exports, aurelia_ux_1) {
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('components/inputs',["require", "exports", "aurelia-validation", "aurelia-dependency-injection"], function (require, exports, aurelia_validation_1, aurelia_dependency_injection_1) {
+    "use strict";
+    var Inputs = (function () {
+        function Inputs(controllerFactory) {
+            this.controllerFactory = controllerFactory;
+            this.firstName = '';
+            this.email = '';
+            this.controller = null;
+            this.controller = controllerFactory.createForCurrentScope();
+        }
+        Inputs.prototype.submit = function () {
+            this.controller.validate();
+        };
+        return Inputs;
+    }());
+    Inputs = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_validation_1.ValidationControllerFactory),
+        __metadata("design:paramtypes", [aurelia_validation_1.ValidationControllerFactory])
+    ], Inputs);
+    exports.Inputs = Inputs;
+    aurelia_validation_1.ValidationRules
+        .ensure('firstName').required()
+        .ensure('email').required().email()
+        .on(Inputs);
+});
+
+define('core-features/swatches',["require", "exports", "aurelia-ux"], function (require, exports, aurelia_ux_1) {
     "use strict";
     var Swatches = (function () {
         function Swatches() {
@@ -180,18 +217,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('core-features/theming',["require", "exports", 'aurelia-ux', 'aurelia-dependency-injection'], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1) {
+define('core-features/theming',["require", "exports", "aurelia-ux", "aurelia-dependency-injection"], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1) {
     "use strict";
     var Theming = (function () {
         function Theming(ux) {
             this.ux = ux;
         }
-        Theming = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX), 
-            __metadata('design:paramtypes', [Object])
-        ], Theming);
         return Theming;
     }());
+    Theming = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX),
+        __metadata("design:paramtypes", [Object])
+    ], Theming);
     exports.Theming = Theming;
 });
 
@@ -208,8 +245,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/aurelia-ux',["require", "exports", 'aurelia-dependency-injection', './hosts/cordova', './hosts/web', './hosts/electron', './ux-configuration'], function (require, exports, aurelia_dependency_injection_1, cordova_1, web_1, electron_1, ux_configuration_1) {
+define('aurelia-ux/aurelia-ux',["require", "exports", "aurelia-dependency-injection", "./hosts/cordova", "./hosts/web", "./hosts/electron", "./ux-configuration"], function (require, exports, aurelia_dependency_injection_1, cordova_1, web_1, electron_1, ux_configuration_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var AureliaUX = (function () {
         function AureliaUX(use, container) {
             this.use = use;
@@ -231,11 +269,11 @@ define('aurelia-ux/aurelia-ux',["require", "exports", 'aurelia-dependency-inject
                 _this.design = platform.design;
             });
         };
-        AureliaUX = __decorate([
-            aurelia_dependency_injection_1.inject(ux_configuration_1.UXConfiguration, aurelia_dependency_injection_1.Container)
-        ], AureliaUX);
         return AureliaUX;
     }());
+    AureliaUX = __decorate([
+        aurelia_dependency_injection_1.inject(ux_configuration_1.UXConfiguration, aurelia_dependency_injection_1.Container)
+    ], AureliaUX);
     exports.AureliaUX = AureliaUX;
 });
 
@@ -245,8 +283,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/hosts/cordova',["require", "exports", 'aurelia-dependency-injection', 'aurelia-pal', '../platforms/ios', '../platforms/android'], function (require, exports, aurelia_dependency_injection_1, aurelia_pal_1, ios_1, android_1) {
+define('aurelia-ux/hosts/cordova',["require", "exports", "aurelia-dependency-injection", "aurelia-pal", "../platforms/ios", "../platforms/android"], function (require, exports, aurelia_dependency_injection_1, aurelia_pal_1, ios_1, android_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var Cordova = (function () {
         function Cordova(container) {
             this.container = container;
@@ -278,11 +317,11 @@ define('aurelia-ux/hosts/cordova',["require", "exports", 'aurelia-dependency-inj
             var device = aurelia_pal_1.PLATFORM.global.device || { platform: 'android' };
             return device.platform.toLowerCase();
         };
-        Cordova = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_dependency_injection_1.Container)
-        ], Cordova);
         return Cordova;
     }());
+    Cordova = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_dependency_injection_1.Container)
+    ], Cordova);
     exports.Cordova = Cordova;
 });
 
@@ -292,23 +331,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/platforms/ios',["require", "exports", 'aurelia-dependency-injection', '../designs/ios-design'], function (require, exports, aurelia_dependency_injection_1, ios_design_1) {
+define('aurelia-ux/platforms/ios',["require", "exports", "aurelia-dependency-injection", "../designs/ios-design"], function (require, exports, aurelia_dependency_injection_1, ios_design_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var IOS = (function () {
         function IOS(design) {
             this.design = design;
             this.type = 'ios';
         }
-        IOS = __decorate([
-            aurelia_dependency_injection_1.inject(ios_design_1.IOSDesign)
-        ], IOS);
         return IOS;
     }());
+    IOS = __decorate([
+        aurelia_dependency_injection_1.inject(ios_design_1.IOSDesign)
+    ], IOS);
     exports.IOS = IOS;
 });
 
-define('aurelia-ux/designs/ios-design',["require", "exports", '../colors/swatches'], function (require, exports, swatches_1) {
+define('aurelia-ux/designs/ios-design',["require", "exports", "../colors/swatches", "../colors/shadows"], function (require, exports, swatches_1, shadows_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var IOSDesign = (function () {
         function IOSDesign() {
             this.type = 'ios';
@@ -324,6 +365,15 @@ define('aurelia-ux/designs/ios-design',["require", "exports", '../colors/swatche
             this.accentLightForeground = swatches_1.swatches.white;
             this.accentDark = swatches_1.swatches.pink.a400;
             this.accentDarkForeground = swatches_1.swatches.white;
+            this.elevationNone = shadows_1.shadows.depth_0;
+            this.elevation2dp = shadows_1.shadows.depth_2dp;
+            this.elevation3dp = shadows_1.shadows.depth_3dp;
+            this.elevation4dp = shadows_1.shadows.depth_4dp;
+            this.elevation6dp = shadows_1.shadows.depth_6dp;
+            this.elevation8dp = shadows_1.shadows.depth_8dp;
+            this.elevation16dp = shadows_1.shadows.depth_16dp;
+            this.elevation24dp = shadows_1.shadows.depth_24dp;
+            this.elevationFocus = shadows_1.shadows.depth_focus;
         }
         return IOSDesign;
     }());
@@ -332,6 +382,7 @@ define('aurelia-ux/designs/ios-design',["require", "exports", '../colors/swatche
 
 define('aurelia-ux/colors/swatches',["require", "exports"], function (require, exports) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.swatches = {
         red: {
             p50: '#FFEBEE',
@@ -630,29 +681,62 @@ define('aurelia-ux/colors/swatches',["require", "exports"], function (require, e
     };
 });
 
+define('aurelia-ux/colors/shadows',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.shadows = {
+        depth_0: 'none',
+        depth_2dp: '0 2px 2px 0 rgba(0, 0, 0, 0.14),' +
+            '0 3px 1px -2px rgba(0, 0, 0, 0.2),' +
+            '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+        depth_3dp: '0 3px 4px 0 rgba(0, 0, 0, 0.14),' +
+            '0 3px 3px -2px rgba(0, 0, 0, 0.2),' +
+            '0 1px 8px 0 rgba(0, 0, 0, 0.12)',
+        depth_4dp: '0 4px 5px 0 rgba(0, 0, 0, 0.14),' +
+            '0 1px 10px 0 rgba(0, 0, 0, 0.12),' +
+            '0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+        depth_6dp: '0 6px 10px 0 rgba(0, 0, 0, 0.14),' +
+            '0 1px 18px 0 rgba(0, 0, 0, 0.12),' +
+            '0 3px 5px -1px rgba(0, 0, 0, 0.2)',
+        depth_8dp: '0 8px 10px 1px rgba(0, 0, 0, 0.14),' +
+            '0 3px 14px 2px rgba(0, 0, 0, 0.12),' +
+            '0 5px 5px -3px rgba(0, 0, 0, 0.2)',
+        depth_16dp: '0 16px 24px 2px rgba(0, 0, 0, 0.14),' +
+            '0 6px 30px 5px rgba(0, 0, 0, 0.12),' +
+            '0 8px 10px -5px rgba(0, 0, 0, 0.2)',
+        depth_24dp: '0 9px 46px  8px rgba(0, 0, 0, 0.14),' +
+            '0 11px 15px -7px rgba(0, 0, 0, 0.12),' +
+            '0 24px 38px  3px rgba(0, 0, 0, 0.2)',
+        depth_focus: '0 0 8px rgba(0,0,0,.18),' +
+            '0 8px 16px rgba(0,0,0,.36)'
+    };
+});
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/platforms/android',["require", "exports", 'aurelia-dependency-injection', '../designs/material-design'], function (require, exports, aurelia_dependency_injection_1, material_design_1) {
+define('aurelia-ux/platforms/android',["require", "exports", "aurelia-dependency-injection", "../designs/material-design"], function (require, exports, aurelia_dependency_injection_1, material_design_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var Android = (function () {
         function Android(design) {
             this.design = design;
             this.type = 'android';
         }
-        Android = __decorate([
-            aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
-        ], Android);
         return Android;
     }());
+    Android = __decorate([
+        aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
+    ], Android);
     exports.Android = Android;
 });
 
-define('aurelia-ux/designs/material-design',["require", "exports", '../colors/swatches'], function (require, exports, swatches_1) {
+define('aurelia-ux/designs/material-design',["require", "exports", "../colors/swatches", "../colors/shadows"], function (require, exports, swatches_1, shadows_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var MaterialDesign = (function () {
         function MaterialDesign() {
             this.type = 'material';
@@ -668,6 +752,15 @@ define('aurelia-ux/designs/material-design',["require", "exports", '../colors/sw
             this.accentLightForeground = swatches_1.swatches.white;
             this.accentDark = swatches_1.swatches.pink.a400;
             this.accentDarkForeground = swatches_1.swatches.white;
+            this.elevationNone = shadows_1.shadows.depth_0;
+            this.elevation2dp = shadows_1.shadows.depth_2dp;
+            this.elevation3dp = shadows_1.shadows.depth_3dp;
+            this.elevation4dp = shadows_1.shadows.depth_4dp;
+            this.elevation6dp = shadows_1.shadows.depth_6dp;
+            this.elevation8dp = shadows_1.shadows.depth_8dp;
+            this.elevation16dp = shadows_1.shadows.depth_16dp;
+            this.elevation24dp = shadows_1.shadows.depth_24dp;
+            this.elevationFocus = shadows_1.shadows.depth_focus;
         }
         return MaterialDesign;
     }());
@@ -680,8 +773,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/hosts/web',["require", "exports", 'aurelia-dependency-injection', '../designs/material-design'], function (require, exports, aurelia_dependency_injection_1, material_design_1) {
+define('aurelia-ux/hosts/web',["require", "exports", "aurelia-dependency-injection", "../designs/material-design"], function (require, exports, aurelia_dependency_injection_1, material_design_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var Web = (function () {
         function Web(design) {
             this.design = design;
@@ -692,11 +786,11 @@ define('aurelia-ux/hosts/web',["require", "exports", 'aurelia-dependency-injecti
             var _this = this;
             return Promise.resolve().then(function () { return _this; });
         };
-        Web = __decorate([
-            aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
-        ], Web);
         return Web;
     }());
+    Web = __decorate([
+        aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
+    ], Web);
     exports.Web = Web;
 });
 
@@ -706,8 +800,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/hosts/electron',["require", "exports", 'aurelia-dependency-injection', '../designs/material-design', './web', 'aurelia-pal'], function (require, exports, aurelia_dependency_injection_1, material_design_1, web_1, aurelia_pal_1) {
+define('aurelia-ux/hosts/electron',["require", "exports", "aurelia-dependency-injection", "../designs/material-design", "./web", "aurelia-pal"], function (require, exports, aurelia_dependency_injection_1, material_design_1, web_1, aurelia_pal_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var Electron = (function () {
         function Electron() {
             this.type = 'electron';
@@ -723,11 +818,11 @@ define('aurelia-ux/hosts/electron',["require", "exports", 'aurelia-dependency-in
         Electron.prototype.start = function (config) {
             return Promise.resolve().then(function () { return config.container.get(web_1.Web); });
         };
-        Electron = __decorate([
-            aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
-        ], Electron);
         return Electron;
     }());
+    Electron = __decorate([
+        aurelia_dependency_injection_1.inject(material_design_1.MaterialDesign)
+    ], Electron);
     exports.Electron = Electron;
 });
 
@@ -737,8 +832,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/ux-configuration',["require", "exports", 'aurelia-dependency-injection', 'aurelia-loader', 'aurelia-templating', './styles/dynamic-styles', 'aurelia-templating-binding'], function (require, exports, aurelia_dependency_injection_1, aurelia_loader_1, aurelia_templating_1, dynamic_styles_1, aurelia_templating_binding_1) {
+define('aurelia-ux/ux-configuration',["require", "exports", "aurelia-dependency-injection", "aurelia-loader", "aurelia-templating", "./styles/dynamic-styles", "aurelia-templating-binding"], function (require, exports, aurelia_dependency_injection_1, aurelia_loader_1, aurelia_templating_1, dynamic_styles_1, aurelia_templating_binding_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UXConfiguration = (function () {
         function UXConfiguration(loader, viewEngine) {
             this.loader = loader;
@@ -779,11 +875,11 @@ define('aurelia-ux/ux-configuration',["require", "exports", 'aurelia-dependency-
             /* tslint:enable:only-arrow-functions */
             return this;
         };
-        UXConfiguration = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_loader_1.Loader, aurelia_templating_1.ViewEngine)
-        ], UXConfiguration);
         return UXConfiguration;
     }());
+    UXConfiguration = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_loader_1.Loader, aurelia_templating_1.ViewEngine)
+    ], UXConfiguration);
     exports.UXConfiguration = UXConfiguration;
 });
 
@@ -793,8 +889,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/styles/dynamic-styles',["require", "exports", './decorators'], function (require, exports, decorators_1) {
+define('aurelia-ux/styles/dynamic-styles',["require", "exports", "./decorators"], function (require, exports, decorators_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var nextThemeId = 0;
     function getNextDynamicThemeId() {
         return 'DynamicTheme' + (++nextThemeId);
@@ -803,23 +900,23 @@ define('aurelia-ux/styles/dynamic-styles',["require", "exports", './decorators']
         var DynamicTheme = (function () {
             function DynamicTheme() {
             }
-            DynamicTheme = __decorate([
-                decorators_1.styles(),
-                decorators_1.useStyles(styleUrl)
-            ], DynamicTheme);
             return DynamicTheme;
         }());
-        return (_a = {},
+        DynamicTheme = __decorate([
+            decorators_1.styles(),
+            decorators_1.useStyles(styleUrl)
+        ], DynamicTheme);
+        return _a = {},
             _a[getNextDynamicThemeId()] = DynamicTheme,
-            _a
-        );
+            _a;
         var _a;
     }
     exports.createDynamicStyleModule = createDynamicStyleModule;
 });
 
-define('aurelia-ux/styles/decorators',["require", "exports", './style-resource', 'aurelia-templating', './style-strategy', 'aurelia-metadata', './style-locator'], function (require, exports, style_resource_1, aurelia_templating_1, style_strategy_1, aurelia_metadata_1, style_locator_1) {
+define('aurelia-ux/styles/decorators',["require", "exports", "./style-resource", "aurelia-templating", "./style-strategy", "aurelia-metadata", "./style-locator"], function (require, exports, style_resource_1, aurelia_templating_1, style_strategy_1, aurelia_metadata_1, style_locator_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Decorator: Indicates that the target is a styles class.
      */
@@ -857,8 +954,9 @@ define('aurelia-ux/styles/decorators',["require", "exports", './style-resource',
     exports.inlineStyles = inlineStyles;
 });
 
-define('aurelia-ux/styles/style-resource',["require", "exports", 'aurelia-metadata', './style-locator', './style-engine'], function (require, exports, aurelia_metadata_1, style_locator_1, style_engine_1) {
+define('aurelia-ux/styles/style-resource',["require", "exports", "aurelia-metadata", "./style-locator", "./style-engine"], function (require, exports, aurelia_metadata_1, style_locator_1, style_engine_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var StyleResource = (function () {
         function StyleResource() {
         }
@@ -880,7 +978,7 @@ define('aurelia-ux/styles/style-resource',["require", "exports", 'aurelia-metada
             return styleStrategy.loadStyleFactory(container, this.styleObjectType).then(function (styleFactory) {
                 _this.factory = styleFactory;
                 _this.hooks.factory = _this.factory;
-                return styleFactory;
+                return _this;
             });
         };
         return StyleResource;
@@ -900,8 +998,9 @@ define('aurelia-ux/styles/style-resource',["require", "exports", 'aurelia-metada
     }());
 });
 
-define('aurelia-ux/styles/style-locator',["require", "exports", 'aurelia-metadata', './style-strategy'], function (require, exports, aurelia_metadata_1, style_strategy_1) {
+define('aurelia-ux/styles/style-locator',["require", "exports", "aurelia-metadata", "./style-strategy"], function (require, exports, aurelia_metadata_1, style_strategy_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Locates a style for an object.
      */
@@ -970,12 +1069,12 @@ define('aurelia-ux/styles/style-locator',["require", "exports", 'aurelia-metadat
                 : moduleId;
             return id + '.css';
         };
-        /**
-         * The metadata key for storing/finding style strategies associated with an class/object.
-         */
-        StyleLocator.styleStrategyMetadataKey = 'aurelia:style-strategy';
         return StyleLocator;
     }());
+    /**
+     * The metadata key for storing/finding style strategies associated with an class/object.
+     */
+    StyleLocator.styleStrategyMetadataKey = 'aurelia:style-strategy';
     exports.StyleLocator = StyleLocator;
 });
 
@@ -985,15 +1084,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/styles/style-strategy',["require", "exports", 'aurelia-metadata', 'aurelia-pal', './style-locator', 'aurelia-path', './style-compiler', 'aurelia-loader', '../aurelia-ux'], function (require, exports, aurelia_metadata_1, aurelia_pal_1, style_locator_1, aurelia_path_1, style_compiler_1, aurelia_loader_1, aurelia_ux_1) {
+define('aurelia-ux/styles/style-strategy',["require", "exports", "aurelia-metadata", "aurelia-pal", "./style-locator", "aurelia-path", "./style-compiler", "aurelia-loader", "../aurelia-ux"], function (require, exports, aurelia_metadata_1, aurelia_pal_1, style_locator_1, aurelia_path_1, style_compiler_1, aurelia_loader_1, aurelia_ux_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * Decorator: Indicates that the decorated class/object is a style strategy.
      */
     exports.styleStrategy = aurelia_metadata_1.protocol.create('aurelia:style-strategy', {
         validate: function (target) {
             if (!(typeof target.loadStyleFactory === 'function')) {
-                return 'Style strategies must implement: loadStyleStrateg(): Promise<StyleFactory>';
+                return 'Style strategies must implement: loadStyleFactory(): Promise<StyleFactory>';
             }
             return true;
         },
@@ -1063,11 +1163,11 @@ define('aurelia-ux/styles/style-strategy',["require", "exports", 'aurelia-metada
                 this.absolutePath = aurelia_path_1.relativeToFile(this.path, file);
             }
         };
-        RelativeStyleStrategy = __decorate([
-            exports.styleStrategy()
-        ], RelativeStyleStrategy);
         return RelativeStyleStrategy;
     }());
+    RelativeStyleStrategy = __decorate([
+        exports.styleStrategy()
+    ], RelativeStyleStrategy);
     exports.RelativeStyleStrategy = RelativeStyleStrategy;
     /**
      * A styles strategy based on naming conventions.
@@ -1097,11 +1197,11 @@ define('aurelia-ux/styles/style-strategy',["require", "exports", 'aurelia-metada
                 return compiler.compile(styleObjectType, _this.css);
             });
         };
-        ConventionalStyleStrategy = __decorate([
-            exports.styleStrategy()
-        ], ConventionalStyleStrategy);
         return ConventionalStyleStrategy;
     }());
+    ConventionalStyleStrategy = __decorate([
+        exports.styleStrategy()
+    ], ConventionalStyleStrategy);
     exports.ConventionalStyleStrategy = ConventionalStyleStrategy;
     /**
      * A styles strategy that allows the component author to inline css.
@@ -1122,11 +1222,11 @@ define('aurelia-ux/styles/style-strategy',["require", "exports", 'aurelia-metada
             var compiler = container.get(style_compiler_1.StyleCompiler);
             return Promise.resolve(compiler.compile(styleObjectType, this.transformedCSS));
         };
-        InlineStyleStrategy = __decorate([
-            exports.styleStrategy()
-        ], InlineStyleStrategy);
         return InlineStyleStrategy;
     }());
+    InlineStyleStrategy = __decorate([
+        exports.styleStrategy()
+    ], InlineStyleStrategy);
     exports.InlineStyleStrategy = InlineStyleStrategy;
     function resolveForDesign(valueOrDesignMap, container) {
         if (typeof valueOrDesignMap === 'string') {
@@ -1145,8 +1245,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/styles/style-compiler',["require", "exports", 'aurelia-templating', 'aurelia-dependency-injection', './style-factory'], function (require, exports, aurelia_templating_1, aurelia_dependency_injection_1, style_factory_1) {
+define('aurelia-ux/styles/style-compiler',["require", "exports", "aurelia-templating", "aurelia-dependency-injection", "./style-factory"], function (require, exports, aurelia_templating_1, aurelia_dependency_injection_1, style_factory_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var classMatcher = /styles.([A-Za-z1-9\-_]+)/g;
     var StyleCompiler = (function () {
         function StyleCompiler(bindingLanguage, viewResources) {
@@ -1169,11 +1270,11 @@ define('aurelia-ux/styles/style-compiler',["require", "exports", 'aurelia-templa
             }
             return new style_factory_1.StyleFactory(styleObjectType, styles, expression);
         };
-        StyleCompiler = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_templating_1.BindingLanguage, aurelia_templating_1.ViewResources)
-        ], StyleCompiler);
         return StyleCompiler;
     }());
+    StyleCompiler = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_templating_1.BindingLanguage, aurelia_templating_1.ViewResources)
+    ], StyleCompiler);
     exports.StyleCompiler = StyleCompiler;
     var PlainCSSBindingExpression = (function () {
         function PlainCSSBindingExpression(css) {
@@ -1205,8 +1306,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/styles/style-factory',["require", "exports", './style-controller', '../aurelia-ux', 'aurelia-binding', 'aurelia-metadata', '../colors/swatches'], function (require, exports, style_controller_1, aurelia_ux_1, aurelia_binding_1, aurelia_metadata_1, swatches_1) {
+define('aurelia-ux/styles/style-factory',["require", "exports", "./style-controller", "../aurelia-ux", "aurelia-binding", "aurelia-metadata", "../colors/swatches", "../colors/shadows"], function (require, exports, style_controller_1, aurelia_ux_1, aurelia_binding_1, aurelia_metadata_1, swatches_1, shadows_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var StyleFactory = (function () {
         function StyleFactory(styleObjectType, styles, expression) {
             this.styleObjectType = styleObjectType;
@@ -1254,6 +1356,7 @@ define('aurelia-ux/styles/style-factory',["require", "exports", './style-control
             this.$on = '(min-width: 0)';
             this.$off = '(max-width: 0)';
             this.$swatches = swatches_1.swatches;
+            this.$shadows = shadows_1.shadows;
         }
         Object.defineProperty(StyleOverrideContext.prototype, "$platform", {
             get: function () {
@@ -1269,18 +1372,19 @@ define('aurelia-ux/styles/style-factory',["require", "exports", './style-control
             enumerable: true,
             configurable: true
         });
-        __decorate([
-            aurelia_binding_1.computedFrom('$ux.platform')
-        ], StyleOverrideContext.prototype, "$platform", null);
-        __decorate([
-            aurelia_binding_1.computedFrom('$ux.design')
-        ], StyleOverrideContext.prototype, "$design", null);
         return StyleOverrideContext;
     }());
+    __decorate([
+        aurelia_binding_1.computedFrom('$ux.platform')
+    ], StyleOverrideContext.prototype, "$platform", null);
+    __decorate([
+        aurelia_binding_1.computedFrom('$ux.design')
+    ], StyleOverrideContext.prototype, "$design", null);
 });
 
-define('aurelia-ux/styles/style-controller',["require", "exports", 'aurelia-pal'], function (require, exports, aurelia_pal_1) {
+define('aurelia-ux/styles/style-controller',["require", "exports", "aurelia-pal"], function (require, exports, aurelia_pal_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var StyleController = (function () {
         function StyleController(factory, bindingContext, overrideContext, expression, destination) {
             this.factory = factory;
@@ -1321,7 +1425,9 @@ define('aurelia-ux/styles/style-controller',["require", "exports", 'aurelia-pal'
                 this.bindingInstance = this.expression.createBinding(this.styleElement);
             }
             else if (!this.styleElement.parentNode) {
-                this.styleElementParent.appendChild(this.styleElement);
+                if (this.styleElementParent) {
+                    this.styleElementParent.appendChild(this.styleElement);
+                }
             }
         };
         StyleController.prototype.removeStyleElement = function () {
@@ -1340,8 +1446,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/styles/style-engine',["require", "exports", 'aurelia-metadata', 'aurelia-dependency-injection', 'aurelia-pal', 'aurelia-binding'], function (require, exports, aurelia_metadata_1, aurelia_dependency_injection_1, aurelia_pal_1, aurelia_binding_1) {
+define('aurelia-ux/styles/style-engine',["require", "exports", "aurelia-metadata", "aurelia-dependency-injection", "aurelia-pal", "aurelia-binding"], function (require, exports, aurelia_metadata_1, aurelia_dependency_injection_1, aurelia_pal_1, aurelia_binding_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var StyleEngine = (function () {
         function StyleEngine(container) {
             this.container = container;
@@ -1410,11 +1517,11 @@ define('aurelia-ux/styles/style-engine',["require", "exports", 'aurelia-metadata
             }
             return null;
         };
-        StyleEngine = __decorate([
-            aurelia_dependency_injection_1.inject(aurelia_dependency_injection_1.Container)
-        ], StyleEngine);
         return StyleEngine;
     }());
+    StyleEngine = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_dependency_injection_1.Container)
+    ], StyleEngine);
     exports.StyleEngine = StyleEngine;
 });
 
@@ -1424,31 +1531,1662 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define('aurelia-ux/button/ux-button-theme',["require", "exports", '../styles/decorators'], function (require, exports, decorators_1) {
+define('aurelia-ux/button/ux-button-theme',["require", "exports", "../styles/decorators"], function (require, exports, decorators_1) {
     "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var UxButtonTheme = (function () {
         function UxButtonTheme() {
             this.type = 'raised'; // flat, raised or fab
             this.size = 'medium'; // small, medium or large
             this.effect = 'ripple'; // ripple or none
         }
-        UxButtonTheme = __decorate([
-            decorators_1.styles()
-        ], UxButtonTheme);
         return UxButtonTheme;
     }());
+    UxButtonTheme = __decorate([
+        decorators_1.styles()
+    ], UxButtonTheme);
     exports.UxButtonTheme = UxButtonTheme;
 });
 
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./reset.css\"></require>\n  <require from=\"./app.css#ux\"></require>\n\n  <nav styles.nav>\n    <a href=\"#/introduction\">\n      <img styles.logo src=\"../images/aurelia-icon-128x128.png\">\n    </a>\n\n    <span styles.product-name>Aurelia UX</span>\n\n    <ul styles.nav-list>\n      <template repeat.for=\"[category, routes] of router.navigation | categories\">\n        <li styles.nav-category>\n          <span>${category.title}</span>\n        </li>\n\n        <li styles.nav-item repeat.for=\"nav of routes\" class=\"${nav.isActive ? 'active' : ''}\">\n          <a href.bind=\"nav.href\">${nav.title}</a>\n        </li>\n      </template>\n    </ul>\n  </nav>\n\n  <section styles.main>\n    <header styles.header>\n      <h1>${router.currentInstruction.config.navModel.title}</h1>\n    </header>\n\n    <router-view styles.page></router-view>\n  </section>\n</template>\n"; });
-define('text!app.css', ['module'], function(module) { module.exports = "* {\n  box-sizing: border-box;\n}\n\nhtml, body {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  font-family: 'Source Sans Pro', sans-serif;\n}\n\nbody {\n  display: flex;\n  flex-direction: row;\n}\n\ncode {\n  font-family: 'Source Code Pro', monospace;\n}\n\nem {\n  font-style: italic;\n}\n\nstyles.main {\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n}\n\nstyles.header {\n  background: ${$design.primary};\n  color: ${$design.primaryForeground};\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n  padding: 16px;\n  font-size: 24px;\n  line-height: 32px;\n  height: 64px;\n}\n\nstyles.nav {\n  width: 275px;\n  background: ${$swatches.grey.p200};\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\nstyles.nav-list {\n  align-self: stretch;\n  margin-top: 24px;\n  padding-top: 16px;\n  border-top: 1px solid ${$swatches.grey.p300};\n  display: flex;\n  flex-direction: column;\n}\n\nstyles.nav-category {\n  padding: 12px 0 12px 24px;\n}\n\nstyles.nav-item {\n  transition: all 300ms;\n}\n\nstyles.nav-item:hover {\n  background: ${$swatches.grey.p300};\n}\n\nstyles.nav-item > a {\n  text-decoration: none;\n  text-transform: uppercase;\n  font-size: 16px;\n  color: ${$design.primary};\n  display: block;\n  transition: all 300ms;\n  padding: 12px 0;\n  margin-left: 24px;\n}\n\nstyles.nav-item > a:before {\n  content: '.';\n  display: inline-block;\n  color: transparent;\n  width: 2px;\n  margin-right: 8px;\n}\n\nstyles.nav-item.active > a {\n  color: ${$design.accent};\n}\n\nstyles.nav-item.active > a:before {\n  background-color: ${$design.accent};\n}\n\nstyles.logo {\n  margin: 16px 0;\n}\n\nstyles.product-name {\n  font-size: 28px;\n}\n\nstyles.page {\n  overflow-y: scroll;\n  flex: 1;\n}\n"; });
-define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from='./common.css#ux'></require>\n\n  <main styles.main>\n\n    <h2 styles.header>What is Aurelia UX?</h2>\n\n    <p styles.description>\n      Aurelia UX is a companion framework to Aurelia. While Aurelia focuses on being\n      a <em>front-end framework</em> by providing core capabilities you need to build apps, such as templating, binding and routing,\n      Aurelia UX focuses on being a <em>user experience framework</em> by providing\n      higher-level capabilities such as design languages, theming and components.\n    </p>\n\n    <p styles.description>\n      Aurelia UX is still in a very early stage but we'd love for you to play with it\n      and consider contributing. We'll keep this app updated as we add new features\n      so it's easy for you to track our progress.\n    </p>\n\n  </main>\n</template>\n"; });
-define('text!common.css', ['module'], function(module) { module.exports = "styles.main {\n  padding: 40px 40px 40px;\n}\n\nstyles.header {\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 32px;\n  margin-bottom: 30px;\n  color: ${$design.primary};\n}\n\nstyles.description {\n  font-size: 20px;\n  font-weight: 400;\n  line-height: 32px;\n  max-width: 940px;\n  color: ${$swatches.black};\n  margin-bottom: 40px;\n}\n"; });
-define('text!components/buttons.html', ['module'], function(module) { module.exports = "<template>\n  <require from='../common.css#ux'></require>\n  <require from=\"./buttons.css#ux\"></require>\n\n  <main styles.main>\n    <h1 styles.header>\n      &lt;ux-button&gt;&lt;/ux-button&gt;\n    </h1>\n\n    <p styles.description>\n      The <code>ux-button</code> element is used to indicate that a user can take an action.\n      It comes in three types: <em>flat</em>, <em>raised</em> (default) and <em>fab</em> which can be configured either on the button instance or on the theme object, using the <em>type</em> property.\n    </p>\n\n    <section styles.feature>\n      <figure styles.figure>\n        <ux-button type=\"flat\">Button</ux-button>\n\n        <code>\n          type=\"flat\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button>Button</ux-button>\n\n        <code>\n          type=\"raised\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button type=\"fab\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          type=\"fab\"\n        </code>\n      </figure>\n    </section>\n\n    <p styles.description>\n      Buttons also come in three sizes: <em>small</em>, <em>medium</em> (default) and <em>large</em> which can be configured either on the button instance or on the theme object, using the <em>size</em> property.\n    </p>\n\n    <section styles.feature>\n      <figure styles.figure>\n        <ux-button size=\"small\" type=\"flat\">Button</ux-button>\n        <ux-button size=\"small\">Button</ux-button>\n        <ux-button size=\"small\" type=\"fab\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          size=\"small\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button type=\"flat\">Button</ux-button>\n        <ux-button>Button</ux-button>\n        <ux-button type=\"fab\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          size=\"medium\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button size=\"large\" type=\"flat\">Button</ux-button>\n        <ux-button size=\"large\">Button</ux-button>\n        <ux-button size=\"large\" type=\"fab\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          size=\"large\"\n        </code>\n      </figure>\n    </section>\n\n    <p styles.description>\n      Material buttons have a ripple effect by default, however that can be turned off using the <code>effect</code> property.\n      As with all properties, this can be specified per design language, using the design language prefix.\n    </p>\n\n    <section styles.feature>\n      <figure styles.figure>\n        <ux-button type=\"flat\" effect=\"none\">Button</ux-button>\n        <ux-button effect=\"none\">Button</ux-button>\n        <ux-button type=\"fab\" effect=\"none\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          effect=\"none\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button type=\"flat\" effect=\"ripple\">Button</ux-button>\n        <ux-button effect=\"ripple\">Button</ux-button>\n        <ux-button type=\"fab\" effect=\"ripple\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          effect=\"ripple\"\n        </code>\n      </figure>\n\n      <figure styles.figure>\n        <ux-button type=\"flat\" material-effect=\"ripple\">Button</ux-button>\n        <ux-button material-effect=\"ripple\">Button</ux-button>\n        <ux-button type=\"fab\" material-effect=\"ripple\">\n          <span style=\"font-size: 26px\">+</span>\n        </ux-button>\n\n        <code>\n          material-effect=\"ripple\"\n        </code>\n      </figure>\n    </section>\n  </main>\n</template>\n"; });
-define('text!reset.css', ['module'], function(module) { module.exports = "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n"; });
-define('text!core-features/swatches.html', ['module'], function(module) { module.exports = "<template>\n  <require from='../common.css#ux'></require>\n  <require from=\"./swatches.css#ux\"></require>\n\n  <main styles.main>\n    <p styles.description>\n      Swatches provide sets of colors, both primaries and accents, based on the\n      color theory behind Material Design. It is recommended that you select one\n      primary and one accent color for your app, each with a normal, light and dark shade.\n    </p>\n\n    <section styles.swatches>\n      <div repeat.for=\"swatch of swatches\" styles.swatch>\n        <ul>\n          <li css=\"background: ${swatch.p500}\">\n            <div styles.swatch-name>\n              ${swatch.name}\n            </div>\n\n            <div styles.color-row>\n              <div>p500</div>\n              <div>${swatch.p500}</div>\n            </div>\n          </li>\n\n          <li repeat.for=\"color of swatch.colors\" styles.color-row css=\"background: ${color.value}\">\n            <div>${color.name}</div>\n            <div>${color.value}</div>\n          </li>\n        </ul>\n      </div>\n    </section>\n  </main>\n\n</template>\n"; });
-define('text!components/buttons.css', ['module'], function(module) { module.exports = "styles.feature {\n  margin: 40px 0 20px;\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n}\n\nstyles.figure {\n  background: ${$swatches.grey.p200};\n  display: flex;\n  width: 320px;\n  height: 320px;\n  position:relative;\n  margin-bottom: 20px;\n}\n\nstyles.figure > ux-button {\n  margin: auto;\n}\n\nstyles.figure > code {\n  position: absolute;\n  bottom: 16px;\n  left: 16px;\n}\n"; });
-define('text!core-features/theming.html', ['module'], function(module) { module.exports = "<template>\n  <require from='../common.css#ux'></require>\n  <require from=\"./theming.css#ux\"></require>\n\n  <main styles.main>\n    <p styles.description>\n      All UX styles can include binding expressions. They can be bound against your\n      custom style models, and/or against generally available properties such as\n      platform and design language.\n    </p>\n\n    <section styles.properties>\n      <div styles.property-row>\n        <label styles.label>Design Primary</label>\n        <input type=\"color\" value.bind=\"ux.design.primary\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Primary Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryForeground\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Primary Dark</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryDark\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Primary Dark Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryDarkForeground\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Primary Light</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryLight\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Primary Light Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.primaryLightForeground\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent</label>\n        <input type=\"color\" value.bind=\"ux.design.accent\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.accentForeground\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent Dark</label>\n        <input type=\"color\" value.bind=\"ux.design.accentDark\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent Dark Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.accentDarkForeground\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent Light</label>\n        <input type=\"color\" value.bind=\"ux.design.accentLight\">\n      </div>\n\n      <div styles.property-row>\n        <label styles.label>Design Accent Light Foreground</label>\n        <input type=\"color\" value.bind=\"ux.design.accentLightForeground\">\n      </div>\n    </section>\n  </main>\n</template>\n"; });
-define('text!core-features/swatches.css', ['module'], function(module) { module.exports = "styles.swatches {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-top: 40px;\n}\n\nstyles.swatch {\n  width: 320px;\n  margin-bottom: 40px;\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\n}\n\nstyles.swatch-name {\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n  margin-bottom: 53px;\n}\n\nstyles.color-row {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: space-between;\n  padding: 10px 15px 11px;\n  font-size: 13px;\n  line-height: 24px;\n}\n"; });
-define('text!core-features/theming.css', ['module'], function(module) { module.exports = "styles.properties {\n  margin-top: 40px;\n}\n\nstyles.property-row {\n  margin: 24px 0;\n}\n\nstyles.label {\n  display: block;\n  margin-bottom: 16px;\n}\n"; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+define('aurelia-ux/input/ux-input-theme',["require", "exports", "../styles/decorators"], function (require, exports, decorators_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var UxInputTheme = (function () {
+        function UxInputTheme() {
+            this.background = 'transparent';
+        }
+        return UxInputTheme;
+    }());
+    UxInputTheme = __decorate([
+        decorators_1.styles()
+    ], UxInputTheme);
+    exports.UxInputTheme = UxInputTheme;
+});
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+define('aurelia-ux/input/ux-input-info-theme',["require", "exports", "../styles/decorators"], function (require, exports, decorators_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var UxInputInfoTheme = (function () {
+        function UxInputInfoTheme() {
+        }
+        return UxInputInfoTheme;
+    }());
+    UxInputInfoTheme = __decorate([
+        decorators_1.styles()
+    ], UxInputInfoTheme);
+    exports.UxInputInfoTheme = UxInputInfoTheme;
+});
+
+define('aurelia-validation/get-target-dom-element',["require", "exports", "aurelia-pal"], function (require, exports, aurelia_pal_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Gets the DOM element associated with the data-binding. Most of the time it's
+     * the binding.target but sometimes binding.target is an aurelia custom element,
+     * or custom attribute which is a javascript "class" instance, so we need to use
+     * the controller's container to retrieve the actual DOM element.
+     */
+    function getTargetDOMElement(binding, view) {
+        var target = binding.target;
+        // DOM element
+        if (target instanceof Element) {
+            return target;
+        }
+        // custom element or custom attribute
+        // tslint:disable-next-line:prefer-const
+        for (var i = 0, ii = view.controllers.length; i < ii; i++) {
+            var controller = view.controllers[i];
+            if (controller.viewModel === target) {
+                var element = controller.container.get(aurelia_pal_1.DOM.Element);
+                if (element) {
+                    return element;
+                }
+                throw new Error("Unable to locate target element for \"" + binding.sourceExpression + "\".");
+            }
+        }
+        throw new Error("Unable to locate target element for \"" + binding.sourceExpression + "\".");
+    }
+    exports.getTargetDOMElement = getTargetDOMElement;
+});
+
+define('aurelia-validation/property-info',["require", "exports", "aurelia-binding"], function (require, exports, aurelia_binding_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function getObject(expression, objectExpression, source) {
+        var value = objectExpression.evaluate(source, null);
+        if (value === null || value === undefined || value instanceof Object) {
+            return value;
+        }
+        // tslint:disable-next-line:max-line-length
+        throw new Error("The '" + objectExpression + "' part of '" + expression + "' evaluates to " + value + " instead of an object, null or undefined.");
+    }
+    /**
+     * Retrieves the object and property name for the specified expression.
+     * @param expression The expression
+     * @param source The scope
+     */
+    function getPropertyInfo(expression, source) {
+        var originalExpression = expression;
+        while (expression instanceof aurelia_binding_1.BindingBehavior || expression instanceof aurelia_binding_1.ValueConverter) {
+            expression = expression.expression;
+        }
+        var object;
+        var propertyName;
+        if (expression instanceof aurelia_binding_1.AccessScope) {
+            object = source.bindingContext;
+            propertyName = expression.name;
+        }
+        else if (expression instanceof aurelia_binding_1.AccessMember) {
+            object = getObject(originalExpression, expression.object, source);
+            propertyName = expression.name;
+        }
+        else if (expression instanceof aurelia_binding_1.AccessKeyed) {
+            object = getObject(originalExpression, expression.object, source);
+            propertyName = expression.key.evaluate(source);
+        }
+        else {
+            throw new Error("Expression '" + originalExpression + "' is not compatible with the validate binding-behavior.");
+        }
+        if (object === null || object === undefined) {
+            return null;
+        }
+        return { object: object, propertyName: propertyName };
+    }
+    exports.getPropertyInfo = getPropertyInfo;
+});
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+define('aurelia-validation/validate-binding-behavior',["require", "exports", "aurelia-task-queue", "./validate-trigger", "./validate-binding-behavior-base"], function (require, exports, aurelia_task_queue_1, validate_trigger_1, validate_binding_behavior_base_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Binding behavior. Indicates the bound property should be validated
+     * when the validate trigger specified by the associated controller's
+     * validateTrigger property occurs.
+     */
+    var ValidateBindingBehavior = (function (_super) {
+        __extends(ValidateBindingBehavior, _super);
+        function ValidateBindingBehavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ValidateBindingBehavior.prototype.getValidateTrigger = function (controller) {
+            return controller.validateTrigger;
+        };
+        return ValidateBindingBehavior;
+    }(validate_binding_behavior_base_1.ValidateBindingBehaviorBase));
+    ValidateBindingBehavior.inject = [aurelia_task_queue_1.TaskQueue];
+    exports.ValidateBindingBehavior = ValidateBindingBehavior;
+    /**
+     * Binding behavior. Indicates the bound property will be validated
+     * manually, by calling controller.validate(). No automatic validation
+     * triggered by data-entry or blur will occur.
+     */
+    var ValidateManuallyBindingBehavior = (function (_super) {
+        __extends(ValidateManuallyBindingBehavior, _super);
+        function ValidateManuallyBindingBehavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ValidateManuallyBindingBehavior.prototype.getValidateTrigger = function () {
+            return validate_trigger_1.validateTrigger.manual;
+        };
+        return ValidateManuallyBindingBehavior;
+    }(validate_binding_behavior_base_1.ValidateBindingBehaviorBase));
+    ValidateManuallyBindingBehavior.inject = [aurelia_task_queue_1.TaskQueue];
+    exports.ValidateManuallyBindingBehavior = ValidateManuallyBindingBehavior;
+    /**
+     * Binding behavior. Indicates the bound property should be validated
+     * when the associated element blurs.
+     */
+    var ValidateOnBlurBindingBehavior = (function (_super) {
+        __extends(ValidateOnBlurBindingBehavior, _super);
+        function ValidateOnBlurBindingBehavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ValidateOnBlurBindingBehavior.prototype.getValidateTrigger = function () {
+            return validate_trigger_1.validateTrigger.blur;
+        };
+        return ValidateOnBlurBindingBehavior;
+    }(validate_binding_behavior_base_1.ValidateBindingBehaviorBase));
+    ValidateOnBlurBindingBehavior.inject = [aurelia_task_queue_1.TaskQueue];
+    exports.ValidateOnBlurBindingBehavior = ValidateOnBlurBindingBehavior;
+    /**
+     * Binding behavior. Indicates the bound property should be validated
+     * when the associated element is changed by the user, causing a change
+     * to the model.
+     */
+    var ValidateOnChangeBindingBehavior = (function (_super) {
+        __extends(ValidateOnChangeBindingBehavior, _super);
+        function ValidateOnChangeBindingBehavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ValidateOnChangeBindingBehavior.prototype.getValidateTrigger = function () {
+            return validate_trigger_1.validateTrigger.change;
+        };
+        return ValidateOnChangeBindingBehavior;
+    }(validate_binding_behavior_base_1.ValidateBindingBehaviorBase));
+    ValidateOnChangeBindingBehavior.inject = [aurelia_task_queue_1.TaskQueue];
+    exports.ValidateOnChangeBindingBehavior = ValidateOnChangeBindingBehavior;
+    /**
+     * Binding behavior. Indicates the bound property should be validated
+     * when the associated element blurs or is changed by the user, causing
+     * a change to the model.
+     */
+    var ValidateOnChangeOrBlurBindingBehavior = (function (_super) {
+        __extends(ValidateOnChangeOrBlurBindingBehavior, _super);
+        function ValidateOnChangeOrBlurBindingBehavior() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ValidateOnChangeOrBlurBindingBehavior.prototype.getValidateTrigger = function () {
+            return validate_trigger_1.validateTrigger.changeOrBlur;
+        };
+        return ValidateOnChangeOrBlurBindingBehavior;
+    }(validate_binding_behavior_base_1.ValidateBindingBehaviorBase));
+    ValidateOnChangeOrBlurBindingBehavior.inject = [aurelia_task_queue_1.TaskQueue];
+    exports.ValidateOnChangeOrBlurBindingBehavior = ValidateOnChangeOrBlurBindingBehavior;
+});
+
+define('aurelia-validation/validate-trigger',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Validation triggers.
+     */
+    var validateTrigger;
+    (function (validateTrigger) {
+        /**
+         * Manual validation.  Use the controller's `validate()` and  `reset()` methods
+         * to validate all bindings.
+         */
+        validateTrigger[validateTrigger["manual"] = 0] = "manual";
+        /**
+         * Validate the binding when the binding's target element fires a DOM "blur" event.
+         */
+        validateTrigger[validateTrigger["blur"] = 1] = "blur";
+        /**
+         * Validate the binding when it updates the model due to a change in the view.
+         */
+        validateTrigger[validateTrigger["change"] = 2] = "change";
+        /**
+         * Validate the binding when the binding's target element fires a DOM "blur" event and
+         * when it updates the model due to a change in the view.
+         */
+        validateTrigger[validateTrigger["changeOrBlur"] = 3] = "changeOrBlur";
+    })(validateTrigger = exports.validateTrigger || (exports.validateTrigger = {}));
+    ;
+});
+
+define('aurelia-validation/validate-binding-behavior-base',["require", "exports", "aurelia-dependency-injection", "./validation-controller", "./validate-trigger", "./get-target-dom-element"], function (require, exports, aurelia_dependency_injection_1, validation_controller_1, validate_trigger_1, get_target_dom_element_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Binding behavior. Indicates the bound property should be validated.
+     */
+    var ValidateBindingBehaviorBase = (function () {
+        function ValidateBindingBehaviorBase(taskQueue) {
+            this.taskQueue = taskQueue;
+        }
+        ValidateBindingBehaviorBase.prototype.bind = function (binding, source, rulesOrController, rules) {
+            var _this = this;
+            // identify the target element.
+            var target = get_target_dom_element_1.getTargetDOMElement(binding, source);
+            // locate the controller.
+            var controller;
+            if (rulesOrController instanceof validation_controller_1.ValidationController) {
+                controller = rulesOrController;
+            }
+            else {
+                controller = source.container.get(aurelia_dependency_injection_1.Optional.of(validation_controller_1.ValidationController));
+                rules = rulesOrController;
+            }
+            if (controller === null) {
+                throw new Error("A ValidationController has not been registered.");
+            }
+            controller.registerBinding(binding, target, rules);
+            binding.validationController = controller;
+            var trigger = this.getValidateTrigger(controller);
+            // tslint:disable-next-line:no-bitwise
+            if (trigger & validate_trigger_1.validateTrigger.change) {
+                binding.standardUpdateSource = binding.updateSource;
+                // tslint:disable-next-line:only-arrow-functions
+                binding.updateSource = function (value) {
+                    this.standardUpdateSource(value);
+                    this.validationController.validateBinding(this);
+                };
+            }
+            // tslint:disable-next-line:no-bitwise
+            if (trigger & validate_trigger_1.validateTrigger.blur) {
+                binding.validateBlurHandler = function () {
+                    _this.taskQueue.queueMicroTask(function () { return controller.validateBinding(binding); });
+                };
+                binding.validateTarget = target;
+                target.addEventListener('blur', binding.validateBlurHandler);
+            }
+            if (trigger !== validate_trigger_1.validateTrigger.manual) {
+                binding.standardUpdateTarget = binding.updateTarget;
+                // tslint:disable-next-line:only-arrow-functions
+                binding.updateTarget = function (value) {
+                    this.standardUpdateTarget(value);
+                    this.validationController.resetBinding(this);
+                };
+            }
+        };
+        ValidateBindingBehaviorBase.prototype.unbind = function (binding) {
+            // reset the binding to it's original state.
+            if (binding.standardUpdateSource) {
+                binding.updateSource = binding.standardUpdateSource;
+                binding.standardUpdateSource = null;
+            }
+            if (binding.standardUpdateTarget) {
+                binding.updateTarget = binding.standardUpdateTarget;
+                binding.standardUpdateTarget = null;
+            }
+            if (binding.validateBlurHandler) {
+                binding.validateTarget.removeEventListener('blur', binding.validateBlurHandler);
+                binding.validateBlurHandler = null;
+                binding.validateTarget = null;
+            }
+            binding.validationController.unregisterBinding(binding);
+            binding.validationController = null;
+        };
+        return ValidateBindingBehaviorBase;
+    }());
+    exports.ValidateBindingBehaviorBase = ValidateBindingBehaviorBase;
+});
+
+define('aurelia-validation/validation-controller',["require", "exports", "./validator", "./validate-trigger", "./property-info", "./validate-result"], function (require, exports, validator_1, validate_trigger_1, property_info_1, validate_result_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Orchestrates validation.
+     * Manages a set of bindings, renderers and objects.
+     * Exposes the current list of validation results for binding purposes.
+     */
+    var ValidationController = (function () {
+        function ValidationController(validator) {
+            this.validator = validator;
+            // Registered bindings (via the validate binding behavior)
+            this.bindings = new Map();
+            // Renderers that have been added to the controller instance.
+            this.renderers = [];
+            /**
+             * Validation results that have been rendered by the controller.
+             */
+            this.results = [];
+            /**
+             * Validation errors that have been rendered by the controller.
+             */
+            this.errors = [];
+            /**
+             *  Whether the controller is currently validating.
+             */
+            this.validating = false;
+            // Elements related to validation results that have been rendered.
+            this.elements = new Map();
+            // Objects that have been added to the controller instance (entity-style validation).
+            this.objects = new Map();
+            /**
+             * The trigger that will invoke automatic validation of a property used in a binding.
+             */
+            this.validateTrigger = validate_trigger_1.validateTrigger.blur;
+            // Promise that resolves when validation has completed.
+            this.finishValidating = Promise.resolve();
+        }
+        /**
+         * Adds an object to the set of objects that should be validated when validate is called.
+         * @param object The object.
+         * @param rules Optional. The rules. If rules aren't supplied the Validator implementation will lookup the rules.
+         */
+        ValidationController.prototype.addObject = function (object, rules) {
+            this.objects.set(object, rules);
+        };
+        /**
+         * Removes an object from the set of objects that should be validated when validate is called.
+         * @param object The object.
+         */
+        ValidationController.prototype.removeObject = function (object) {
+            this.objects.delete(object);
+            this.processResultDelta('reset', this.results.filter(function (result) { return result.object === object; }), []);
+        };
+        /**
+         * Adds and renders an error.
+         */
+        ValidationController.prototype.addError = function (message, object, propertyName) {
+            if (propertyName === void 0) { propertyName = null; }
+            var result = new validate_result_1.ValidateResult({}, object, propertyName, false, message);
+            this.processResultDelta('validate', [], [result]);
+            return result;
+        };
+        /**
+         * Removes and unrenders an error.
+         */
+        ValidationController.prototype.removeError = function (result) {
+            if (this.results.indexOf(result) !== -1) {
+                this.processResultDelta('reset', [result], []);
+            }
+        };
+        /**
+         * Adds a renderer.
+         * @param renderer The renderer.
+         */
+        ValidationController.prototype.addRenderer = function (renderer) {
+            var _this = this;
+            this.renderers.push(renderer);
+            renderer.render({
+                kind: 'validate',
+                render: this.results.map(function (result) { return ({ result: result, elements: _this.elements.get(result) }); }),
+                unrender: []
+            });
+        };
+        /**
+         * Removes a renderer.
+         * @param renderer The renderer.
+         */
+        ValidationController.prototype.removeRenderer = function (renderer) {
+            var _this = this;
+            this.renderers.splice(this.renderers.indexOf(renderer), 1);
+            renderer.render({
+                kind: 'reset',
+                render: [],
+                unrender: this.results.map(function (result) { return ({ result: result, elements: _this.elements.get(result) }); })
+            });
+        };
+        /**
+         * Registers a binding with the controller.
+         * @param binding The binding instance.
+         * @param target The DOM element.
+         * @param rules (optional) rules associated with the binding. Validator implementation specific.
+         */
+        ValidationController.prototype.registerBinding = function (binding, target, rules) {
+            this.bindings.set(binding, { target: target, rules: rules, propertyInfo: null });
+        };
+        /**
+         * Unregisters a binding with the controller.
+         * @param binding The binding instance.
+         */
+        ValidationController.prototype.unregisterBinding = function (binding) {
+            this.resetBinding(binding);
+            this.bindings.delete(binding);
+        };
+        /**
+         * Interprets the instruction and returns a predicate that will identify
+         * relevant results in the list of rendered validation results.
+         */
+        ValidationController.prototype.getInstructionPredicate = function (instruction) {
+            var _this = this;
+            if (instruction) {
+                var object_1 = instruction.object, propertyName_1 = instruction.propertyName, rules_1 = instruction.rules;
+                var predicate_1;
+                if (instruction.propertyName) {
+                    predicate_1 = function (x) { return x.object === object_1 && x.propertyName === propertyName_1; };
+                }
+                else {
+                    predicate_1 = function (x) { return x.object === object_1; };
+                }
+                if (rules_1) {
+                    return function (x) { return predicate_1(x) && _this.validator.ruleExists(rules_1, x.rule); };
+                }
+                return predicate_1;
+            }
+            else {
+                return function () { return true; };
+            }
+        };
+        /**
+         * Validates and renders results.
+         * @param instruction Optional. Instructions on what to validate. If undefined, all
+         * objects and bindings will be validated.
+         */
+        ValidationController.prototype.validate = function (instruction) {
+            var _this = this;
+            // Get a function that will process the validation instruction.
+            var execute;
+            if (instruction) {
+                // tslint:disable-next-line:prefer-const
+                var object_2 = instruction.object, propertyName_2 = instruction.propertyName, rules_2 = instruction.rules;
+                // if rules were not specified, check the object map.
+                rules_2 = rules_2 || this.objects.get(object_2);
+                // property specified?
+                if (instruction.propertyName === undefined) {
+                    // validate the specified object.
+                    execute = function () { return _this.validator.validateObject(object_2, rules_2); };
+                }
+                else {
+                    // validate the specified property.
+                    execute = function () { return _this.validator.validateProperty(object_2, propertyName_2, rules_2); };
+                }
+            }
+            else {
+                // validate all objects and bindings.
+                execute = function () {
+                    var promises = [];
+                    for (var _i = 0, _a = Array.from(_this.objects); _i < _a.length; _i++) {
+                        var _b = _a[_i], object = _b[0], rules = _b[1];
+                        promises.push(_this.validator.validateObject(object, rules));
+                    }
+                    for (var _c = 0, _d = Array.from(_this.bindings); _c < _d.length; _c++) {
+                        var _e = _d[_c], binding = _e[0], rules = _e[1].rules;
+                        var propertyInfo = property_info_1.getPropertyInfo(binding.sourceExpression, binding.source);
+                        if (!propertyInfo || _this.objects.has(propertyInfo.object)) {
+                            continue;
+                        }
+                        promises.push(_this.validator.validateProperty(propertyInfo.object, propertyInfo.propertyName, rules));
+                    }
+                    return Promise.all(promises).then(function (resultSets) { return resultSets.reduce(function (a, b) { return a.concat(b); }, []); });
+                };
+            }
+            // Wait for any existing validation to finish, execute the instruction, render the results.
+            this.validating = true;
+            var returnPromise = this.finishValidating
+                .then(execute)
+                .then(function (newResults) {
+                var predicate = _this.getInstructionPredicate(instruction);
+                var oldResults = _this.results.filter(predicate);
+                _this.processResultDelta('validate', oldResults, newResults);
+                if (returnPromise === _this.finishValidating) {
+                    _this.validating = false;
+                }
+                var result = {
+                    instruction: instruction,
+                    valid: newResults.find(function (x) { return !x.valid; }) === undefined,
+                    results: newResults
+                };
+                return result;
+            })
+                .catch(function (exception) {
+                // recover, to enable subsequent calls to validate()
+                _this.validating = false;
+                _this.finishValidating = Promise.resolve();
+                return Promise.reject(exception);
+            });
+            this.finishValidating = returnPromise;
+            return returnPromise;
+        };
+        /**
+         * Resets any rendered validation results (unrenders).
+         * @param instruction Optional. Instructions on what to reset. If unspecified all rendered results
+         * will be unrendered.
+         */
+        ValidationController.prototype.reset = function (instruction) {
+            var predicate = this.getInstructionPredicate(instruction);
+            var oldResults = this.results.filter(predicate);
+            this.processResultDelta('reset', oldResults, []);
+        };
+        /**
+         * Gets the elements associated with an object and propertyName (if any).
+         */
+        ValidationController.prototype.getAssociatedElements = function (_a) {
+            var object = _a.object, propertyName = _a.propertyName;
+            var elements = [];
+            for (var _i = 0, _b = Array.from(this.bindings); _i < _b.length; _i++) {
+                var _c = _b[_i], binding = _c[0], target = _c[1].target;
+                var propertyInfo = property_info_1.getPropertyInfo(binding.sourceExpression, binding.source);
+                if (propertyInfo && propertyInfo.object === object && propertyInfo.propertyName === propertyName) {
+                    elements.push(target);
+                }
+            }
+            return elements;
+        };
+        ValidationController.prototype.processResultDelta = function (kind, oldResults, newResults) {
+            // prepare the instruction.
+            var instruction = {
+                kind: kind,
+                render: [],
+                unrender: []
+            };
+            // create a shallow copy of newResults so we can mutate it without causing side-effects.
+            newResults = newResults.slice(0);
+            var _loop_1 = function (oldResult) {
+                // get the elements associated with the old result.
+                var elements = this_1.elements.get(oldResult);
+                // remove the old result from the element map.
+                this_1.elements.delete(oldResult);
+                // create the unrender instruction.
+                instruction.unrender.push({ result: oldResult, elements: elements });
+                // determine if there's a corresponding new result for the old result we are unrendering.
+                var newResultIndex = newResults.findIndex(function (x) { return x.rule === oldResult.rule && x.object === oldResult.object && x.propertyName === oldResult.propertyName; });
+                if (newResultIndex === -1) {
+                    // no corresponding new result... simple remove.
+                    this_1.results.splice(this_1.results.indexOf(oldResult), 1);
+                    if (!oldResult.valid) {
+                        this_1.errors.splice(this_1.errors.indexOf(oldResult), 1);
+                    }
+                }
+                else {
+                    // there is a corresponding new result...
+                    var newResult = newResults.splice(newResultIndex, 1)[0];
+                    // get the elements that are associated with the new result.
+                    var elements_1 = this_1.getAssociatedElements(newResult);
+                    this_1.elements.set(newResult, elements_1);
+                    // create a render instruction for the new result.
+                    instruction.render.push({ result: newResult, elements: elements_1 });
+                    // do an in-place replacement of the old result with the new result.
+                    // this ensures any repeats bound to this.results will not thrash.
+                    this_1.results.splice(this_1.results.indexOf(oldResult), 1, newResult);
+                    if (!oldResult.valid && newResult.valid) {
+                        this_1.errors.splice(this_1.errors.indexOf(oldResult), 1);
+                    }
+                    else if (!oldResult.valid && !newResult.valid) {
+                        this_1.errors.splice(this_1.errors.indexOf(oldResult), 1, newResult);
+                    }
+                    else if (!newResult.valid) {
+                        this_1.errors.push(newResult);
+                    }
+                }
+            };
+            var this_1 = this;
+            // create unrender instructions from the old results.
+            for (var _i = 0, oldResults_1 = oldResults; _i < oldResults_1.length; _i++) {
+                var oldResult = oldResults_1[_i];
+                _loop_1(oldResult);
+            }
+            // create render instructions from the remaining new results.
+            for (var _a = 0, newResults_1 = newResults; _a < newResults_1.length; _a++) {
+                var result = newResults_1[_a];
+                var elements = this.getAssociatedElements(result);
+                instruction.render.push({ result: result, elements: elements });
+                this.elements.set(result, elements);
+                this.results.push(result);
+                if (!result.valid) {
+                    this.errors.push(result);
+                }
+            }
+            // render.
+            for (var _b = 0, _c = this.renderers; _b < _c.length; _b++) {
+                var renderer = _c[_b];
+                renderer.render(instruction);
+            }
+        };
+        /**
+         * Validates the property associated with a binding.
+         */
+        ValidationController.prototype.validateBinding = function (binding) {
+            if (!binding.isBound) {
+                return;
+            }
+            var propertyInfo = property_info_1.getPropertyInfo(binding.sourceExpression, binding.source);
+            var rules;
+            var registeredBinding = this.bindings.get(binding);
+            if (registeredBinding) {
+                rules = registeredBinding.rules;
+                registeredBinding.propertyInfo = propertyInfo;
+            }
+            if (!propertyInfo) {
+                return;
+            }
+            var object = propertyInfo.object, propertyName = propertyInfo.propertyName;
+            this.validate({ object: object, propertyName: propertyName, rules: rules });
+        };
+        /**
+         * Resets the results for a property associated with a binding.
+         */
+        ValidationController.prototype.resetBinding = function (binding) {
+            var registeredBinding = this.bindings.get(binding);
+            var propertyInfo = property_info_1.getPropertyInfo(binding.sourceExpression, binding.source);
+            if (!propertyInfo && registeredBinding) {
+                propertyInfo = registeredBinding.propertyInfo;
+            }
+            if (registeredBinding) {
+                registeredBinding.propertyInfo = null;
+            }
+            if (!propertyInfo) {
+                return;
+            }
+            var object = propertyInfo.object, propertyName = propertyInfo.propertyName;
+            this.reset({ object: object, propertyName: propertyName });
+        };
+        return ValidationController;
+    }());
+    ValidationController.inject = [validator_1.Validator];
+    exports.ValidationController = ValidationController;
+});
+
+define('aurelia-validation/validator',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Validates objects and properties.
+     */
+    var Validator = (function () {
+        function Validator() {
+        }
+        return Validator;
+    }());
+    exports.Validator = Validator;
+});
+
+define('aurelia-validation/validate-result',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * The result of validating an individual validation rule.
+     */
+    var ValidateResult = (function () {
+        /**
+         * @param rule The rule associated with the result. Validator implementation specific.
+         * @param object The object that was validated.
+         * @param propertyName The name of the property that was validated.
+         * @param error The error, if the result is a validation error.
+         */
+        function ValidateResult(rule, object, propertyName, valid, message) {
+            if (message === void 0) { message = null; }
+            this.rule = rule;
+            this.object = object;
+            this.propertyName = propertyName;
+            this.valid = valid;
+            this.message = message;
+            this.id = ValidateResult.nextId++;
+        }
+        ValidateResult.prototype.toString = function () {
+            return this.valid ? 'Valid.' : this.message;
+        };
+        return ValidateResult;
+    }());
+    ValidateResult.nextId = 0;
+    exports.ValidateResult = ValidateResult;
+});
+
+define('aurelia-validation/validation-controller-factory',["require", "exports", "./validation-controller", "./validator"], function (require, exports, validation_controller_1, validator_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Creates ValidationController instances.
+     */
+    var ValidationControllerFactory = (function () {
+        function ValidationControllerFactory(container) {
+            this.container = container;
+        }
+        ValidationControllerFactory.get = function (container) {
+            return new ValidationControllerFactory(container);
+        };
+        /**
+         * Creates a new controller instance.
+         */
+        ValidationControllerFactory.prototype.create = function (validator) {
+            if (!validator) {
+                validator = this.container.get(validator_1.Validator);
+            }
+            return new validation_controller_1.ValidationController(validator);
+        };
+        /**
+         * Creates a new controller and registers it in the current element's container so that it's
+         * available to the validate binding behavior and renderers.
+         */
+        ValidationControllerFactory.prototype.createForCurrentScope = function (validator) {
+            var controller = this.create(validator);
+            this.container.registerInstance(validation_controller_1.ValidationController, controller);
+            return controller;
+        };
+        return ValidationControllerFactory;
+    }());
+    exports.ValidationControllerFactory = ValidationControllerFactory;
+    ValidationControllerFactory['protocol:aurelia:resolver'] = true;
+});
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+define('aurelia-validation/validation-errors-custom-attribute',["require", "exports", "aurelia-binding", "aurelia-dependency-injection", "aurelia-templating", "./validation-controller", "aurelia-pal"], function (require, exports, aurelia_binding_1, aurelia_dependency_injection_1, aurelia_templating_1, validation_controller_1, aurelia_pal_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var ValidationErrorsCustomAttribute = (function () {
+        function ValidationErrorsCustomAttribute(boundaryElement, controllerAccessor) {
+            this.boundaryElement = boundaryElement;
+            this.controllerAccessor = controllerAccessor;
+            this.controller = null;
+            this.errors = [];
+            this.errorsInternal = [];
+        }
+        ValidationErrorsCustomAttribute.prototype.sort = function () {
+            this.errorsInternal.sort(function (a, b) {
+                if (a.targets[0] === b.targets[0]) {
+                    return 0;
+                }
+                // tslint:disable-next-line:no-bitwise
+                return a.targets[0].compareDocumentPosition(b.targets[0]) & 2 ? 1 : -1;
+            });
+        };
+        ValidationErrorsCustomAttribute.prototype.interestingElements = function (elements) {
+            var _this = this;
+            return elements.filter(function (e) { return _this.boundaryElement.contains(e); });
+        };
+        ValidationErrorsCustomAttribute.prototype.render = function (instruction) {
+            var _loop_1 = function (result) {
+                var index = this_1.errorsInternal.findIndex(function (x) { return x.error === result; });
+                if (index !== -1) {
+                    this_1.errorsInternal.splice(index, 1);
+                }
+            };
+            var this_1 = this;
+            for (var _i = 0, _a = instruction.unrender; _i < _a.length; _i++) {
+                var result = _a[_i].result;
+                _loop_1(result);
+            }
+            for (var _b = 0, _c = instruction.render; _b < _c.length; _b++) {
+                var _d = _c[_b], result = _d.result, elements = _d.elements;
+                if (result.valid) {
+                    continue;
+                }
+                var targets = this.interestingElements(elements);
+                if (targets.length) {
+                    this.errorsInternal.push({ error: result, targets: targets });
+                }
+            }
+            this.sort();
+            this.errors = this.errorsInternal;
+        };
+        ValidationErrorsCustomAttribute.prototype.bind = function () {
+            if (!this.controller) {
+                this.controller = this.controllerAccessor();
+            }
+            // this will call render() with the side-effect of updating this.errors
+            this.controller.addRenderer(this);
+        };
+        ValidationErrorsCustomAttribute.prototype.unbind = function () {
+            if (this.controller) {
+                this.controller.removeRenderer(this);
+            }
+        };
+        return ValidationErrorsCustomAttribute;
+    }());
+    ValidationErrorsCustomAttribute.inject = [aurelia_pal_1.DOM.Element, aurelia_dependency_injection_1.Lazy.of(validation_controller_1.ValidationController)];
+    __decorate([
+        aurelia_templating_1.bindable({ defaultBindingMode: aurelia_binding_1.bindingMode.oneWay })
+    ], ValidationErrorsCustomAttribute.prototype, "controller", void 0);
+    __decorate([
+        aurelia_templating_1.bindable({ primaryProperty: true, defaultBindingMode: aurelia_binding_1.bindingMode.twoWay })
+    ], ValidationErrorsCustomAttribute.prototype, "errors", void 0);
+    ValidationErrorsCustomAttribute = __decorate([
+        aurelia_templating_1.customAttribute('validation-errors')
+    ], ValidationErrorsCustomAttribute);
+    exports.ValidationErrorsCustomAttribute = ValidationErrorsCustomAttribute;
+});
+
+define('aurelia-validation/validation-renderer-custom-attribute',["require", "exports", "./validation-controller"], function (require, exports, validation_controller_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var ValidationRendererCustomAttribute = (function () {
+        function ValidationRendererCustomAttribute() {
+        }
+        ValidationRendererCustomAttribute.prototype.created = function (view) {
+            this.container = view.container;
+        };
+        ValidationRendererCustomAttribute.prototype.bind = function () {
+            this.controller = this.container.get(validation_controller_1.ValidationController);
+            this.renderer = this.container.get(this.value);
+            this.controller.addRenderer(this.renderer);
+        };
+        ValidationRendererCustomAttribute.prototype.unbind = function () {
+            this.controller.removeRenderer(this.renderer);
+            this.controller = null;
+            this.renderer = null;
+        };
+        return ValidationRendererCustomAttribute;
+    }());
+    exports.ValidationRendererCustomAttribute = ValidationRendererCustomAttribute;
+});
+
+define('aurelia-validation/implementation/rules',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Sets, unsets and retrieves rules on an object or constructor function.
+     */
+    var Rules = (function () {
+        function Rules() {
+        }
+        /**
+         * Applies the rules to a target.
+         */
+        Rules.set = function (target, rules) {
+            if (target instanceof Function) {
+                target = target.prototype;
+            }
+            Object.defineProperty(target, Rules.key, { enumerable: false, configurable: false, writable: true, value: rules });
+        };
+        /**
+         * Removes rules from a target.
+         */
+        Rules.unset = function (target) {
+            if (target instanceof Function) {
+                target = target.prototype;
+            }
+            target[Rules.key] = null;
+        };
+        /**
+         * Retrieves the target's rules.
+         */
+        Rules.get = function (target) {
+            return target[Rules.key] || null;
+        };
+        return Rules;
+    }());
+    /**
+     * The name of the property that stores the rules.
+     */
+    Rules.key = '__rules__';
+    exports.Rules = Rules;
+});
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+define('aurelia-validation/implementation/standard-validator',["require", "exports", "aurelia-templating", "../validator", "../validate-result", "./rules", "./validation-messages"], function (require, exports, aurelia_templating_1, validator_1, validate_result_1, rules_1, validation_messages_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Validates.
+     * Responsible for validating objects and properties.
+     */
+    var StandardValidator = (function (_super) {
+        __extends(StandardValidator, _super);
+        function StandardValidator(messageProvider, resources) {
+            var _this = _super.call(this) || this;
+            _this.messageProvider = messageProvider;
+            _this.lookupFunctions = resources.lookupFunctions;
+            _this.getDisplayName = messageProvider.getDisplayName.bind(messageProvider);
+            return _this;
+        }
+        /**
+         * Validates the specified property.
+         * @param object The object to validate.
+         * @param propertyName The name of the property to validate.
+         * @param rules Optional. If unspecified, the rules will be looked up using the metadata
+         * for the object created by ValidationRules....on(class/object)
+         */
+        StandardValidator.prototype.validateProperty = function (object, propertyName, rules) {
+            return this.validate(object, propertyName, rules || null);
+        };
+        /**
+         * Validates all rules for specified object and it's properties.
+         * @param object The object to validate.
+         * @param rules Optional. If unspecified, the rules will be looked up using the metadata
+         * for the object created by ValidationRules....on(class/object)
+         */
+        StandardValidator.prototype.validateObject = function (object, rules) {
+            return this.validate(object, null, rules || null);
+        };
+        /**
+         * Determines whether a rule exists in a set of rules.
+         * @param rules The rules to search.
+         * @parem rule The rule to find.
+         */
+        StandardValidator.prototype.ruleExists = function (rules, rule) {
+            var i = rules.length;
+            while (i--) {
+                if (rules[i].indexOf(rule) !== -1) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        StandardValidator.prototype.getMessage = function (rule, object, value) {
+            var expression = rule.message || this.messageProvider.getMessage(rule.messageKey);
+            // tslint:disable-next-line:prefer-const
+            var _a = rule.property, propertyName = _a.name, displayName = _a.displayName;
+            if (propertyName !== null) {
+                displayName = this.messageProvider.getDisplayName(propertyName, displayName);
+            }
+            var overrideContext = {
+                $displayName: displayName,
+                $propertyName: propertyName,
+                $value: value,
+                $object: object,
+                $config: rule.config,
+                // returns the name of a given property, given just the property name (irrespective of the property's displayName)
+                // split on capital letters, first letter ensured to be capitalized
+                $getDisplayName: this.getDisplayName
+            };
+            return expression.evaluate({ bindingContext: object, overrideContext: overrideContext }, this.lookupFunctions);
+        };
+        StandardValidator.prototype.validateRuleSequence = function (object, propertyName, ruleSequence, sequence, results) {
+            var _this = this;
+            // are we validating all properties or a single property?
+            var validateAllProperties = propertyName === null || propertyName === undefined;
+            var rules = ruleSequence[sequence];
+            var allValid = true;
+            // validate each rule.
+            var promises = [];
+            var _loop_1 = function (i) {
+                var rule = rules[i];
+                // is the rule related to the property we're validating.
+                if (!validateAllProperties && rule.property.name !== propertyName) {
+                    return "continue";
+                }
+                // is this a conditional rule? is the condition met?
+                if (rule.when && !rule.when(object)) {
+                    return "continue";
+                }
+                // validate.
+                var value = rule.property.name === null ? object : object[rule.property.name];
+                var promiseOrBoolean = rule.condition(value, object);
+                if (!(promiseOrBoolean instanceof Promise)) {
+                    promiseOrBoolean = Promise.resolve(promiseOrBoolean);
+                }
+                promises.push(promiseOrBoolean.then(function (valid) {
+                    var message = valid ? null : _this.getMessage(rule, object, value);
+                    results.push(new validate_result_1.ValidateResult(rule, object, rule.property.name, valid, message));
+                    allValid = allValid && valid;
+                    return valid;
+                }));
+            };
+            for (var i = 0; i < rules.length; i++) {
+                _loop_1(i);
+            }
+            return Promise.all(promises)
+                .then(function () {
+                sequence++;
+                if (allValid && sequence < ruleSequence.length) {
+                    return _this.validateRuleSequence(object, propertyName, ruleSequence, sequence, results);
+                }
+                return results;
+            });
+        };
+        StandardValidator.prototype.validate = function (object, propertyName, rules) {
+            // rules specified?
+            if (!rules) {
+                // no. attempt to locate the rules.
+                rules = rules_1.Rules.get(object);
+            }
+            // any rules?
+            if (!rules) {
+                return Promise.resolve([]);
+            }
+            return this.validateRuleSequence(object, propertyName, rules, 0, []);
+        };
+        return StandardValidator;
+    }(validator_1.Validator));
+    StandardValidator.inject = [validation_messages_1.ValidationMessageProvider, aurelia_templating_1.ViewResources];
+    exports.StandardValidator = StandardValidator;
+});
+
+define('aurelia-validation/implementation/validation-messages',["require", "exports", "./validation-parser"], function (require, exports, validation_parser_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Dictionary of validation messages. [messageKey]: messageExpression
+     */
+    exports.validationMessages = {
+        /**
+         * The default validation message. Used with rules that have no standard message.
+         */
+        default: "${$displayName} is invalid.",
+        required: "${$displayName} is required.",
+        matches: "${$displayName} is not correctly formatted.",
+        email: "${$displayName} is not a valid email.",
+        minLength: "${$displayName} must be at least ${$config.length} character${$config.length === 1 ? '' : 's'}.",
+        maxLength: "${$displayName} cannot be longer than ${$config.length} character${$config.length === 1 ? '' : 's'}.",
+        minItems: "${$displayName} must contain at least ${$config.count} item${$config.count === 1 ? '' : 's'}.",
+        maxItems: "${$displayName} cannot contain more than ${$config.count} item${$config.count === 1 ? '' : 's'}.",
+        equals: "${$displayName} must be ${$config.expectedValue}.",
+    };
+    /**
+     * Retrieves validation messages and property display names.
+     */
+    var ValidationMessageProvider = (function () {
+        function ValidationMessageProvider(parser) {
+            this.parser = parser;
+        }
+        /**
+         * Returns a message binding expression that corresponds to the key.
+         * @param key The message key.
+         */
+        ValidationMessageProvider.prototype.getMessage = function (key) {
+            var message;
+            if (key in exports.validationMessages) {
+                message = exports.validationMessages[key];
+            }
+            else {
+                message = exports.validationMessages['default'];
+            }
+            return this.parser.parseMessage(message);
+        };
+        /**
+         * Formulates a property display name using the property name and the configured
+         * displayName (if provided).
+         * Override this with your own custom logic.
+         * @param propertyName The property name.
+         */
+        ValidationMessageProvider.prototype.getDisplayName = function (propertyName, displayName) {
+            if (displayName !== null && displayName !== undefined) {
+                return (displayName instanceof Function) ? displayName() : displayName;
+            }
+            // split on upper-case letters.
+            var words = propertyName.split(/(?=[A-Z])/).join(' ');
+            // capitalize first letter.
+            return words.charAt(0).toUpperCase() + words.slice(1);
+        };
+        return ValidationMessageProvider;
+    }());
+    ValidationMessageProvider.inject = [validation_parser_1.ValidationParser];
+    exports.ValidationMessageProvider = ValidationMessageProvider;
+});
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+define('aurelia-validation/implementation/validation-parser',["require", "exports", "aurelia-binding", "aurelia-templating", "./util", "aurelia-logging"], function (require, exports, aurelia_binding_1, aurelia_templating_1, util_1, LogManager) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var ValidationParser = (function () {
+        function ValidationParser(parser, bindinqLanguage) {
+            this.parser = parser;
+            this.bindinqLanguage = bindinqLanguage;
+            this.emptyStringExpression = new aurelia_binding_1.LiteralString('');
+            this.nullExpression = new aurelia_binding_1.LiteralPrimitive(null);
+            this.undefinedExpression = new aurelia_binding_1.LiteralPrimitive(undefined);
+            this.cache = {};
+        }
+        ValidationParser.prototype.parseMessage = function (message) {
+            if (this.cache[message] !== undefined) {
+                return this.cache[message];
+            }
+            var parts = this.bindinqLanguage.parseInterpolation(null, message);
+            if (parts === null) {
+                return new aurelia_binding_1.LiteralString(message);
+            }
+            var expression = new aurelia_binding_1.LiteralString(parts[0]);
+            for (var i = 1; i < parts.length; i += 2) {
+                expression = new aurelia_binding_1.Binary('+', expression, new aurelia_binding_1.Binary('+', this.coalesce(parts[i]), new aurelia_binding_1.LiteralString(parts[i + 1])));
+            }
+            MessageExpressionValidator.validate(expression, message);
+            this.cache[message] = expression;
+            return expression;
+        };
+        ValidationParser.prototype.parseProperty = function (property) {
+            if (util_1.isString(property)) {
+                return { name: property, displayName: null };
+            }
+            var accessor = this.getAccessorExpression(property.toString());
+            if (accessor instanceof aurelia_binding_1.AccessScope
+                || accessor instanceof aurelia_binding_1.AccessMember && accessor.object instanceof aurelia_binding_1.AccessScope) {
+                return {
+                    name: accessor.name,
+                    displayName: null
+                };
+            }
+            throw new Error("Invalid subject: \"" + accessor + "\"");
+        };
+        ValidationParser.prototype.coalesce = function (part) {
+            // part === null || part === undefined ? '' : part
+            return new aurelia_binding_1.Conditional(new aurelia_binding_1.Binary('||', new aurelia_binding_1.Binary('===', part, this.nullExpression), new aurelia_binding_1.Binary('===', part, this.undefinedExpression)), this.emptyStringExpression, new aurelia_binding_1.CallMember(part, 'toString', []));
+        };
+        ValidationParser.prototype.getAccessorExpression = function (fn) {
+            /* tslint:disable:max-line-length */
+            var classic = /^function\s*\([$_\w\d]+\)\s*\{(?:\s*"use strict";)?\s*(?:[$_\w\d.['"\]+;]+)?\s*return\s+[$_\w\d]+\.([$_\w\d]+)\s*;?\s*\}$/;
+            /* tslint:enable:max-line-length */
+            var arrow = /^\(?[$_\w\d]+\)?\s*=>\s*[$_\w\d]+\.([$_\w\d]+)$/;
+            var match = classic.exec(fn) || arrow.exec(fn);
+            if (match === null) {
+                throw new Error("Unable to parse accessor function:\n" + fn);
+            }
+            return this.parser.parse(match[1]);
+        };
+        return ValidationParser;
+    }());
+    ValidationParser.inject = [aurelia_binding_1.Parser, aurelia_templating_1.BindingLanguage];
+    exports.ValidationParser = ValidationParser;
+    var MessageExpressionValidator = (function (_super) {
+        __extends(MessageExpressionValidator, _super);
+        function MessageExpressionValidator(originalMessage) {
+            var _this = _super.call(this, []) || this;
+            _this.originalMessage = originalMessage;
+            return _this;
+        }
+        MessageExpressionValidator.validate = function (expression, originalMessage) {
+            var visitor = new MessageExpressionValidator(originalMessage);
+            expression.accept(visitor);
+        };
+        MessageExpressionValidator.prototype.visitAccessScope = function (access) {
+            if (access.ancestor !== 0) {
+                throw new Error('$parent is not permitted in validation message expressions.');
+            }
+            if (['displayName', 'propertyName', 'value', 'object', 'config', 'getDisplayName'].indexOf(access.name) !== -1) {
+                LogManager.getLogger('aurelia-validation')
+                    .warn("Did you mean to use \"$" + access.name + "\" instead of \"" + access.name + "\" in this validation message template: \"" + this.originalMessage + "\"?");
+            }
+        };
+        return MessageExpressionValidator;
+    }(aurelia_binding_1.Unparser));
+    exports.MessageExpressionValidator = MessageExpressionValidator;
+});
+
+define('aurelia-validation/implementation/util',["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function isString(value) {
+        return Object.prototype.toString.call(value) === '[object String]';
+    }
+    exports.isString = isString;
+});
+
+define('aurelia-validation/implementation/validation-rules',["require", "exports", "./util", "./rules", "./validation-messages"], function (require, exports, util_1, rules_1, validation_messages_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * Part of the fluent rule API. Enables customizing property rules.
+     */
+    var FluentRuleCustomizer = (function () {
+        function FluentRuleCustomizer(property, condition, config, fluentEnsure, fluentRules, parser) {
+            if (config === void 0) { config = {}; }
+            this.fluentEnsure = fluentEnsure;
+            this.fluentRules = fluentRules;
+            this.parser = parser;
+            this.rule = {
+                property: property,
+                condition: condition,
+                config: config,
+                when: null,
+                messageKey: 'default',
+                message: null,
+                sequence: fluentRules.sequence
+            };
+            this.fluentEnsure._addRule(this.rule);
+        }
+        /**
+         * Validate subsequent rules after previously declared rules have
+         * been validated successfully. Use to postpone validation of costly
+         * rules until less expensive rules pass validation.
+         */
+        FluentRuleCustomizer.prototype.then = function () {
+            this.fluentRules.sequence++;
+            return this;
+        };
+        /**
+         * Specifies the key to use when looking up the rule's validation message.
+         */
+        FluentRuleCustomizer.prototype.withMessageKey = function (key) {
+            this.rule.messageKey = key;
+            this.rule.message = null;
+            return this;
+        };
+        /**
+         * Specifies rule's validation message.
+         */
+        FluentRuleCustomizer.prototype.withMessage = function (message) {
+            this.rule.messageKey = 'custom';
+            this.rule.message = this.parser.parseMessage(message);
+            return this;
+        };
+        /**
+         * Specifies a condition that must be met before attempting to validate the rule.
+         * @param condition A function that accepts the object as a parameter and returns true
+         * or false whether the rule should be evaluated.
+         */
+        FluentRuleCustomizer.prototype.when = function (condition) {
+            this.rule.when = condition;
+            return this;
+        };
+        /**
+         * Tags the rule instance, enabling the rule to be found easily
+         * using ValidationRules.taggedRules(rules, tag)
+         */
+        FluentRuleCustomizer.prototype.tag = function (tag) {
+            this.rule.tag = tag;
+            return this;
+        };
+        ///// FluentEnsure APIs /////
+        /**
+         * Target a property with validation rules.
+         * @param property The property to target. Can be the property name or a property accessor function.
+         */
+        FluentRuleCustomizer.prototype.ensure = function (subject) {
+            return this.fluentEnsure.ensure(subject);
+        };
+        /**
+         * Targets an object with validation rules.
+         */
+        FluentRuleCustomizer.prototype.ensureObject = function () {
+            return this.fluentEnsure.ensureObject();
+        };
+        Object.defineProperty(FluentRuleCustomizer.prototype, "rules", {
+            /**
+             * Rules that have been defined using the fluent API.
+             */
+            get: function () {
+                return this.fluentEnsure.rules;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * Applies the rules to a class or object, making them discoverable by the StandardValidator.
+         * @param target A class or object.
+         */
+        FluentRuleCustomizer.prototype.on = function (target) {
+            return this.fluentEnsure.on(target);
+        };
+        ///////// FluentRules APIs /////////
+        /**
+         * Applies an ad-hoc rule function to the ensured property or object.
+         * @param condition The function to validate the rule.
+         * Will be called with two arguments, the property value and the object.
+         * Should return a boolean or a Promise that resolves to a boolean.
+         */
+        FluentRuleCustomizer.prototype.satisfies = function (condition, config) {
+            return this.fluentRules.satisfies(condition, config);
+        };
+        /**
+         * Applies a rule by name.
+         * @param name The name of the custom or standard rule.
+         * @param args The rule's arguments.
+         */
+        FluentRuleCustomizer.prototype.satisfiesRule = function (name) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            return (_a = this.fluentRules).satisfiesRule.apply(_a, [name].concat(args));
+            var _a;
+        };
+        /**
+         * Applies the "required" rule to the property.
+         * The value cannot be null, undefined or whitespace.
+         */
+        FluentRuleCustomizer.prototype.required = function () {
+            return this.fluentRules.required();
+        };
+        /**
+         * Applies the "matches" rule to the property.
+         * Value must match the specified regular expression.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.matches = function (regex) {
+            return this.fluentRules.matches(regex);
+        };
+        /**
+         * Applies the "email" rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.email = function () {
+            return this.fluentRules.email();
+        };
+        /**
+         * Applies the "minLength" STRING validation rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.minLength = function (length) {
+            return this.fluentRules.minLength(length);
+        };
+        /**
+         * Applies the "maxLength" STRING validation rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.maxLength = function (length) {
+            return this.fluentRules.maxLength(length);
+        };
+        /**
+         * Applies the "minItems" ARRAY validation rule to the property.
+         * null and undefined values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.minItems = function (count) {
+            return this.fluentRules.minItems(count);
+        };
+        /**
+         * Applies the "maxItems" ARRAY validation rule to the property.
+         * null and undefined values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.maxItems = function (count) {
+            return this.fluentRules.maxItems(count);
+        };
+        /**
+         * Applies the "equals" validation rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRuleCustomizer.prototype.equals = function (expectedValue) {
+            return this.fluentRules.equals(expectedValue);
+        };
+        return FluentRuleCustomizer;
+    }());
+    exports.FluentRuleCustomizer = FluentRuleCustomizer;
+    /**
+     * Part of the fluent rule API. Enables applying rules to properties and objects.
+     */
+    var FluentRules = (function () {
+        function FluentRules(fluentEnsure, parser, property) {
+            this.fluentEnsure = fluentEnsure;
+            this.parser = parser;
+            this.property = property;
+            /**
+             * Current rule sequence number. Used to postpone evaluation of rules until rules
+             * with lower sequence number have successfully validated. The "then" fluent API method
+             * manages this property, there's usually no need to set it directly.
+             */
+            this.sequence = 0;
+        }
+        /**
+         * Sets the display name of the ensured property.
+         */
+        FluentRules.prototype.displayName = function (name) {
+            this.property.displayName = name;
+            return this;
+        };
+        /**
+         * Applies an ad-hoc rule function to the ensured property or object.
+         * @param condition The function to validate the rule.
+         * Will be called with two arguments, the property value and the object.
+         * Should return a boolean or a Promise that resolves to a boolean.
+         */
+        FluentRules.prototype.satisfies = function (condition, config) {
+            return new FluentRuleCustomizer(this.property, condition, config, this.fluentEnsure, this, this.parser);
+        };
+        /**
+         * Applies a rule by name.
+         * @param name The name of the custom or standard rule.
+         * @param args The rule's arguments.
+         */
+        FluentRules.prototype.satisfiesRule = function (name) {
+            var _this = this;
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            var rule = FluentRules.customRules[name];
+            if (!rule) {
+                // standard rule?
+                rule = this[name];
+                if (rule instanceof Function) {
+                    return rule.call.apply(rule, [this].concat(args));
+                }
+                throw new Error("Rule with name \"" + name + "\" does not exist.");
+            }
+            var config = rule.argsToConfig ? rule.argsToConfig.apply(rule, args) : undefined;
+            return this.satisfies(function (value, obj) {
+                return (_a = rule.condition).call.apply(_a, [_this, value, obj].concat(args));
+                var _a;
+            }, config)
+                .withMessageKey(name);
+        };
+        /**
+         * Applies the "required" rule to the property.
+         * The value cannot be null, undefined or whitespace.
+         */
+        FluentRules.prototype.required = function () {
+            return this.satisfies(function (value) {
+                return value !== null
+                    && value !== undefined
+                    && !(util_1.isString(value) && !/\S/.test(value));
+            }).withMessageKey('required');
+        };
+        /**
+         * Applies the "matches" rule to the property.
+         * Value must match the specified regular expression.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRules.prototype.matches = function (regex) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value.length === 0 || regex.test(value); })
+                .withMessageKey('matches');
+        };
+        /**
+         * Applies the "email" rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRules.prototype.email = function () {
+            // regex from https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address
+            /* tslint:disable:max-line-length */
+            return this.matches(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
+                .withMessageKey('email');
+        };
+        /**
+         * Applies the "minLength" STRING validation rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRules.prototype.minLength = function (length) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value.length === 0 || value.length >= length; }, { length: length })
+                .withMessageKey('minLength');
+        };
+        /**
+         * Applies the "maxLength" STRING validation rule to the property.
+         * null, undefined and empty-string values are considered valid.
+         */
+        FluentRules.prototype.maxLength = function (length) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value.length === 0 || value.length <= length; }, { length: length })
+                .withMessageKey('maxLength');
+        };
+        /**
+         * Applies the "minItems" ARRAY validation rule to the property.
+         * null and undefined values are considered valid.
+         */
+        FluentRules.prototype.minItems = function (count) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value.length >= count; }, { count: count })
+                .withMessageKey('minItems');
+        };
+        /**
+         * Applies the "maxItems" ARRAY validation rule to the property.
+         * null and undefined values are considered valid.
+         */
+        FluentRules.prototype.maxItems = function (count) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value.length <= count; }, { count: count })
+                .withMessageKey('maxItems');
+        };
+        /**
+         * Applies the "equals" validation rule to the property.
+         * null and undefined values are considered valid.
+         */
+        FluentRules.prototype.equals = function (expectedValue) {
+            return this.satisfies(function (value) { return value === null || value === undefined || value === '' || value === expectedValue; }, { expectedValue: expectedValue })
+                .withMessageKey('equals');
+        };
+        return FluentRules;
+    }());
+    FluentRules.customRules = {};
+    exports.FluentRules = FluentRules;
+    /**
+     * Part of the fluent rule API. Enables targeting properties and objects with rules.
+     */
+    var FluentEnsure = (function () {
+        function FluentEnsure(parser) {
+            this.parser = parser;
+            /**
+             * Rules that have been defined using the fluent API.
+             */
+            this.rules = [];
+        }
+        /**
+         * Target a property with validation rules.
+         * @param property The property to target. Can be the property name or a property accessor
+         * function.
+         */
+        FluentEnsure.prototype.ensure = function (property) {
+            this.assertInitialized();
+            return new FluentRules(this, this.parser, this.parser.parseProperty(property));
+        };
+        /**
+         * Targets an object with validation rules.
+         */
+        FluentEnsure.prototype.ensureObject = function () {
+            this.assertInitialized();
+            return new FluentRules(this, this.parser, { name: null, displayName: null });
+        };
+        /**
+         * Applies the rules to a class or object, making them discoverable by the StandardValidator.
+         * @param target A class or object.
+         */
+        FluentEnsure.prototype.on = function (target) {
+            rules_1.Rules.set(target, this.rules);
+            return this;
+        };
+        /**
+         * Adds a rule definition to the sequenced ruleset.
+         * @internal
+         */
+        FluentEnsure.prototype._addRule = function (rule) {
+            while (this.rules.length < rule.sequence + 1) {
+                this.rules.push([]);
+            }
+            this.rules[rule.sequence].push(rule);
+        };
+        FluentEnsure.prototype.assertInitialized = function () {
+            if (this.parser) {
+                return;
+            }
+            throw new Error("Did you forget to add \".plugin('aurelia-validation')\" to your main.js?");
+        };
+        return FluentEnsure;
+    }());
+    exports.FluentEnsure = FluentEnsure;
+    /**
+     * Fluent rule definition API.
+     */
+    var ValidationRules = (function () {
+        function ValidationRules() {
+        }
+        ValidationRules.initialize = function (parser) {
+            ValidationRules.parser = parser;
+        };
+        /**
+         * Target a property with validation rules.
+         * @param property The property to target. Can be the property name or a property accessor function.
+         */
+        ValidationRules.ensure = function (property) {
+            return new FluentEnsure(ValidationRules.parser).ensure(property);
+        };
+        /**
+         * Targets an object with validation rules.
+         */
+        ValidationRules.ensureObject = function () {
+            return new FluentEnsure(ValidationRules.parser).ensureObject();
+        };
+        /**
+         * Defines a custom rule.
+         * @param name The name of the custom rule. Also serves as the message key.
+         * @param condition The rule function.
+         * @param message The message expression
+         * @param argsToConfig A function that maps the rule's arguments to a "config"
+         * object that can be used when evaluating the message expression.
+         */
+        ValidationRules.customRule = function (name, condition, message, argsToConfig) {
+            validation_messages_1.validationMessages[name] = message;
+            FluentRules.customRules[name] = { condition: condition, argsToConfig: argsToConfig };
+        };
+        /**
+         * Returns rules with the matching tag.
+         * @param rules The rules to search.
+         * @param tag The tag to search for.
+         */
+        ValidationRules.taggedRules = function (rules, tag) {
+            return rules.map(function (x) { return x.filter(function (r) { return r.tag === tag; }); });
+        };
+        /**
+         * Removes the rules from a class or object.
+         * @param target A class or object.
+         */
+        ValidationRules.off = function (target) {
+            rules_1.Rules.unset(target);
+        };
+        return ValidationRules;
+    }());
+    exports.ValidationRules = ValidationRules;
+});
+
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"./reset.css\"></require>\r\n  <require from=\"./app.css#ux\"></require>\r\n\r\n  <nav styles.nav>\r\n    <a href=\"#/introduction\">\r\n      <img styles.logo src=\"../images/aurelia-icon-128x128.png\">\r\n    </a>\r\n\r\n    <span styles.product-name>Aurelia UX</span>\r\n\r\n    <ul styles.nav-list>\r\n      <template repeat.for=\"[category, routes] of router.navigation | categories\">\r\n        <li styles.nav-category>\r\n          <span>${category.title}</span>\r\n        </li>\r\n\r\n        <li styles.nav-item repeat.for=\"nav of routes\" class=\"${nav.isActive ? 'active' : ''}\">\r\n          <a href.bind=\"nav.href\">${nav.title}</a>\r\n        </li>\r\n      </template>\r\n    </ul>\r\n  </nav>\r\n\r\n  <section styles.main>\r\n    <header styles.header>\r\n      <h1>${router.currentInstruction.config.navModel.title}</h1>\r\n    </header>\r\n\r\n    <router-view styles.page></router-view>\r\n  </section>\r\n</template>\r\n"; });
+define('text!app.css', ['module'], function(module) { module.exports = "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\nhtml, body {\r\n  width: 100%;\r\n  height: 100%;\r\n  overflow: hidden;\r\n  font-family: 'Source Sans Pro', sans-serif;\r\n}\r\n\r\nbody {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\ncode {\r\n  font-family: 'Source Code Pro', monospace;\r\n}\r\n\r\nem {\r\n  font-style: italic;\r\n}\r\n\r\nstyles.main {\r\n  display: flex;\r\n  flex-direction: column;\r\n  flex: 1;\r\n}\r\n\r\nstyles.header {\r\n  background: ${$design.primary};\r\n  color: ${$design.primaryForeground};\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\r\n  padding: 16px;\r\n  font-size: 24px;\r\n  line-height: 32px;\r\n  height: 64px;\r\n}\r\n\r\nstyles.nav {\r\n  width: 275px;\r\n  background: ${$swatches.grey.p200};\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n}\r\n\r\nstyles.nav-list {\r\n  align-self: stretch;\r\n  margin-top: 24px;\r\n  padding-top: 16px;\r\n  border-top: 1px solid ${$swatches.grey.p300};\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\nstyles.nav-category {\r\n  padding: 12px 0 12px 24px;\r\n}\r\n\r\nstyles.nav-item {\r\n  transition: all 300ms;\r\n}\r\n\r\nstyles.nav-item:hover {\r\n  background: ${$swatches.grey.p300};\r\n}\r\n\r\nstyles.nav-item > a {\r\n  text-decoration: none;\r\n  text-transform: uppercase;\r\n  font-size: 16px;\r\n  color: ${$design.primary};\r\n  display: block;\r\n  transition: all 300ms;\r\n  padding: 12px 0;\r\n  margin-left: 24px;\r\n}\r\n\r\nstyles.nav-item > a:before {\r\n  content: '.';\r\n  display: inline-block;\r\n  color: transparent;\r\n  width: 2px;\r\n  margin-right: 8px;\r\n}\r\n\r\nstyles.nav-item.active > a {\r\n  color: ${$design.accent};\r\n}\r\n\r\nstyles.nav-item.active > a:before {\r\n  background-color: ${$design.accent};\r\n}\r\n\r\nstyles.logo {\r\n  margin: 16px 0;\r\n}\r\n\r\nstyles.product-name {\r\n  font-size: 28px;\r\n}\r\n\r\nstyles.page {\r\n  overflow-y: scroll;\r\n  flex: 1;\r\n}\r\n"; });
+define('text!home.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='./common.css#ux'></require>\r\n\r\n  <main styles.main>\r\n\r\n    <h2 styles.header>What is Aurelia UX?</h2>\r\n\r\n    <p styles.description>\r\n      Aurelia UX is a companion framework to Aurelia. While Aurelia focuses on being\r\n      a <em>front-end framework</em> by providing core capabilities you need to build apps, such as templating, binding and routing,\r\n      Aurelia UX focuses on being a <em>user experience framework</em> by providing\r\n      higher-level capabilities such as design languages, theming and components.\r\n    </p>\r\n\r\n    <p styles.description>\r\n      Aurelia UX is still in a very early stage but we'd love for you to play with it\r\n      and consider contributing. We'll keep this app updated as we add new features\r\n      so it's easy for you to track our progress.\r\n    </p>\r\n\r\n  </main>\r\n</template>\r\n"; });
+define('text!common.css', ['module'], function(module) { module.exports = "styles.main {\r\n  padding: 40px 40px 40px;\r\n}\r\n\r\nstyles.header {\r\n  font-size: 34px;\r\n  font-weight: 400;\r\n  line-height: 32px;\r\n  margin-bottom: 30px;\r\n  color: ${$design.primary};\r\n}\r\n\r\nstyles.description {\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n  line-height: 32px;\r\n  max-width: 940px;\r\n  color: ${$swatches.black};\r\n  margin-bottom: 40px;\r\n}\r\n"; });
+define('text!components/buttons.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./buttons.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <h1 styles.header>\r\n      &lt;ux-button&gt;&lt;/ux-button&gt;\r\n    </h1>\r\n\r\n    <p styles.description>\r\n      The <code>ux-button</code> element is used to indicate that a user can take an action.\r\n      It comes in three types: <em>flat</em>, <em>raised</em> (default) and <em>fab</em> which can be configured either on the button instance or on the theme object, using the <em>type</em> property.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\">Button</ux-button>\r\n\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button>Button</ux-button>\r\n\r\n        <code>\r\n          type=\"raised\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          type=\"fab\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      Buttons also come in three sizes: <em>small</em>, <em>medium</em> (default) and <em>large</em> which can be configured either on the button instance or on the theme object, using the <em>size</em> property.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button size=\"small\" type=\"flat\">Button</ux-button>\r\n        <ux-button size=\"small\">Button</ux-button>\r\n        <ux-button size=\"small\" type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"small\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\">Button</ux-button>\r\n        <ux-button>Button</ux-button>\r\n        <ux-button type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"medium\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button size=\"large\" type=\"flat\">Button</ux-button>\r\n        <ux-button size=\"large\">Button</ux-button>\r\n        <ux-button size=\"large\" type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"large\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      Material buttons have a ripple effect by default, however that can be turned off using the <code>effect</code> property.\r\n      As with all properties, this can be specified per design language, using the design language prefix.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" effect=\"none\">Button</ux-button>\r\n        <ux-button effect=\"none\">Button</ux-button>\r\n        <ux-button type=\"fab\" effect=\"none\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          effect=\"none\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" effect=\"ripple\">Button</ux-button>\r\n        <ux-button effect=\"ripple\">Button</ux-button>\r\n        <ux-button type=\"fab\" effect=\"ripple\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          effect=\"ripple\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" material-effect=\"ripple\">Button</ux-button>\r\n        <ux-button material-effect=\"ripple\">Button</ux-button>\r\n        <ux-button type=\"fab\" material-effect=\"ripple\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          material-effect=\"ripple\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n  </main>\r\n</template>\r\n"; });
+define('text!reset.css', ['module'], function(module) { module.exports = "/* http://meyerweb.com/eric/tools/css/reset/\r\n   v2.0 | 20110126\r\n   License: none (public domain)\r\n*/\r\n\r\nhtml, body, div, span, applet, object, iframe,\r\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\r\na, abbr, acronym, address, big, cite, code,\r\ndel, dfn, em, img, ins, kbd, q, s, samp,\r\nsmall, strike, strong, sub, sup, tt, var,\r\nb, u, i, center,\r\ndl, dt, dd, ol, ul, li,\r\nfieldset, form, label, legend,\r\ntable, caption, tbody, tfoot, thead, tr, th, td,\r\narticle, aside, canvas, details, embed,\r\nfigure, figcaption, footer, header, hgroup,\r\nmenu, nav, output, ruby, section, summary,\r\ntime, mark, audio, video {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tborder: 0;\r\n\tfont-size: 100%;\r\n\tfont: inherit;\r\n\tvertical-align: baseline;\r\n}\r\n/* HTML5 display-role reset for older browsers */\r\narticle, aside, details, figcaption, figure,\r\nfooter, header, hgroup, menu, nav, section {\r\n\tdisplay: block;\r\n}\r\nbody {\r\n\tline-height: 1;\r\n}\r\nol, ul {\r\n\tlist-style: none;\r\n}\r\nblockquote, q {\r\n\tquotes: none;\r\n}\r\nblockquote:before, blockquote:after,\r\nq:before, q:after {\r\n\tcontent: '';\r\n\tcontent: none;\r\n}\r\ntable {\r\n\tborder-collapse: collapse;\r\n\tborder-spacing: 0;\r\n}\r\n\r\n/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */\r\n\r\n/* Document\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Change the default font family in all browsers (opinionated).\r\n * 2. Correct the line height in all browsers.\r\n * 3. Prevent adjustments of font size after orientation changes in\r\n *    IE on Windows Phone and in iOS.\r\n */\r\n\r\nhtml {\r\n  font-family: sans-serif; /* 1 */\r\n  line-height: 1.15; /* 2 */\r\n  -ms-text-size-adjust: 100%; /* 3 */\r\n  -webkit-text-size-adjust: 100%; /* 3 */\r\n}\r\n\r\n/* Forms\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Change the font styles in all browsers (opinionated).\r\n * 2. Remove the margin in Firefox and Safari.\r\n */\r\n\r\nbutton,\r\ninput,\r\noptgroup,\r\nselect,\r\ntextarea {\r\n  font-family: sans-serif; /* 1 */\r\n  font-size: 100%; /* 1 */\r\n  line-height: 1.15; /* 1 */\r\n  margin: 0; /* 2 */\r\n}\r\n\r\n/**\r\n * Show the overflow in IE.\r\n * 1. Show the overflow in Edge.\r\n */\r\n\r\nbutton,\r\ninput { /* 1 */\r\n  overflow: visible;\r\n}\r\n\r\n/**\r\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n * 1. Remove the inheritance of text transform in Firefox.\r\n */\r\n\r\nbutton,\r\nselect { /* 1 */\r\n  text-transform: none;\r\n}\r\n\r\n/**\r\n * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`\r\n *    controls in Android 4.\r\n * 2. Correct the inability to style clickable types in iOS and Safari.\r\n */\r\n\r\nbutton,\r\nhtml [type=\"button\"], /* 1 */\r\n[type=\"reset\"],\r\n[type=\"submit\"] {\r\n  -webkit-appearance: button; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the inner border and padding in Firefox.\r\n */\r\n\r\nbutton::-moz-focus-inner,\r\n[type=\"button\"]::-moz-focus-inner,\r\n[type=\"reset\"]::-moz-focus-inner,\r\n[type=\"submit\"]::-moz-focus-inner {\r\n  border-style: none;\r\n  padding: 0;\r\n}\r\n\r\n/**\r\n * Restore the focus styles unset by the previous rule.\r\n */\r\n\r\nbutton:-moz-focusring,\r\n[type=\"button\"]:-moz-focusring,\r\n[type=\"reset\"]:-moz-focusring,\r\n[type=\"submit\"]:-moz-focusring {\r\n  outline: 1px dotted ButtonText;\r\n}\r\n\r\n/**\r\n * Change the border, margin, and padding in all browsers (opinionated).\r\n */\r\n\r\nfieldset {\r\n  border: 1px solid #c0c0c0;\r\n  margin: 0 2px;\r\n  padding: 0.35em 0.625em 0.75em;\r\n}\r\n\r\n/**\r\n * 1. Correct the text wrapping in Edge and IE.\r\n * 2. Correct the color inheritance from `fieldset` elements in IE.\r\n * 3. Remove the padding so developers are not caught out when they zero out\r\n *    `fieldset` elements in all browsers.\r\n */\r\n\r\nlegend {\r\n  box-sizing: border-box; /* 1 */\r\n  color: inherit; /* 2 */\r\n  display: table; /* 1 */\r\n  max-width: 100%; /* 1 */\r\n  padding: 0; /* 3 */\r\n  white-space: normal; /* 1 */\r\n}\r\n\r\n/**\r\n * 1. Add the correct display in IE 9-.\r\n * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.\r\n */\r\n\r\nprogress {\r\n  display: inline-block; /* 1 */\r\n  vertical-align: baseline; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the default vertical scrollbar in IE.\r\n */\r\n\r\ntextarea {\r\n  overflow: auto;\r\n}\r\n\r\n/**\r\n * 1. Add the correct box sizing in IE 10-.\r\n * 2. Remove the padding in IE 10-.\r\n */\r\n\r\n[type=\"checkbox\"],\r\n[type=\"radio\"] {\r\n  box-sizing: border-box; /* 1 */\r\n  padding: 0; /* 2 */\r\n}\r\n\r\n/**\r\n * Correct the cursor style of increment and decrement buttons in Chrome.\r\n */\r\n\r\n[type=\"number\"]::-webkit-inner-spin-button,\r\n[type=\"number\"]::-webkit-outer-spin-button {\r\n  height: auto;\r\n}\r\n\r\n/**\r\n * 1. Correct the odd appearance in Chrome and Safari.\r\n * 2. Correct the outline style in Safari.\r\n */\r\n\r\n[type=\"search\"] {\r\n  -webkit-appearance: textfield; /* 1 */\r\n  outline-offset: -2px; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.\r\n */\r\n\r\n[type=\"search\"]::-webkit-search-cancel-button,\r\n[type=\"search\"]::-webkit-search-decoration {\r\n  -webkit-appearance: none;\r\n}\r\n\r\n/**\r\n * 1. Correct the inability to style clickable types in iOS and Safari.\r\n * 2. Change font properties to `inherit` in Safari.\r\n */\r\n\r\n::-webkit-file-upload-button {\r\n  -webkit-appearance: button; /* 1 */\r\n  font: inherit; /* 2 */\r\n}\r\n"; });
+define('text!components/inputs.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./inputs.css#ux\"></require>\r\n  <main styles.main>\r\n\r\n    <h1 styles.header>\r\n      &lt;ux-input&gt;&lt;/ux-input&gt;\r\n    </h1>\r\n    <p styles.description>\r\n      The <code>ux-input</code> element allows users to input data.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input value.bind=\"uxInputSingleLine\"></ux-input>\r\n        </div>\r\n\r\n        <div class=\"add-padding\">\r\n          value: ${uxInputSingleLine}\r\n        </div>\r\n\r\n        <code>\r\n          default\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      The <code>ux-input</code> extends many native functions of the standard input control.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input disabled value=\"Disabled Input\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" disabled value=\"Disabled Input\"></ux-input>\r\n\r\n        <code>\r\n          disabled\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input readonly value=\"Read Only Input\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" readonly value=\"Read Only Input\"></ux-input>\r\n\r\n        <code>\r\n          readonly\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input placeholder=\"Text goes in this field\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          placeholder=\"Value Here\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input value=\"Password\" type=\"password\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" value=\"Password\" type=\"password\"></ux-input>\r\n\r\n        <code>\r\n           type=\"password\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" step=\"5\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" step=\"5\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" min=\"5\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" min=\"5\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" max=\"10\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" max=\"10\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n    <p styles.description>\r\n      The <code>ux-input</code> has a few classes to help with styling.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input class=\"has-error\" value=\"Error!\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width has-error\" value=\"Error!\"></ux-input>\r\n\r\n        <code>\r\n          class=\"has-error\"\r\n        </code>\r\n      </figure>\r\n      \r\n      <figure styles.figure>\r\n        <ux-input class=\"full-width\" value.bind=\"uxInputFullWidth\"></ux-input>\r\n\r\n        <div class=\"add-padding\">\r\n          value: ${uxInputFullWidth}\r\n        </div>\r\n\r\n        <code>\r\n          class=\"full-width\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <h2 styles.header>Aurelia Validation</h2>\r\n    <p styles.description>\r\n      The <code>ux-input</code> has native support for the Aurelia Validation plugin.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n\r\n        <div class=\"add-padding\">\r\n          <form submit.delegate=\"submit()\">\r\n            \r\n            <ux-input class=\"form-control\" \r\n                      validation-errors.bind=\"firstNameErrors\"\r\n                      class.bind=\"firstNameErrors.length ? 'has-error' : ''\"\r\n                      view-model.ref=\"errorDemo1\"\r\n                      placeholder=\"First Name\" \r\n                      value.bind=\"firstName & validate\"></ux-input>\r\n            <ux-input-info target.bind=\"errorDemo1\">\r\n              <span if.bind=\"firstNameErrors.length\">${firstNameErrors[0].error.message}</span>\r\n            </ux-input-info>\r\n\r\n            <ux-input type=\"email\"\r\n                      validation-errors.bind=\"emailErrors\"\r\n                      class.bind=\"emailErrors.length ? 'has-error' : ''\" \r\n                      view-model.ref=\"errorDemo2\"\r\n                      class=\"form-control\" \r\n                      placeholder=\"Email\" \r\n                      value.bind=\"email & validate\"></ux-input>\r\n            <ux-input-info target.bind=\"errorDemo2\">\r\n                <span if.bind=\"emailErrors.length\">${emailErrors[0].error.message}</span>\r\n                <span if.bind=\"!emailErrors.length\">john@example.com</span>\r\n            </ux-input-info>\r\n\r\n\r\n            <ux-button type=\"raised\" size=\"small\" class=\"btn btn-primary\">Submit</ux-button>\r\n          </form>\r\n\r\n        </div>\r\n        <code>\r\n          \r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n\r\n    <h2 styles.header>Input Info Box & Input Counter</h2>\r\n    <p styles.description>\r\n      The <code>ux-input</code> has a sibling element that will display the current character count or current characters remaining. If a max attribute is present on the <code>ux-input</code> element then the counter will display the total characters remaining, otherwise it will default to displaying the total characters. This element can also display hint text or error text as well.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo1\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo1\"></ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info input-counter /&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo2\" maxlength=\"10\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo2\"></ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info input-counter maxlength=\"10\" /&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo3\"></ux-input>\r\n          <ux-input-info target.bind=\"ibicDemo3\">I am a message</ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info&gt;message&lt;/ux-input-info&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo3\" maxlength=\"10\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo3\">I am a message</ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          Combined\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n  </main>\r\n</template>\r\n"; });
+define('text!components/buttons.css', ['module'], function(module) { module.exports = "styles.feature {\r\n  margin: 40px 0 20px;\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n}\r\n\r\nstyles.figure {\r\n  background: ${$swatches.grey.p200};\r\n  display: flex;\r\n  width: 320px;\r\n  height: 320px;\r\n  position:relative;\r\n  margin-bottom: 20px;\r\n}\r\n\r\nstyles.figure > ux-button {\r\n  margin: auto;\r\n}\r\n\r\nstyles.figure > code {\r\n  position: absolute;\r\n  bottom: 16px;\r\n  left: 16px;\r\n}\r\n"; });
+define('text!core-features/swatches.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./swatches.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <p styles.description>\r\n      Swatches provide sets of colors, both primaries and accents, based on the\r\n      color theory behind Material Design. It is recommended that you select one\r\n      primary and one accent color for your app, each with a normal, light and dark shade.\r\n    </p>\r\n\r\n    <section styles.swatches>\r\n      <div repeat.for=\"swatch of swatches\" styles.swatch>\r\n        <ul>\r\n          <li css=\"background: ${swatch.p500}\">\r\n            <div styles.swatch-name>\r\n              ${swatch.name}\r\n            </div>\r\n\r\n            <div styles.color-row>\r\n              <div>p500</div>\r\n              <div>${swatch.p500}</div>\r\n            </div>\r\n          </li>\r\n\r\n          <li repeat.for=\"color of swatch.colors\" styles.color-row css=\"background: ${color.value}\">\r\n            <div>${color.name}</div>\r\n            <div>${color.value}</div>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </section>\r\n  </main>\r\n\r\n</template>\r\n"; });
+define('text!components/inputs.css', ['module'], function(module) { module.exports = "styles.feature {\r\n  margin: 40px 0 20px;\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n}\r\n\r\nstyles.figure {\r\n  background: ${$swatches.grey.p300};\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-between;\r\n  width: 320px;\r\n  height: 320px;\r\n  position: relative;\r\n  margin-bottom: 20px;\r\n}\r\n\r\nstyles.figure > div.add-padding {\r\n  padding: 8px;\r\n}\r\n\r\nstyles.figure > ux-button {\r\n  margin: auto;\r\n}\r\n\r\nstyles.figure > code {\r\n  padding:16px;\r\n  background: ${$swatches.grey.p200};\r\n}\r\n"; });
+define('text!core-features/theming.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./theming.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <p styles.description>\r\n      All UX styles can include binding expressions. They can be bound against your\r\n      custom style models, and/or against generally available properties such as\r\n      platform and design language.\r\n    </p>\r\n\r\n    <section styles.properties>\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primary\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primaryForeground\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary Dark</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primaryDark\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary Dark Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primaryDarkForeground\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary Light</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primaryLight\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Primary Light Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.primaryLightForeground\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accent\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accentForeground\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent Dark</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accentDark\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent Dark Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accentDarkForeground\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent Light</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accentLight\">\r\n      </div>\r\n\r\n      <div styles.property-row>\r\n        <label styles.label>Design Accent Light Foreground</label>\r\n        <input type=\"color\" value.bind=\"ux.design.accentLightForeground\">\r\n      </div>\r\n    </section>\r\n  </main>\r\n</template>\r\n"; });
+define('text!core-features/swatches.css', ['module'], function(module) { module.exports = "styles.swatches {\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n  align-items: flex-start;\r\n  margin-top: 40px;\r\n}\r\n\r\nstyles.swatch {\r\n  width: 320px;\r\n  margin-bottom: 40px;\r\n  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);\r\n}\r\n\r\nstyles.swatch-name {\r\n  padding: 10px 15px 11px;\r\n  font-size: 13px;\r\n  line-height: 24px;\r\n  margin-bottom: 53px;\r\n}\r\n\r\nstyles.color-row {\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n  padding: 10px 15px 11px;\r\n  font-size: 13px;\r\n  line-height: 24px;\r\n}\r\n"; });
+define('text!core-features/theming.css', ['module'], function(module) { module.exports = "styles.properties {\r\n  margin-top: 40px;\r\n}\r\n\r\nstyles.property-row {\r\n  margin: 24px 0;\r\n}\r\n\r\nstyles.label {\r\n  display: block;\r\n  margin-bottom: 16px;\r\n}\r\n"; });
 //# sourceMappingURL=app-bundle.js.map
