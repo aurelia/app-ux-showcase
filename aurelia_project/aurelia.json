@@ -148,8 +148,10 @@
               "./button/ux-button-theme.css",
               "./input/ux-input.html",
               "./input/ux-input-theme.css",
-              "./input/ux-input-info.html",
-              "./input/ux-input-info-theme.css"
+              "./input-info/ux-input-info.html",
+              "./input-info/ux-input-info-theme.css",
+              "./textarea/ux-textarea.html",
+              "./textarea/ux-textarea-theme.css"
             ]
           }
         ]
