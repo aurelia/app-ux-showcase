@@ -1,0 +1,60 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./forms.css#ux"></require>
+
+  <main styles.main>
+    <h1 styles.header>
+      &lt;ux-form&gt;&lt;/ux-form&gt;
+    </h1>
+
+    <p styles.description>
+      The <code>ux-form</code> element is used
+    </p>
+
+
+    <section styles.feature>
+      <figure styles.figure>
+        <div class="add-padding">
+          <ux-form>
+            <label>Name</label>
+            <div class="form-row">
+              <ux-input placeholder="first"></ux-input>
+              <ux-input placeholder="last"></ux-input>
+            </div>
+
+            <div class="form-row">
+              <ux-input></ux-input>
+
+            </div>
+
+            <div class="form-row">
+              <ux-textarea></ux-textarea>
+
+            </div>
+
+            <ux-button type="raised">Button</ux-button>
+          </ux-form>
+        </div>
+        <code>
+          type="flat"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-form>
+
+          <ux-input class="full-width" placeholder="Title"></ux-input>
+
+          <ux-textarea auto-resize class="full-width" placeholder="Description"></ux-textarea>
+
+          <ux-button type="raised">Button</ux-button>
+        </ux-form>
+        <code>
+          type="flat"
+        </code>
+      </figure>
+
+    </section>
+
+  </main>
+</template>
