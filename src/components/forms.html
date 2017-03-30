@@ -72,18 +72,18 @@
             <div class="form-row">
               <ux-field>
                 <label>First Name</label>
-                <ux-input placeholder="first" view-model.ref="formDemo1" maxlength="10" value.bind="firstName & validate"></ux-input>
-                <ux-input-info ux-input-counter target.bind="formDemo1">John</ux-input-info>
+                <ux-input placeholder="first" maxlength="10" value.bind="firstName & validate"></ux-input>
+                <ux-input-info ux-input-counter>John</ux-input-info>
               </ux-field>
               <ux-field>
                 <label>Last Name</label>
-                <ux-input view-model.ref="formDemo2" maxlength="10" value.bind="lastName & validate"></ux-input>
-                <ux-input-info ux-input-counter target.bind="formDemo2">Doe</ux-input-info>
+                <ux-input maxlength="10" value.bind="lastName & validate"></ux-input>
+                <ux-input-info ux-input-counter>Doe</ux-input-info>
               </ux-field>
             </div>
               <!-- alternate way of putting in a label, not done yet -->
               <ux-field label="Email Address">
-                <ux-input value.bind="email & validate" placeholder="first" view-model.ref="formDemo3" maxlength="10"></ux-input>
+                <ux-input type="email" value.bind="email & validate" placeholder="first" maxlength="10"></ux-input>
               </ux-field>
 
             <ux-button type="raised">Button</ux-button>
