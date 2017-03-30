@@ -8,7 +8,7 @@
     </h1>
 
     <p styles.description>
-      The <code>ux-form</code> element is used
+      The <code>ux-form</code> element is used to quickly create and lay out forms.
     </p>
 
 
@@ -55,6 +55,50 @@
       </figure>
 
     </section>
+
+
+
+    <p styles.description>
+      The <code>ux-form</code> element is used to quickly create and lay out forms.
+    </p>
+
+
+    <section styles.feature>
+      <figure styles.figure>
+        <div class="add-padding">
+
+
+          <ux-form>
+            <div class="form-row">
+              <ux-field>
+                <label>First Name</label>
+                <ux-input placeholder="first" view-model.ref="formDemo1" maxlength="10" value.bind="firstName & validate"></ux-input>
+                <ux-input-info ux-input-counter target.bind="formDemo1">John</ux-input-info>
+              </ux-field>
+              <ux-field>
+                <label>Last Name</label>
+                <ux-input view-model.ref="formDemo2" maxlength="10" value.bind="lastName & validate"></ux-input>
+                <ux-input-info ux-input-counter target.bind="formDemo2">Doe</ux-input-info>
+              </ux-field>
+            </div>
+              <!-- alternate way of putting in a label, not done yet -->
+              <ux-field label="Email Address">
+                <ux-input value.bind="email & validate" placeholder="first" view-model.ref="formDemo3" maxlength="10"></ux-input>
+              </ux-field>
+
+            <ux-button type="raised">Button</ux-button>
+
+          </ux-form>
+
+
+        </div>
+        <code>
+          type="flat"
+        </code>
+      </figure>
+
+    </section>
+
 
   </main>
 </template>
