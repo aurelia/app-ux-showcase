@@ -68,28 +68,26 @@
         <div class="add-padding">
 
 
-          <ux-form>
+          <ux-form view-model.ref="form" submit.delegate="submit()">
             <div class="form-row">
-              <ux-field>
-                <label>First Name</label>
-                <ux-input placeholder="first" maxlength="10" value.bind="firstName & validate"></ux-input>
+              <ux-field label="First Name">
+                <ux-input maxlength="10" value.bind="firstName & validate"></ux-input>
                 <ux-input-info ux-input-counter>John</ux-input-info>
               </ux-field>
-              <ux-field>
-                <label>Last Name</label>
+              <ux-field label="Last Name">
                 <ux-input maxlength="10" value.bind="lastName & validate"></ux-input>
                 <ux-input-info ux-input-counter>Doe</ux-input-info>
               </ux-field>
             </div>
-              <!-- alternate way of putting in a label, not done yet -->
-              <ux-field label="Email Address">
-                <ux-input type="email" value.bind="email & validate" placeholder="first" maxlength="10"></ux-input>
-              </ux-field>
+            <!-- alternate way of putting in a label, not done yet -->
+            <ux-field label="Email Address">
+              <ux-input type="email" value.bind="email & validate"></ux-input>
+              <ux-input-info>email@example.com</ux-input-info>
+            </ux-field>
 
-            <ux-button type="raised">Button</ux-button>
+            <ux-button ux-submit>Button</ux-button>
 
           </ux-form>
-
 
         </div>
         <code>

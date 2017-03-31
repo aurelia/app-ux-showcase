@@ -113,6 +113,88 @@ define('main',["require", "exports", "./environment"], function (require, export
     exports.configure = configure;
 });
 
+define('core-features/swatches',["require", "exports", "aurelia-ux"], function (require, exports, aurelia_ux_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Swatches = (function () {
+        function Swatches() {
+            this.swatches = makeSwatches();
+        }
+        return Swatches;
+    }());
+    exports.Swatches = Swatches;
+    function makeSwatches() {
+        return Object.keys(aurelia_ux_1.swatches).map(function (key) {
+            var value = aurelia_ux_1.swatches[key];
+            if (typeof value === 'string') {
+                return null;
+            }
+            else {
+                return {
+                    name: key,
+                    colors: makeSwatch(value),
+                    p500: value.p500
+                };
+            }
+        }).filter(function (x) { return x !== null; });
+    }
+    function makeSwatch(swatch) {
+        return Object.keys(swatch).map(function (key) {
+            return {
+                name: key,
+                value: swatch[key]
+            };
+        }).sort(sortColors);
+    }
+    function sortColors(a, b) {
+        if (a.name.startsWith('p')) {
+            if (b.name.startsWith('p')) {
+                var aNum = parseInt(a.name.substring(1));
+                var bNum = parseInt(b.name.substring(1));
+                return aNum > bNum ? 1 : -1;
+            }
+            else {
+                return -1;
+            }
+        }
+        else {
+            if (b.name.startsWith('p')) {
+                return 1;
+            }
+            else {
+                var aNum = parseInt(a.name.substring(1));
+                var bNum = parseInt(b.name.substring(1));
+                return aNum > bNum ? 1 : -1;
+            }
+        }
+    }
+});
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+define('core-features/theming',["require", "exports", "aurelia-ux", "aurelia-dependency-injection"], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Theming = (function () {
+        function Theming(ux) {
+            this.ux = ux;
+        }
+        return Theming;
+    }());
+    Theming = __decorate([
+        aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX),
+        __metadata("design:paramtypes", [Object])
+    ], Theming);
+    exports.Theming = Theming;
+});
+
 define('components/buttons',["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -214,7 +296,14 @@ define('components/forms',["require", "exports", "aurelia-validation", "aurelia-
             this.controller.addRenderer(new forms_form_renderer_1.AureliaUXFormRenderer());
         }
         Forms.prototype.submit = function () {
-            this.controller.validate();
+            this.controller.validate().then(function (value) {
+                if (value.valid) {
+                    alert('Form submitted!');
+                }
+                else {
+                    alert('Uh oh, something went wrong.');
+                }
+            });
         };
         return Forms;
     }());
@@ -304,88 +393,6 @@ define('components/textarea',["require", "exports", "aurelia-validation", "aurel
         .minLength(20)
         .maxLength(500)
         .on(TextArea);
-});
-
-define('core-features/swatches',["require", "exports", "aurelia-ux"], function (require, exports, aurelia_ux_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Swatches = (function () {
-        function Swatches() {
-            this.swatches = makeSwatches();
-        }
-        return Swatches;
-    }());
-    exports.Swatches = Swatches;
-    function makeSwatches() {
-        return Object.keys(aurelia_ux_1.swatches).map(function (key) {
-            var value = aurelia_ux_1.swatches[key];
-            if (typeof value === 'string') {
-                return null;
-            }
-            else {
-                return {
-                    name: key,
-                    colors: makeSwatch(value),
-                    p500: value.p500
-                };
-            }
-        }).filter(function (x) { return x !== null; });
-    }
-    function makeSwatch(swatch) {
-        return Object.keys(swatch).map(function (key) {
-            return {
-                name: key,
-                value: swatch[key]
-            };
-        }).sort(sortColors);
-    }
-    function sortColors(a, b) {
-        if (a.name.startsWith('p')) {
-            if (b.name.startsWith('p')) {
-                var aNum = parseInt(a.name.substring(1));
-                var bNum = parseInt(b.name.substring(1));
-                return aNum > bNum ? 1 : -1;
-            }
-            else {
-                return -1;
-            }
-        }
-        else {
-            if (b.name.startsWith('p')) {
-                return 1;
-            }
-            else {
-                var aNum = parseInt(a.name.substring(1));
-                var bNum = parseInt(b.name.substring(1));
-                return aNum > bNum ? 1 : -1;
-            }
-        }
-    }
-});
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-define('core-features/theming',["require", "exports", "aurelia-ux", "aurelia-dependency-injection"], function (require, exports, aurelia_ux_1, aurelia_dependency_injection_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Theming = (function () {
-        function Theming(ux) {
-            this.ux = ux;
-        }
-        return Theming;
-    }());
-    Theming = __decorate([
-        aurelia_dependency_injection_1.inject(aurelia_ux_1.AureliaUX),
-        __metadata("design:paramtypes", [Object])
-    ], Theming);
-    exports.Theming = Theming;
 });
 
 define('resources/index',["require", "exports"], function (require, exports) {
@@ -3400,7 +3407,7 @@ define('text!home.html', ['module'], function(module) { module.exports = "<templ
 define('text!common.css', ['module'], function(module) { module.exports = "styles.main {\r\n  padding: 40px 40px 40px;\r\n}\r\n\r\nstyles.header {\r\n  font-size: 34px;\r\n  font-weight: 400;\r\n  line-height: 32px;\r\n  margin-bottom: 30px;\r\n  color: ${$design.primary};\r\n}\r\n\r\nstyles.description {\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n  line-height: 32px;\r\n  max-width: 940px;\r\n  color: ${$swatches.black};\r\n  margin-bottom: 40px;\r\n}\r\n"; });
 define('text!components/buttons.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./buttons.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <h1 styles.header>\r\n      &lt;ux-button&gt;&lt;/ux-button&gt;\r\n    </h1>\r\n\r\n    <p styles.description>\r\n      The <code>ux-button</code> element is used to indicate that a user can take an action.\r\n      It comes in three types: <em>flat</em>, <em>raised</em> (default) and <em>fab</em> which can be configured either on the button instance or on the theme object, using the <em>type</em> property.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\">Button</ux-button>\r\n\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button>Button</ux-button>\r\n\r\n        <code>\r\n          type=\"raised\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          type=\"fab\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      Buttons also come in three sizes: <em>small</em>, <em>medium</em> (default) and <em>large</em> which can be configured either on the button instance or on the theme object, using the <em>size</em> property.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button size=\"small\" type=\"flat\">Button</ux-button>\r\n        <ux-button size=\"small\">Button</ux-button>\r\n        <ux-button size=\"small\" type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"small\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\">Button</ux-button>\r\n        <ux-button>Button</ux-button>\r\n        <ux-button type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"medium\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button size=\"large\" type=\"flat\">Button</ux-button>\r\n        <ux-button size=\"large\">Button</ux-button>\r\n        <ux-button size=\"large\" type=\"fab\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          size=\"large\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      Material buttons have a ripple effect by default, however that can be turned off using the <code>effect</code> property.\r\n      As with all properties, this can be specified per design language, using the design language prefix.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" effect=\"none\">Button</ux-button>\r\n        <ux-button effect=\"none\">Button</ux-button>\r\n        <ux-button type=\"fab\" effect=\"none\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          effect=\"none\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" effect=\"ripple\">Button</ux-button>\r\n        <ux-button effect=\"ripple\">Button</ux-button>\r\n        <ux-button type=\"fab\" effect=\"ripple\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          effect=\"ripple\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-button type=\"flat\" material-effect=\"ripple\">Button</ux-button>\r\n        <ux-button material-effect=\"ripple\">Button</ux-button>\r\n        <ux-button type=\"fab\" material-effect=\"ripple\">\r\n          <span style=\"font-size: 26px\">+</span>\r\n        </ux-button>\r\n\r\n        <code>\r\n          material-effect=\"ripple\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n  </main>\r\n</template>\r\n"; });
 define('text!reset.css', ['module'], function(module) { module.exports = "/* http://meyerweb.com/eric/tools/css/reset/\r\n   v2.0 | 20110126\r\n   License: none (public domain)\r\n*/\r\n\r\nhtml, body, div, span, applet, object, iframe,\r\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\r\na, abbr, acronym, address, big, cite, code,\r\ndel, dfn, em, img, ins, kbd, q, s, samp,\r\nsmall, strike, strong, sub, sup, tt, var,\r\nb, u, i, center,\r\ndl, dt, dd, ol, ul, li,\r\nfieldset, form, label, legend,\r\ntable, caption, tbody, tfoot, thead, tr, th, td,\r\narticle, aside, canvas, details, embed,\r\nfigure, figcaption, footer, header, hgroup,\r\nmenu, nav, output, ruby, section, summary,\r\ntime, mark, audio, video {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tborder: 0;\r\n\tfont-size: 100%;\r\n\tfont: inherit;\r\n\tvertical-align: baseline;\r\n}\r\n/* HTML5 display-role reset for older browsers */\r\narticle, aside, details, figcaption, figure,\r\nfooter, header, hgroup, menu, nav, section {\r\n\tdisplay: block;\r\n}\r\nbody {\r\n\tline-height: 1;\r\n}\r\nol, ul {\r\n\tlist-style: none;\r\n}\r\nblockquote, q {\r\n\tquotes: none;\r\n}\r\nblockquote:before, blockquote:after,\r\nq:before, q:after {\r\n\tcontent: '';\r\n\tcontent: none;\r\n}\r\ntable {\r\n\tborder-collapse: collapse;\r\n\tborder-spacing: 0;\r\n}\r\n\r\n/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */\r\n\r\n/* Document\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Change the default font family in all browsers (opinionated).\r\n * 2. Correct the line height in all browsers.\r\n * 3. Prevent adjustments of font size after orientation changes in\r\n *    IE on Windows Phone and in iOS.\r\n */\r\n\r\nhtml {\r\n  font-family: sans-serif; /* 1 */\r\n  line-height: 1.15; /* 2 */\r\n  -ms-text-size-adjust: 100%; /* 3 */\r\n  -webkit-text-size-adjust: 100%; /* 3 */\r\n}\r\n\r\n/* Forms\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Change the font styles in all browsers (opinionated).\r\n * 2. Remove the margin in Firefox and Safari.\r\n */\r\n\r\nbutton,\r\ninput,\r\noptgroup,\r\nselect,\r\ntextarea {\r\n  font-family: sans-serif; /* 1 */\r\n  font-size: 100%; /* 1 */\r\n  line-height: 1.15; /* 1 */\r\n  margin: 0; /* 2 */\r\n}\r\n\r\n/**\r\n * Show the overflow in IE.\r\n * 1. Show the overflow in Edge.\r\n */\r\n\r\nbutton,\r\ninput { /* 1 */\r\n  overflow: visible;\r\n}\r\n\r\n/**\r\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n * 1. Remove the inheritance of text transform in Firefox.\r\n */\r\n\r\nbutton,\r\nselect { /* 1 */\r\n  text-transform: none;\r\n}\r\n\r\n/**\r\n * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`\r\n *    controls in Android 4.\r\n * 2. Correct the inability to style clickable types in iOS and Safari.\r\n */\r\n\r\nbutton,\r\nhtml [type=\"button\"], /* 1 */\r\n[type=\"reset\"],\r\n[type=\"submit\"] {\r\n  -webkit-appearance: button; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the inner border and padding in Firefox.\r\n */\r\n\r\nbutton::-moz-focus-inner,\r\n[type=\"button\"]::-moz-focus-inner,\r\n[type=\"reset\"]::-moz-focus-inner,\r\n[type=\"submit\"]::-moz-focus-inner {\r\n  border-style: none;\r\n  padding: 0;\r\n}\r\n\r\n/**\r\n * Restore the focus styles unset by the previous rule.\r\n */\r\n\r\nbutton:-moz-focusring,\r\n[type=\"button\"]:-moz-focusring,\r\n[type=\"reset\"]:-moz-focusring,\r\n[type=\"submit\"]:-moz-focusring {\r\n  outline: 1px dotted ButtonText;\r\n}\r\n\r\n/**\r\n * Change the border, margin, and padding in all browsers (opinionated).\r\n */\r\n\r\nfieldset {\r\n  border: 1px solid #c0c0c0;\r\n  margin: 0 2px;\r\n  padding: 0.35em 0.625em 0.75em;\r\n}\r\n\r\n/**\r\n * 1. Correct the text wrapping in Edge and IE.\r\n * 2. Correct the color inheritance from `fieldset` elements in IE.\r\n * 3. Remove the padding so developers are not caught out when they zero out\r\n *    `fieldset` elements in all browsers.\r\n */\r\n\r\nlegend {\r\n  box-sizing: border-box; /* 1 */\r\n  color: inherit; /* 2 */\r\n  display: table; /* 1 */\r\n  max-width: 100%; /* 1 */\r\n  padding: 0; /* 3 */\r\n  white-space: normal; /* 1 */\r\n}\r\n\r\n/**\r\n * 1. Add the correct display in IE 9-.\r\n * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.\r\n */\r\n\r\nprogress {\r\n  display: inline-block; /* 1 */\r\n  vertical-align: baseline; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the default vertical scrollbar in IE.\r\n */\r\n\r\ntextarea {\r\n  overflow: auto;\r\n}\r\n\r\n/**\r\n * 1. Add the correct box sizing in IE 10-.\r\n * 2. Remove the padding in IE 10-.\r\n */\r\n\r\n[type=\"checkbox\"],\r\n[type=\"radio\"] {\r\n  box-sizing: border-box; /* 1 */\r\n  padding: 0; /* 2 */\r\n}\r\n\r\n/**\r\n * Correct the cursor style of increment and decrement buttons in Chrome.\r\n */\r\n\r\n[type=\"number\"]::-webkit-inner-spin-button,\r\n[type=\"number\"]::-webkit-outer-spin-button {\r\n  height: auto;\r\n}\r\n\r\n/**\r\n * 1. Correct the odd appearance in Chrome and Safari.\r\n * 2. Correct the outline style in Safari.\r\n */\r\n\r\n[type=\"search\"] {\r\n  -webkit-appearance: textfield; /* 1 */\r\n  outline-offset: -2px; /* 2 */\r\n}\r\n\r\n/**\r\n * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.\r\n */\r\n\r\n[type=\"search\"]::-webkit-search-cancel-button,\r\n[type=\"search\"]::-webkit-search-decoration {\r\n  -webkit-appearance: none;\r\n}\r\n\r\n/**\r\n * 1. Correct the inability to style clickable types in iOS and Safari.\r\n * 2. Change font properties to `inherit` in Safari.\r\n */\r\n\r\n::-webkit-file-upload-button {\r\n  -webkit-appearance: button; /* 1 */\r\n  font: inherit; /* 2 */\r\n}\r\n"; });
-define('text!components/forms.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./forms.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <h1 styles.header>\r\n      &lt;ux-form&gt;&lt;/ux-form&gt;\r\n    </h1>\r\n\r\n    <p styles.description>\r\n      The <code>ux-form</code> element is used to quickly create and lay out forms.\r\n    </p>\r\n\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-form>\r\n            <label>Name</label>\r\n            <div class=\"form-row\">\r\n              <ux-input placeholder=\"first\"></ux-input>\r\n              <ux-input placeholder=\"last\"></ux-input>\r\n            </div>\r\n\r\n            <div class=\"form-row\">\r\n              <ux-input></ux-input>\r\n\r\n            </div>\r\n\r\n            <div class=\"form-row\">\r\n              <ux-textarea></ux-textarea>\r\n\r\n            </div>\r\n\r\n            <ux-button type=\"raised\">Button</ux-button>\r\n          </ux-form>\r\n        </div>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-form>\r\n\r\n          <ux-input class=\"full-width\" placeholder=\"Title\"></ux-input>\r\n\r\n          <ux-textarea auto-resize class=\"full-width\" placeholder=\"Description\"></ux-textarea>\r\n\r\n          <ux-button type=\"raised\">Button</ux-button>\r\n        </ux-form>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n\r\n\r\n    <p styles.description>\r\n      The <code>ux-form</code> element is used to quickly create and lay out forms.\r\n    </p>\r\n\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n\r\n\r\n          <ux-form>\r\n            <div class=\"form-row\">\r\n              <ux-field>\r\n                <label>First Name</label>\r\n                <ux-input placeholder=\"first\" maxlength=\"10\" value.bind=\"firstName & validate\"></ux-input>\r\n                <ux-input-info ux-input-counter>John</ux-input-info>\r\n              </ux-field>\r\n              <ux-field>\r\n                <label>Last Name</label>\r\n                <ux-input maxlength=\"10\" value.bind=\"lastName & validate\"></ux-input>\r\n                <ux-input-info ux-input-counter>Doe</ux-input-info>\r\n              </ux-field>\r\n            </div>\r\n              <!-- alternate way of putting in a label, not done yet -->\r\n              <ux-field label=\"Email Address\">\r\n                <ux-input type=\"email\" value.bind=\"email & validate\" placeholder=\"first\" maxlength=\"10\"></ux-input>\r\n              </ux-field>\r\n\r\n            <ux-button type=\"raised\">Button</ux-button>\r\n\r\n          </ux-form>\r\n\r\n\r\n        </div>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n\r\n  </main>\r\n</template>\r\n"; });
+define('text!components/forms.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./forms.css#ux\"></require>\r\n\r\n  <main styles.main>\r\n    <h1 styles.header>\r\n      &lt;ux-form&gt;&lt;/ux-form&gt;\r\n    </h1>\r\n\r\n    <p styles.description>\r\n      The <code>ux-form</code> element is used to quickly create and lay out forms.\r\n    </p>\r\n\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-form>\r\n            <label>Name</label>\r\n            <div class=\"form-row\">\r\n              <ux-input placeholder=\"first\"></ux-input>\r\n              <ux-input placeholder=\"last\"></ux-input>\r\n            </div>\r\n\r\n            <div class=\"form-row\">\r\n              <ux-input></ux-input>\r\n\r\n            </div>\r\n\r\n            <div class=\"form-row\">\r\n              <ux-textarea></ux-textarea>\r\n\r\n            </div>\r\n\r\n            <ux-button type=\"raised\">Button</ux-button>\r\n          </ux-form>\r\n        </div>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <ux-form>\r\n\r\n          <ux-input class=\"full-width\" placeholder=\"Title\"></ux-input>\r\n\r\n          <ux-textarea auto-resize class=\"full-width\" placeholder=\"Description\"></ux-textarea>\r\n\r\n          <ux-button type=\"raised\">Button</ux-button>\r\n        </ux-form>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n\r\n\r\n    <p styles.description>\r\n      The <code>ux-form</code> element is used to quickly create and lay out forms.\r\n    </p>\r\n\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n\r\n\r\n          <ux-form view-model.ref=\"form\" submit.delegate=\"submit()\">\r\n            <div class=\"form-row\">\r\n              <ux-field label=\"First Name\">\r\n                <ux-input maxlength=\"10\" value.bind=\"firstName & validate\"></ux-input>\r\n                <ux-input-info ux-input-counter>John</ux-input-info>\r\n              </ux-field>\r\n              <ux-field label=\"Last Name\">\r\n                <ux-input maxlength=\"10\" value.bind=\"lastName & validate\"></ux-input>\r\n                <ux-input-info ux-input-counter>Doe</ux-input-info>\r\n              </ux-field>\r\n            </div>\r\n            <!-- alternate way of putting in a label, not done yet -->\r\n            <ux-field label=\"Email Address\">\r\n              <ux-input type=\"email\" value.bind=\"email & validate\"></ux-input>\r\n              <ux-input-info>email@example.com</ux-input-info>\r\n            </ux-field>\r\n\r\n            <ux-button ux-submit>Button</ux-button>\r\n\r\n          </ux-form>\r\n\r\n        </div>\r\n        <code>\r\n          type=\"flat\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n\r\n  </main>\r\n</template>\r\n"; });
 define('text!components/buttons.css', ['module'], function(module) { module.exports = "styles.feature {\r\n  margin: 40px 0 20px;\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n}\r\n\r\nstyles.figure {\r\n  background: ${$swatches.grey.p200};\r\n  display: flex;\r\n  width: 320px;\r\n  height: 320px;\r\n  position:relative;\r\n  margin-bottom: 20px;\r\n}\r\n\r\nstyles.figure > ux-button {\r\n  margin: auto;\r\n}\r\n\r\nstyles.figure > code {\r\n  position: absolute;\r\n  bottom: 16px;\r\n  left: 16px;\r\n}\r\n"; });
 define('text!components/inputs.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from='../common.css#ux'></require>\r\n  <require from=\"./inputs.css#ux\"></require>\r\n  <main styles.main>\r\n\r\n    <h1 styles.header>\r\n      &lt;ux-input&gt;&lt;/ux-input&gt;\r\n    </h1>\r\n    <p styles.description>\r\n      The <code>ux-input</code> element allows users to input data.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input value.bind=\"uxInputSingleLine\"></ux-input>\r\n        </div>\r\n\r\n        <div class=\"add-padding\">\r\n          value: ${uxInputSingleLine}\r\n        </div>\r\n\r\n        <code>\r\n          default\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <p styles.description>\r\n      The <code>ux-input</code> extends many native functions of the standard input control.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input disabled value=\"Disabled Input\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" disabled value=\"Disabled Input\"></ux-input>\r\n\r\n        <code>\r\n          disabled\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input readonly value=\"Read Only Input\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" readonly value=\"Read Only Input\"></ux-input>\r\n\r\n        <code>\r\n          readonly\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input placeholder=\"Text goes in this field\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          placeholder=\"Value Here\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input value=\"Password\" type=\"password\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width\" value=\"Password\" type=\"password\"></ux-input>\r\n\r\n        <code>\r\n           type=\"password\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" step=\"5\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" step=\"5\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" min=\"5\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" min=\"5\"\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input type=\"number\" max=\"10\"></ux-input>\r\n        </div>\r\n\r\n        <code>\r\n          type=\"number\" max=\"10\"\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n\r\n    <p styles.description>\r\n      The <code>ux-input</code> has a few classes to help with styling.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input class=\"has-error\" value=\"Error!\"></ux-input>\r\n        </div>\r\n\r\n        <ux-input class=\"full-width has-error\" value=\"Error!\"></ux-input>\r\n\r\n        <code>\r\n          class=\"has-error\"\r\n        </code>\r\n      </figure>\r\n      \r\n      <figure styles.figure>\r\n        <ux-input class=\"full-width\" value.bind=\"uxInputFullWidth\"></ux-input>\r\n\r\n        <div class=\"add-padding\">\r\n          value: ${uxInputFullWidth}\r\n        </div>\r\n\r\n        <code>\r\n          class=\"full-width\"\r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n    <h2 styles.header>Aurelia Validation</h2>\r\n    <p styles.description>\r\n      The <code>ux-input</code> has native support for the Aurelia Validation plugin.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n      <figure styles.figure>\r\n\r\n        <div class=\"add-padding\">\r\n          <form submit.delegate=\"submit()\">\r\n            \r\n            <ux-input class=\"form-control\" \r\n                      validation-errors.bind=\"firstNameErrors\"\r\n                      class.bind=\"firstNameErrors.length ? 'has-error' : ''\"\r\n                      view-model.ref=\"errorDemo1\"\r\n                      placeholder=\"First Name\" \r\n                      value.bind=\"firstName & validate\"></ux-input>\r\n            <ux-input-info target.bind=\"errorDemo1\">\r\n              <span if.bind=\"firstNameErrors.length\">${firstNameErrors[0].error.message}</span>\r\n            </ux-input-info>\r\n\r\n            <ux-input type=\"email\"\r\n                      validation-errors.bind=\"emailErrors\"\r\n                      class.bind=\"emailErrors.length ? 'has-error' : ''\" \r\n                      view-model.ref=\"errorDemo2\"\r\n                      class=\"form-control\" \r\n                      placeholder=\"Email\" \r\n                      value.bind=\"email & validate\"></ux-input>\r\n            <ux-input-info target.bind=\"errorDemo2\">\r\n                <span if.bind=\"emailErrors.length\">${emailErrors[0].error.message}</span>\r\n                <span if.bind=\"!emailErrors.length\">john@example.com</span>\r\n            </ux-input-info>\r\n\r\n\r\n            <ux-button type=\"raised\" size=\"small\" class=\"btn btn-primary\">Submit</ux-button>\r\n          </form>\r\n\r\n        </div>\r\n        <code>\r\n          \r\n        </code>\r\n      </figure>\r\n    </section>\r\n\r\n\r\n    <h2 styles.header>Input Info Box & Input Counter</h2>\r\n    <p styles.description>\r\n      The <code>ux-input</code> has a sibling element that will display the current character count or current characters remaining. If a max attribute is present on the <code>ux-input</code> element then the counter will display the total characters remaining, otherwise it will default to displaying the total characters. This element can also display hint text or error text as well.\r\n    </p>\r\n\r\n    <section styles.feature>\r\n\r\n      <figure styles.figure class=\"add-padding\">\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo1\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo1\"></ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info input-counter /&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo2\" maxlength=\"10\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo2\"></ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info input-counter maxlength=\"10\" /&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo3\"></ux-input>\r\n          <ux-input-info target.bind=\"ibicDemo3\">I am a message</ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          &lt;ux-input-info&gt;message&lt;/ux-input-info&gt;\r\n        </code>\r\n      </figure>\r\n\r\n      <figure styles.figure>\r\n        <div class=\"add-padding\">\r\n          <ux-input view-model.ref=\"ibicDemo3\" maxlength=\"10\"></ux-input>\r\n          <ux-input-info ux-input-counter target.bind=\"ibicDemo3\">I am a message</ux-input-info>\r\n        </div>\r\n\r\n        <code>\r\n          Combined\r\n        </code>\r\n      </figure>\r\n\r\n    </section>\r\n  </main>\r\n</template>\r\n"; });
 define('text!components/forms.css', ['module'], function(module) { module.exports = "styles.feature {\r\n  margin: 40px 0 20px;\r\n  display: flex;\r\n  flex-flow: row wrap;\r\n  justify-content: space-between;\r\n}\r\n\r\nstyles.figure {\r\n  background: ${$swatches.grey.p300};\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: space-between;\r\n  width: 320px;\r\n  height: 320px;\r\n  position: relative;\r\n  margin-bottom: 20px;\r\n}\r\n\r\nstyles.figure > div.add-padding {\r\n  padding: 8px;\r\n}\r\n\r\nstyles.figure > ux-button {\r\n  margin: auto;\r\n}\r\n\r\nstyles.figure > code {\r\n  padding:16px;\r\n  background: ${$swatches.grey.p200};\r\n}\r\n"; });

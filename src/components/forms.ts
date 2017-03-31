@@ -19,7 +19,13 @@ export class Forms {
     }
 
     submit() {
-        this.controller.validate();
+        this.controller.validate().then((value) => {
+            if(value.valid) {
+                alert('Form submitted!');
+            } else {
+                alert('Uh oh, something went wrong.');
+            }
+        });
     }
 
 }
