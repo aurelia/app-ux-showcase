@@ -16,27 +16,19 @@
       <figure styles.figure>
         <div class="add-padding">
           <ux-form>
-            <label>Name</label>
             <div class="form-row">
-              <ux-input placeholder="first"></ux-input>
-              <ux-input placeholder="last"></ux-input>
+              <ux-input placeholder="Name"></ux-input>
             </div>
 
             <div class="form-row">
-              <ux-input></ux-input>
-
-            </div>
-
-            <div class="form-row">
-              <ux-textarea></ux-textarea>
-
+              <ux-input type="email" placeholder="Email Address"></ux-input>
             </div>
 
             <ux-button type="raised">Button</ux-button>
           </ux-form>
         </div>
         <code>
-          type="flat"
+          Basic Usage
         </code>
       </figure>
 
@@ -50,16 +42,16 @@
           <ux-button type="raised">Button</ux-button>
         </ux-form>
         <code>
-          type="flat"
+          Basic Usage
         </code>
       </figure>
 
     </section>
 
 
-
     <p styles.description>
-      The <code>ux-form</code> element is used to quickly create and lay out forms.
+      The <code>ux-form</code> includes the <code>.form-row</code> class to help with laying out a form and including multiple
+      controls on one line.
     </p>
 
 
@@ -68,34 +60,94 @@
         <div class="add-padding">
 
 
-          <ux-form view-model.ref="form" submit.delegate="submit()">
+          <ux-form>
             <div class="form-row">
-              <ux-field label="First Name">
-                <ux-input maxlength="10" value.bind="firstName & validate"></ux-input>
-                <ux-input-info ux-input-counter>John</ux-input-info>
-              </ux-field>
-              <ux-field label="Last Name">
-                <ux-input maxlength="10" value.bind="lastName & validate"></ux-input>
-                <ux-input-info ux-input-counter>Doe</ux-input-info>
-              </ux-field>
+              <ux-input maxlength="10" placeholder="First Name"></ux-input>
+              <ux-input maxlength="10" placeholder="Last Name"></ux-input>
             </div>
-            <!-- alternate way of putting in a label, not done yet -->
-            <ux-field label="Email Address">
-              <ux-input type="email" value.bind="email & validate"></ux-input>
-              <ux-input-info>email@example.com</ux-input-info>
-            </ux-field>
-
-            <ux-button ux-submit>Button</ux-button>
 
           </ux-form>
 
         </div>
         <code>
-          type="flat"
+          class="form-row"
         </code>
       </figure>
 
     </section>
+
+
+    <p styles.description>
+      The <code>ux-field</code> component is part of the form development and takes care of stylng labels with inputs and
+      other controls.
+    </p>
+
+
+    <section styles.feature>
+      <figure styles.figure>
+        <div class="add-padding">
+
+
+          <ux-form>
+
+            <ux-field label="First Name">
+              <ux-input maxlength="10"></ux-input>
+              <ux-input-info ux-input-counter>John</ux-input-info>
+            </ux-field>
+
+          </ux-form>
+
+        </div>
+        <code>
+        <pre>
+&lt;ux-field label="First Name"&gt;
+&lt;/ux-field&gt;
+        </pre>
+        </code>
+      </figure>
+
+    </section>
+
+
+
+    <p styles.description>
+      Bringing all of these together allows the creation of forms quickly.
+    </p>
+
+
+    <section styles.feature>
+      <figure styles.figure>
+        <div class="add-padding">
+
+
+          <ux-form>
+
+            <div class="form-row">
+
+              <ux-field label="First Name">
+                <ux-input maxlength="10" value.bind="firstName & validate"></ux-input>
+                <ux-input-info ux-input-counter>John</ux-input-info>
+              </ux-field>
+
+              <ux-field label="Last Name">
+                <ux-input maxlength="10" value.bind="lastName & validate"></ux-input>
+                <ux-input-info ux-input-counter>Doe</ux-input-info>
+              </ux-field>
+
+            </div>
+
+            <ux-field label="Email Address">
+              <ux-input type="email" value.bind="email & validate"></ux-input>
+              <ux-input-info>email@example.com</ux-input-info>
+            </ux-field>
+
+            <ux-field label="Biography">
+              <ux-textarea auto-resize></ux-textarea>
+            </ux-field>
+
+            <ux-button click.delegate="submit()">Submit</ux-button>
+
+          </ux-form>
 
 
   </main>

@@ -23,7 +23,6 @@ export class Forms {
             if(value.valid) {
                 alert('Form submitted!');
             } else {
-                alert('Uh oh, something went wrong.');
             }
         });
     }
