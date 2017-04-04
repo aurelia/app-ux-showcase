@@ -151,7 +151,11 @@
               "./input-info/ux-input-info.html",
               "./input-info/ux-input-info-theme.css",
               "./textarea/ux-textarea.html",
-              "./textarea/ux-textarea-theme.css"
+              "./textarea/ux-textarea-theme.css",
+              "./form/ux-form.html",
+              "./form/ux-form-theme.css",
+              "./form/ux-field.html",
+              "./form/ux-field-theme.css"
             ]
           }
         ]
