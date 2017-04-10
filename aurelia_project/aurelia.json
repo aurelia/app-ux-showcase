@@ -155,7 +155,13 @@
               "./form/ux-form.html",
               "./form/ux-form-theme.css",
               "./form/ux-field.html",
-              "./form/ux-field-theme.css"
+              "./form/ux-field-theme.css",
+              "./chip-input/ux-chip-input.html",
+              "./chip-input/ux-chip-input-theme.css",
+              "./chip-input/ux-chip.html",
+              "./chip-input/ux-chip-theme.css",
+              "./chip-input/ux-tag.html",
+              "./chip-input/ux-tag-theme.css"
             ]
           }
         ]

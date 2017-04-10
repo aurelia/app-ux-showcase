@@ -1,0 +1,120 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./chips.css#ux"></require>
+
+  <main styles.main>
+    <h1 styles.header>
+      &lt;ux-chip&gt;&lt;/ux-chip&gt;
+    </h1>
+
+    <p styles.description>
+      The <code>ux-chip</code> element is used to display content in a compact area.
+    </p>
+
+    <section styles.feature>
+
+      <figure styles.figure>
+        <ux-chip>
+          Text Content
+        </ux-chip>
+
+        <code>
+          &lt;ux-chip&gt;&lt;/ux-chip&gt;
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tag>
+          Text Content
+        </ux-tag>
+
+        <code>
+          &lt;ux-tag&gt;&lt;/ux-tag&gt;
+        </code>
+      </figure>
+      
+    </section>
+
+    <p styles.description>
+      The <code>ux-chip</code> and <code>ux-tag</code> elements both have a <code>deletable</code> attribute that
+      can be added to show an X to the right of the chip. Clicking this X fires off a <code>close</code> event
+      that can be used with close.trigger.
+    </p>
+
+    <section styles.feature>
+
+      <figure styles.figure>
+        <ux-chip deletable>
+          Text Content
+        </ux-chip>
+
+        <code>
+          &lt;ux-chip&gt;&lt;/ux-chip&gt;
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-tag deletable>
+          Text Content
+        </ux-tag>
+
+        <code>
+          &lt;ux-tag&gt;&lt;/ux-tag&gt;
+        </code>
+      </figure>
+      
+    </section>
+    
+    <h1 styles.header>
+      &lt;ux-chip-input&gt;&lt;/ux-chip-input&gt;
+    </h1>
+
+    <p styles.description>
+      The <code>ux-chip-input</code> element is an easy to use editor to edit an array of
+      chips or tags. This element can be used by binding to its value to get a comma delimited
+      list, or by binding to the chips attribute, which exposes an array of chips. Loosing focus
+      or pressing the enter key causes the input to add the current text to the chip list. 
+      Pressing the left arrow key will let the user edit the last chip input. Double clicking
+      a chip will let the user edit that specific chip.
+    </p>
+
+    <section styles.feature>
+
+      <figure styles.figure>
+        <ux-chip-input type="chip"></ux-chip-input>
+
+        <code>
+          type="chip"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-chip-input type="tag"></ux-chip-input>
+
+        <code>
+          type="tag"
+        </code>
+      </figure>
+      
+    </section>
+
+    <p styles.description>
+      The <code>ux-chip-input</code> element has a separator attribute that allows the standard
+      seperator used to be changed. The default seperator is ', '.
+    </p>
+
+    <section styles.feature>
+
+      <figure styles.figure>
+        <ux-chip-input type="chip" separator="/$" value.bind="separatorInput"></ux-chip-input>
+        
+        <code>
+          separator="/$"<br/>
+          value="${separatorInput}"
+        </code>
+      </figure>
+      
+    </section>
+
+  </main>
+</template>
