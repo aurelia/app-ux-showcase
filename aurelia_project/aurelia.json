@@ -161,7 +161,9 @@
               "./chip-input/ux-chip.html",
               "./chip-input/ux-chip-theme.css",
               "./chip-input/ux-tag.html",
-              "./chip-input/ux-tag-theme.css"
+              "./chip-input/ux-tag-theme.css",
+              "./checkbox/ux-checkbox.html",
+              "./checkbox/ux-checkbox-theme.css"
             ]
           }
         ]

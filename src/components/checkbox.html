@@ -1,0 +1,74 @@
+<template>
+  <require from='../common.css#ux'></require>
+  <require from="./checkbox.css#ux"></require>
+
+  <main styles.main>
+    <h1 styles.header>
+      &lt;ux-checkbox&gt;&lt;/ux-checkbox&gt;
+    </h1>
+
+    <p styles.description>
+      The <code>ux-checkbox</code> element is
+    </p>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-checkbox checked.bind="cbx1Checked"></ux-checkbox><br/>
+        <ux-checkbox checked.bind="cbx1Checked">test</ux-checkbox><br/>
+        <ux-checkbox checked.bind="cbx3Checked" label="test 2"></ux-checkbox><br/> checkbox1: ${cbx1Checked} <br/> checkbox2: ${cbx1Checked} <br/> checkbox3: ${cbx3Checked}
+
+        <code>
+          type="flat"
+        </code>
+      </figure>
+    </section>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <template repeat.for="product of productObjects">
+          <ux-checkbox value.bind="product" checked.bind="selectedProductObjects">${product.id} - ${product.name}</ux-checkbox>
+        </template>
+
+        Selected products:
+        <ul>
+          <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
+        </ul>
+        <code>
+          type="flat"
+        </code>
+      </figure>
+    </section>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <template repeat.for="product of products">
+          <ux-checkbox value.bind="product" checked.bind="selectedStringProducts">${product}</ux-checkbox>
+        </template>
+        <br /> Selected products: ${selectedStringProducts}
+        <code>
+          type="flat"
+        </code>
+      </figure>
+    </section>
+
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-checkbox type="checkbox" model.bind="{ id: 0, name: 'Motherboard' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+          Motherboard
+        </ux-checkbox>
+        <ux-checkbox type="checkbox" model.bind="{ id: 1, name: 'CPU' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+          CPU
+        </ux-checkbox>
+        <ux-checkbox type="checkbox" model.bind="{ id: 2, name: 'Memory' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+          Memory
+        </ux-checkbox>
+        <ul>
+          <li repeat.for="product of selectedProductsWithMatcher">${product.id} - ${product.name}</li>
+        </ul>
+        <code>
+          type="flat"
+        </code>
+      </figure>
+    </section>
+  </main>
+</template>
