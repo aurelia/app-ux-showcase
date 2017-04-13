@@ -1,3 +1,3 @@
-export class Chpis {
+export class Chips {
 
 }
