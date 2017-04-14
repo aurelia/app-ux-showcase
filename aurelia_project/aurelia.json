@@ -162,6 +162,7 @@
               "./chip-input/ux-chip-theme.css",
               "./chip-input/ux-tag.html",
               "./chip-input/ux-tag-theme.css",
+              "./effects/paper-ripple.css",
               "./checkbox/ux-checkbox.html",
               "./checkbox/ux-checkbox-theme.css"
             ]

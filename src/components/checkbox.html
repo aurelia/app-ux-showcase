@@ -13,31 +13,94 @@
 
     <section styles.feature>
       <figure styles.figure>
-        <ux-checkbox checked.bind="cbx1Checked"></ux-checkbox><br/>
-        <ux-checkbox checked.bind="cbx1Checked">test</ux-checkbox><br/>
-        <ux-checkbox checked.bind="cbx3Checked" label="test 2"></ux-checkbox><br/> checkbox1: ${cbx1Checked} <br/> checkbox2: ${cbx1Checked} <br/> checkbox3: ${cbx3Checked}
-
+        <ux-checkbox></ux-checkbox>
         <code>
-          type="flat"
+          checked="false"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-checkbox checked="true"></ux-checkbox>
+        <code>
+          checked="true"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-checkbox disabled></ux-checkbox>
+        <code>
+          disabled
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-checkbox disabled checked="true"></ux-checkbox>
+        <code>
+          disabled checked="true"
         </code>
       </figure>
     </section>
+
+    <p styles.description>
+      The material ripple can be prevented by setting effect to none.
+    </p>
+    
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-checkbox effect="none"></ux-checkbox>
+        <code>
+          checked="false"
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      Labels can be added to a checkbox in one of two ways.
+    </p>
+    
+    <section styles.feature>
+      <figure styles.figure>
+        <ux-checkbox label="label"></ux-checkbox>
+        <code>
+          label="label"
+        </code>
+      </figure>
+
+      <figure styles.figure>
+        <ux-checkbox>label</ux-checkbox>
+        <code>
+          &lt;ux-checkbox&gt;label&lt;/ux-checkbox&gt;
+        </code>
+      </figure>
+    </section>
+
+    <p styles.description>
+      Bound to object array
+    </p>
 
     <section styles.feature>
       <figure styles.figure>
-        <template repeat.for="product of productObjects">
-          <ux-checkbox value.bind="product" checked.bind="selectedProductObjects">${product.id} - ${product.name}</ux-checkbox>
-        </template>
+        <ux-form>
 
-        Selected products:
-        <ul>
-          <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
-        </ul>
+          <template repeat.for="product of productObjects">
+            <ux-checkbox value.bind="product" checked.bind="selectedProductObjects">${product.id} - ${product.name}</ux-checkbox>
+          </template>
+
+
+          Selected products:
+          <ul>
+            <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
+          </ul>
+        </ux-form>
         <code>
           type="flat"
         </code>
       </figure>
     </section>
+
+    <p styles.description>
+      Bound to string array
+    </p>
 
     <section styles.feature>
       <figure styles.figure>
@@ -50,6 +113,10 @@
         </code>
       </figure>
     </section>
+
+    <p styles.description>
+      Bound with matcher
+    </p>
 
     <section styles.feature>
       <figure styles.figure>
