@@ -8,7 +8,9 @@
     </h1>
 
     <p styles.description>
-      The <code>ux-checkbox</code> element is
+      The <code>ux-checkbox</code> element is an element that can be bound to a property.
+      <code>checked.bind</code> is used to bind to the output of the checkbox and <code>value.bind</code> represents the
+      output of the checkbox. The defaul value is just a boolean representing the state of the checkbox.
     </p>
 
     <section styles.feature>
@@ -42,14 +44,14 @@
     </section>
 
     <p styles.description>
-      The material ripple can be prevented by setting effect to none.
+      The Material ripple effect can be turned off using the effect property.
     </p>
-    
+
     <section styles.feature>
       <figure styles.figure>
         <ux-checkbox effect="none"></ux-checkbox>
         <code>
-          checked="false"
+          effect="none"
         </code>
       </figure>
     </section>
@@ -57,7 +59,7 @@
     <p styles.description>
       Labels can be added to a checkbox in one of two ways.
     </p>
-    
+
     <section styles.feature>
       <figure styles.figure>
         <ux-checkbox label="label"></ux-checkbox>
@@ -74,8 +76,14 @@
       </figure>
     </section>
 
+
+    <h1 styles.header>
+      Binding Demos
+    </h1>
+
     <p styles.description>
-      Bound to object array
+      The <code>ux-checkbox</code> control can be bound just like any other checkbox in Aurelia. The following is an implimentation
+      of the binding demos from the <a href="http://aurelia.io/hub.html#/doc/article/aurelia/binding/latest/binding-checkboxes">developer hub</a>.
     </p>
 
     <section styles.feature>
@@ -83,57 +91,76 @@
         <ux-form>
 
           <template repeat.for="product of productObjects">
-            <ux-checkbox value.bind="product" checked.bind="selectedProductObjects">${product.id} - ${product.name}</ux-checkbox>
+            <div class="form-row">
+              <ux-field>
+                <ux-checkbox value.bind="product" checked.bind="selectedProductObjects">${product.id} - ${product.name}</ux-checkbox>
+              </ux-field>
+            </div>
           </template>
 
-
-          Selected products:
-          <ul>
-            <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
-          </ul>
         </ux-form>
         <code>
-          type="flat"
+          Bound to object array
+          <br>
+          Selected Products:
+            <ul>
+              <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
+            </ul>
         </code>
       </figure>
-    </section>
 
-    <p styles.description>
-      Bound to string array
-    </p>
-
-    <section styles.feature>
       <figure styles.figure>
-        <template repeat.for="product of products">
-          <ux-checkbox value.bind="product" checked.bind="selectedStringProducts">${product}</ux-checkbox>
-        </template>
-        <br /> Selected products: ${selectedStringProducts}
+        <ux-form>
+
+          <template repeat.for="product of products">
+            <div class="form-row">
+              <ux-field>
+                <ux-checkbox value.bind="product" checked.bind="selectedStringProducts">${product}</ux-checkbox>
+              </ux-field>
+            </div>
+          </template>
+
+        </ux-form>
         <code>
-          type="flat"
+          Bound to string array
+          <br>
+          Selected Products: ${selectedStringProducts}
         </code>
       </figure>
-    </section>
 
-    <p styles.description>
-      Bound with matcher
-    </p>
-
-    <section styles.feature>
       <figure styles.figure>
-        <ux-checkbox type="checkbox" model.bind="{ id: 0, name: 'Motherboard' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
-          Motherboard
-        </ux-checkbox>
-        <ux-checkbox type="checkbox" model.bind="{ id: 1, name: 'CPU' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
-          CPU
-        </ux-checkbox>
-        <ux-checkbox type="checkbox" model.bind="{ id: 2, name: 'Memory' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
-          Memory
-        </ux-checkbox>
-        <ul>
-          <li repeat.for="product of selectedProductsWithMatcher">${product.id} - ${product.name}</li>
-        </ul>
+        <ux-form>
+
+          <div class="form-row">
+            <ux-field>
+              <ux-checkbox type="checkbox" model.bind="{ id: 0, name: 'Motherboard' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+                Motherboard
+              </ux-checkbox>
+            </ux-field>
+          </div>
+          <div class="form-row">
+            <ux-field>
+              <ux-checkbox type="checkbox" model.bind="{ id: 1, name: 'CPU' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+                CPU
+              </ux-checkbox>
+            </ux-field>
+          </div>
+          <div class="form-row">
+            <ux-field>
+              <ux-checkbox type="checkbox" model.bind="{ id: 2, name: 'Memory' }" matcher.bind="productMatcher" checked.bind="selectedProductsWithMatcher">
+                Memory
+              </ux-checkbox>
+            </ux-field>
+          </div>
+
+        </ux-form>
         <code>
-          type="flat"
+          Bound with matcher
+          <br>
+          Selected Products:
+          <ul>
+            <li repeat.for="product of selectedProductsWithMatcher">${product.id} - ${product.name}</li>
+          </ul>
         </code>
       </figure>
     </section>
