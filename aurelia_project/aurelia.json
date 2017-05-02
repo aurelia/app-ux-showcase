@@ -143,29 +143,7 @@
             "name": "aurelia-ux",
             "path": "../node_modules/aurelia-ux/dist/amd",
             "main": "index",
-            "resources": [
-              "./button/ux-button.html",
-              "./button/ux-button-theme.css",
-              "./input/ux-input.html",
-              "./input/ux-input-theme.css",
-              "./input-info/ux-input-info.html",
-              "./input-info/ux-input-info-theme.css",
-              "./textarea/ux-textarea.html",
-              "./textarea/ux-textarea-theme.css",
-              "./form/ux-form.html",
-              "./form/ux-form-theme.css",
-              "./form/ux-field.html",
-              "./form/ux-field-theme.css",
-              "./chip-input/ux-chip-input.html",
-              "./chip-input/ux-chip-input-theme.css",
-              "./chip-input/ux-chip.html",
-              "./chip-input/ux-chip-theme.css",
-              "./chip-input/ux-tag.html",
-              "./chip-input/ux-tag-theme.css",
-              "./effects/paper-ripple.css",
-              "./checkbox/ux-checkbox.html",
-              "./checkbox/ux-checkbox-theme.css"
-            ]
+            "resources": ["**/*.{css,html}"]
           }
         ]
       }
