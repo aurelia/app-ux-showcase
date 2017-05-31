@@ -12,7 +12,7 @@
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.0",
     "aurelia-validation": "^1.0.0-beta.1.0.1",
-    "aurelia-ux": "^0.1.18",
+    "aurelia-ux": "^0.2.0",
     "bluebird": "^3.4.1"
   },
   "peerDependencies": {},
