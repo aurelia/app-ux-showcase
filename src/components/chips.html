@@ -32,7 +32,7 @@
           &lt;ux-tag&gt;&lt;/ux-tag&gt;
         </code>
       </figure>
-      
+
     </section>
 
     <p styles.description>
@@ -62,9 +62,9 @@
           &lt;ux-tag&gt;&lt;/ux-tag&gt;
         </code>
       </figure>
-      
+
     </section>
-    
+
     <h1 styles.header>
       &lt;ux-chip-input&gt;&lt;/ux-chip-input&gt;
     </h1>
@@ -72,8 +72,8 @@
     <p styles.description>
       The <code>ux-chip-input</code> element is an easy to use editor to edit an array of
       chips or tags. This element can be used by binding to its value to get a comma delimited
-      list, or by binding to the chips attribute, which exposes an array of chips. Loosing focus
-      or pressing the enter key causes the input to add the current text to the chip list. 
+      list, or by binding to the chips attribute, which exposes an array of chips. Losing focus
+      or pressing the enter key causes the input to add the current text to the chip list.
       Pressing the left arrow key will let the user edit the last chip input. Double clicking
       a chip will let the user edit that specific chip.
     </p>
@@ -95,25 +95,25 @@
           type="tag"
         </code>
       </figure>
-      
+
     </section>
 
     <p styles.description>
-      The <code>ux-chip-input</code> element has a separator attribute that allows the standard
-      seperator used to be changed. The default seperator is ', '.
+      The <code>ux-chip-input</code> element has a separator attribute that allows the default
+      separator to be overridden. The default seperator is ', '.
     </p>
 
     <section styles.feature>
 
       <figure styles.figure>
         <ux-chip-input type="chip" separator="/$" value.bind="separatorInput"></ux-chip-input>
-        
+
         <code>
           separator="/$"<br/>
           value="${separatorInput}"
         </code>
       </figure>
-      
+
     </section>
 
   </main>
