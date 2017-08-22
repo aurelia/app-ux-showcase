@@ -19,6 +19,7 @@ export let routes = [
   { settings: { category: components }, route: 'inputs', moduleId: './components/inputs', name: 'inputs', title: 'Inputs', nav: true },
   { settings: { category: components }, route: 'textarea', moduleId: './components/textarea', name: 'textarea', title: 'Textarea', nav: true },
   { settings: { category: components }, route: 'chips', moduleId: './components/chips', name: 'chips', title: 'Chips', nav: true },
-  { settings: { category: components }, route: 'icons', moduleId: './components/icons', name: 'icons', title: 'Icons', nav: true }
+  { settings: { category: components }, route: 'icons', moduleId: './components/icons', name: 'icons', title: 'Icons', nav: true },
+  { settings: { category: components }, route: 'list', moduleId: './components/list', name: 'list', title: 'List', nav: true }
 
 ]

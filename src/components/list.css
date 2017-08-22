@@ -1,0 +1,31 @@
+styles.feature {
+  margin: 40px 0 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+styles.figure {
+  background: ${$swatches.white};
+  border: 1px solid ${$swatches.grey.p300};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
+  height: 320px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+styles.figure > div.add-padding {
+  padding: 8px;
+}
+
+styles.figure > ux-button {
+  margin: auto;
+}
+
+styles.figure > code {
+  padding:16px;
+  background: ${$swatches.grey.p200};
+}
