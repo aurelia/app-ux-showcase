@@ -40,6 +40,7 @@ styles.header {
 
 styles.nav {
   width: 275px;
+  overflow-y: scroll;
   background: ${$swatches.grey.p200};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 
