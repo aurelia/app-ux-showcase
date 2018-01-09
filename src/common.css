@@ -1,20 +1,16 @@
-styles.main {
-  padding: 40px 40px 40px;
-}
-
-styles.header {
+header {
   font-size: 34px;
   font-weight: 400;
   line-height: 32px;
   margin-bottom: 30px;
-  color: ${$design.primary};
+  color: var(--ux-design--primary);
 }
 
-styles.description {
+.description {
   font-size: 20px;
   font-weight: 400;
   line-height: 32px;
   max-width: 940px;
-  color: ${$swatches.black};
+  color: var(--ux-swatch--black);
   margin-bottom: 40px;
 }

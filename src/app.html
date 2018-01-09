@@ -1,32 +1,43 @@
 <template>
-  <require from="./reset.css"></require>
-  <require from="./app.css#ux"></require>
+  <require from="./app.css"></require>
 
-  <nav styles.nav>
-    <a href="#/introduction">
-      <img styles.logo src="../images/aurelia-icon-128x128.png">
-    </a>
 
-    <span styles.product-name>Aurelia UX</span>
-
-    <ul styles.nav-list>
-      <template repeat.for="[category, routes] of router.navigation | categories">
-        <li styles.nav-category>
-          <span>${category.title}</span>
-        </li>
-
-        <li styles.nav-item repeat.for="nav of routes" class="${nav.isActive ? 'active' : ''}">
-          <a href.bind="nav.href">${nav.title}</a>
-        </li>
-      </template>
-    </ul>
-  </nav>
-
-  <section styles.main>
-    <header styles.header>
-      <h1>${router.currentInstruction.config.navModel.title}</h1>
+  <ux-drawer type="permanent">
+    <header>
+      <a href="#/introduction" style="max-width: 90px; width: 100%;">
+        <img src="../images/aurelia-icon-128x128.png">
+      </a>
+      <h1>Aurelia UX</h1>
     </header>
 
-    <router-view styles.page></router-view>
-  </section>
+    <ux-list class="drawer-menu">
+
+      <template repeat.for="[category, routes] of router.navigation | categories">
+
+        <div class="ux-list-item header">
+          ${category.title}
+        </div>
+
+        <div class="ux-list-item ${nav.isActive ? 'active' : ''}" repeat.for="nav of routes">
+          <a class="list-content" href.bind="nav.href">
+            ${nav.title}
+          </a>
+        </div>
+      </template>
+
+    </ux-list>
+
+  </ux-drawer>
+
+  <main>
+    <ux-toolbar>
+      <div class="toolbar-row">
+        <span class="title">
+          ${router.currentInstruction.config.navModel.title}
+        </span>
+      </div>
+    </ux-toolbar>
+
+    <router-view class="page"></router-view>
+  </main>
 </template>

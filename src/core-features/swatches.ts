@@ -1,7 +1,7 @@
-import {swatches} from 'aurelia-ux';
+import {swatches} from '@aurelia-ux/core';
 
 export class Swatches {
-  swatches = makeSwatches();
+  public swatches = makeSwatches();
 }
 
 function makeSwatches() {
@@ -12,9 +12,12 @@ function makeSwatches() {
       return null;
     } else {
       return {
-        name: key,
+        name: key
+          .replace(/([A-Z])/g, ' $1')
+          .replace( /^./, str => str.toUpperCase() ),
         colors: makeSwatch(value),
-        p500: value.p500
+        p500: value.p500,
+        p500Intensity: calculateForeground(value.p500)
       };
     }
   }).filter(x => x !== null);
@@ -24,6 +27,7 @@ function makeSwatch(swatch): string | any[] {
   return Object.keys(swatch).map(key => {
     return {
       name: key,
+      intensity: calculateForeground(swatch[key]),
       value: swatch[key]
     };
   }).sort(sortColors);
@@ -49,4 +53,17 @@ function sortColors(a, b) {
       return aNum > bNum ? 1 : -1;
     }
   }
+}
+
+
+function calculateForeground(color: string) {
+  const colorIntensity = (
+    ( parseInt(color.substr(1, 2), 16) * 299 )
+    +
+    ( parseInt(color.substr(3, 2), 16) * 587 )
+    +
+    ( parseInt(color.substr(5, 2), 16) * 114 )
+  ) / 1000;
+
+  return colorIntensity >= 128 ? 'light' : 'dark';
 }

@@ -11,6 +11,11 @@
       "name": "watch",
       "description": "Watches source files for changes and refreshes the app automatically.",
       "type": "boolean"
+    },
+    {
+      "name": "hmr",
+      "description": "Enable Hot Module Reload",
+      "type": "boolean"
     }
   ]
 }

@@ -1,0 +1,53 @@
+ux-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: var(--ux-design--control-background);
+  color: var(--ux-design--control-foreground);
+  box-shadow: var(--ux-design--elevation2dp);
+}
+
+ux-card header,
+ux-card .main {
+  padding: 16px;
+}
+
+ux-card footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+ux-card footer.align-right {
+  justify-content: flex-end;
+}
+
+ux-card header .title {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-size: 1.5rem;
+  letter-spacing: normal;
+  line-height: 2rem;
+  margin: 0;
+}
+
+ux-card .main .hero-content {
+  font-family: Roboto, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  text-decoration: inherit;
+  text-transform: inherit;
+  font-size: 2rem;
+  letter-spacing: normal;
+  line-height: 2rem;
+  margin: 0;
+}
