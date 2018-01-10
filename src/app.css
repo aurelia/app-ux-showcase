@@ -2,16 +2,25 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color:#fcfcfc;
 }
 
 body {
   display: flex;
   flex-direction: row;
+}
+
+ul, ol {
+  list-style: initial;
+  padding-left: 32px;
 }
 
 code {
@@ -22,90 +31,74 @@ em {
   font-style: italic;
 }
 
-styles.main {
+main {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-styles.header {
-  background: ${$design.primary};
-  color: ${$design.primaryForeground};
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-  padding: 16px;
-  font-size: 24px;
-  line-height: 32px;
-  height: 64px;
+p {
+  margin-bottom: 16px;
 }
 
-styles.nav {
-  width: 275px;
-  overflow-y: scroll;
-  background: ${$swatches.grey.p200};
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-styles.nav-list {
-  align-self: stretch;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid ${$swatches.grey.p300};
-  display: flex;
-  flex-direction: column;
-}
-
-styles.nav-category {
-  padding: 12px 0 12px 24px;
-}
-
-styles.nav-item {
-  transition: all 300ms;
-}
-
-styles.nav-item:hover {
-  background: ${$swatches.grey.p300};
-}
-
-styles.nav-item > a {
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 16px;
-  color: ${$design.primary};
-  display: block;
-  transition: all 300ms;
-  padding: 12px 0;
-  margin-left: 24px;
-}
-
-styles.nav-item > a:before {
-  content: '.';
-  display: inline-block;
-  color: transparent;
-  width: 2px;
-  margin-right: 8px;
-}
-
-styles.nav-item.active > a {
-  color: ${$design.accent};
-}
-
-styles.nav-item.active > a:before {
-  background-color: ${$design.accent};
-}
-
-styles.logo {
+h1, h2, h3, h4, h4, h5, h6 {
   margin: 16px 0;
 }
 
-styles.product-name {
+h1.section-title {
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+h1, h2, h3 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
   font-size: 28px;
 }
 
-styles.page {
+h4 {
+  font-size: 24px;
+}
+
+h5 {
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 18px;
+}
+
+strong {
+  font-weight: 600;
+}
+
+small {
+  font-size: 14px;
+}
+
+.page {
   overflow-y: scroll;
   flex: 1;
+}
+
+.component-demo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 124px;
+  background-color: #dedede;
+}
+
+table.attribute-table {
+  min-width: 400px;
 }

@@ -1,0 +1,44 @@
+ux-toolbar {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  background-color: #333235;
+  color: #fff;
+  position: relative;
+}
+
+ux-toolbar .toolbar-row {
+  display: flex;
+  height: 72px;
+  align-items: center;
+}
+
+ux-toolbar .toolbar-row .title {
+  color: #fff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: .02em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-flex-item-align: center;
+  margin-left: 24px;
+  margin-right: 16px;
+  line-height: 1.5rem;
+}
+
+ux-toolbar .toolbar-row :first-child {
+  margin-left: 16px;
+}
+
+ux-toolbar .toolbar-row :last-child {
+  margin-right: 16px;
+}
+
+ux-toolbar .toolbar-row .spacer {
+  flex: 1;
+}

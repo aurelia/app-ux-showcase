@@ -1,18 +1,23 @@
-import {AureliaUX} from 'aurelia-ux';
-import {inject} from 'aurelia-dependency-injection';
-import {routes} from './routes';
+import { AureliaUX } from '@aurelia-ux/core';
+import { autoinject } from 'aurelia-dependency-injection';
+import { RouterConfiguration, Router } from 'aurelia-router';
+import { routes } from './routes';
 
-@inject(AureliaUX)
+@autoinject
 export class App {
-  router;
+  private router: Router;
 
-  constructor(ux) {
+  constructor(ux: AureliaUX) {
     ux.design.primary = '#704794';
     ux.design.accent = '#e62787';
   }
 
-  configureRouter(config, router) {
+  configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
+
+    config.options.pushState = true;
+    config.options.root = '/';
+
     config.map(routes);
   }
 }
@@ -21,7 +26,7 @@ export class CategoriesValueConverter {
   toView(navModels) {
     let categories = new Map();
 
-    for(let model of navModels) {
+    for (let model of navModels) {
       let routes = categories.get(model.settings.category);
 
       if (!routes) {

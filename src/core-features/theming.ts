@@ -1,4 +1,4 @@
-import { AureliaUX } from 'aurelia-ux';
+import { AureliaUX } from '@aurelia-ux/core';
 import { inject } from 'aurelia-dependency-injection';
 
 @inject(AureliaUX)
