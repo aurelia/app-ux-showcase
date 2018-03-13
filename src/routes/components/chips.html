@@ -89,9 +89,9 @@
           <ux-form>
             <label>Input Type</label>
             <div class="form-row">
-              <ux-radio id="tag" model="tag" checked.bind="type"></ux-radio>
+              <ux-radio id="tag" model.bind="'tag'" checked.bind="type"></ux-radio>
               <label for="chip">Tag</label>
-              <ux-radio id="chip" model="chip" checked.bind="type"></ux-radio>
+              <ux-radio id="chip" model.bind="'chip'" checked.bind="type"></ux-radio>
               <label for="chip">Chip</label>
             </div>
           </ux-form>
