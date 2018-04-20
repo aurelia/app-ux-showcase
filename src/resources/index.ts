@@ -5,7 +5,6 @@ export function configure(config: FrameworkConfiguration) {
     PLATFORM.moduleName('./elements/code-block'),
 
     // UX Components in development
-    PLATFORM.moduleName('./elements/ux/ux-card/ux-card'),
     PLATFORM.moduleName('./elements/ux/ux-drawer/ux-drawer'),
     PLATFORM.moduleName('./elements/ux/toolbar/ux-toolbar'),
     PLATFORM.moduleName('./elements/ux/tabs/ux-tabs')

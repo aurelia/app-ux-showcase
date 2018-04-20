@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const project = require('./aurelia_project/aurelia.json');
 const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin, IgnorePlugin, CommonsChunkPlugin } = require('webpack');
@@ -62,8 +61,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
 
   module: {
     rules: [
-      { test: /\.css$/i, issuer: [{ not: [{ test: /\.html$/i }] }],
-        use: extractCss ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: cssRules }) : ['style-loader', ...cssRules], },
+      { test: /\.css$/i, issuer: [{ not: [{ test: /\.html$/i }] }], use: ['style-loader', ...cssRules] },
       { test: /\.css$/i, issuer: [{ test: /\.html$/i }], use: cssRules },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.tsx?$/, loader: "ts-loader" },
@@ -96,10 +94,6 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
         title, server, baseUrl
       }
     }),
-    ...when(extractCss, new ExtractTextPlugin({
-      filename: production ? '[contenthash].css' : '[id].css',
-      allChunks: true
-    })),
     ...when(production, new CopyWebpackPlugin([
       { from: 'static', to: './' }]))
   ]
