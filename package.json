@@ -14,6 +14,7 @@
     "aurelia-animator-css": "^1.0.2",
     "aurelia-binding": "^1.7.1",
     "aurelia-bootstrapper": "^2.2.0",
+    "aurelia-templating-resources": "^1.6.0",
     "aurelia-polyfills": "latest",
     "aurelia-validation": "^1.1.2",
     "bluebird": "^3.4.1",

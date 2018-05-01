@@ -23,7 +23,7 @@
 
     <ux-grid-cell sm="6" lg="4">
       <ux-card>
-        <div class="main">
+        <ux-card-content>
           <form submit.delegate="submit()">
 
             <ux-input class="form-control" validation-errors.bind="firstNameErrors" class.bind="firstNameErrors.length ? 'has-error' : ''"
@@ -42,14 +42,14 @@
 
             <ux-button type="raised">Submit</ux-button>
           </form>
-        </div>
+        </ux-card-content>
       </ux-card>
     </ux-grid-cell>
 
     <ux-grid-cell sm="6" lg="4">
       <ux-card>
         <div class="component-demo">
-          <ux-input disabled placeholder="Disabled Input"></ux-input>
+          <ux-input disabled placeholder="Disabled Input">disabled</ux-input>
         </div>
         <code-block type="html">
           &lt;ux-input value.bind="myValue" disabled&gt; &lt;/ux-input&gt;

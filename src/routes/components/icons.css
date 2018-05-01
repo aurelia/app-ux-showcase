@@ -1,9 +1,9 @@
-ux-grid-cell ux-icon {
+ux-grid-cell>ux-icon {
   width: 48px;
   height: 48px;
 }
 
-ux-grid-cell ux-icon>svg {
+ux-grid-cell>ux-icon>svg {
   fill: #757575;
   width: 48px;
   height: 48px;

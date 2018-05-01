@@ -99,8 +99,9 @@ small {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 124px;
-  background-color: #dedede;
+  min-height: 124px;
+  padding: 16px;
+  background-color: #00000010;
 }
 
 table.attribute-table {

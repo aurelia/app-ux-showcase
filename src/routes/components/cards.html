@@ -15,13 +15,13 @@
     </ux-grid-cell>
 
     <ux-card md="6" lg="4">
-      <header>
-        <div class="ux-card__title">
+      <ux-card-header>
+        <ux-card-title>
           Title
-          <div class="ux-card__sub-title">Subtitle</div>
-        </div>
-      </header>
-      <div class="ux-card__action-row">
+          <ux-card-sub-title>Subtitle</ux-card-sub-title>
+        </ux-card-title>
+      </ux-card-header>
+      <ux-card-action-row>
         <ux-button type="icon">
           <ux-icon icon="share"></ux-icon>
         </ux-button>
@@ -31,20 +31,20 @@
         <ux-button type="icon">
           <ux-icon icon="star"></ux-icon>
         </ux-button>
-      </div>
-      <div class="ux-card__card-content">
+      </ux-card-action-row>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
 
-    <ux-card dense md="6" lg="4">
-      <header>
-        <div class="ux-card__title ux-card__title--small">
+    <ux-card md="6" lg="4">
+      <ux-card-header>
+        <ux-card-title size="small">
           Title
-          <div class="ux-card__sub-title">Dense</div>
-        </div>
-      </header>
-      <div class="ux-card__action-row">
+          <ux-card-sub-title>Dense</ux-card-sub-title>
+        </ux-card-title>
+      </ux-card-header>
+      <ux-card-action-row>
         <ux-button type="icon">
           <ux-icon icon="share"></ux-icon>
         </ux-button>
@@ -54,25 +54,25 @@
         <ux-button type="icon">
           <ux-icon icon="star"></ux-icon>
         </ux-button>
-      </div>
-      <div class="ux-card__card-content">
+      </ux-card-action-row>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
 
-    <ux-card dense md="6" lg="4">
-      <header>
-        <div class="ux-card__header-row">
-          <div class="ux-card__title">
+    <ux-card md="6" lg="4">
+      <ux-card-header>
+        <ux-card-header-row>
+          <ux-card-title size="small">
             Actions
-          </div>
-          <div class="ux-card__spacer"></div>
+          </ux-card-title>
+          <ux-card-spacer></ux-card-spacer>
           <ux-button type="icon">
             <ux-icon icon="more_vert"></ux-icon>
           </ux-button>
-        </div>
-      </header>
-      <div class="ux-card__card-content">
+        </ux-card-header-row>
+      </ux-card-header>
+      <ux-card-content>
         <ux-form>
           <ux-field label="First Name">
             <ux-input maxlength="10" value.bind="firstName"></ux-input>
@@ -84,89 +84,89 @@
             <ux-input-info ux-input-counter>Doe</ux-input-info>
           </ux-field>
         </ux-form>
-      </div>
-      <footer>
+      </ux-card-content>
+      <ux-card-footer>
         <ux-button type="flat">Flat UX-Button</ux-button>
-        <a class="ux-card__footer-action">Anchor Action</a>
-      </footer>
+        <a class="ux-card__action">Anchor Action</a>
+      </ux-card-footer>
     </ux-card>
 
     <ux-card class="ux-card--primary-header" md="6" lg="4">
-      <header>
-        <div class="ux-card__title">
+      <ux-card-header>
+        <ux-card-title>
           Primary Header
-          <div class="ux-card__sub-title">standard</div>
-        </div>
+          <ux-card-sub-title>standard</ux-card-sub-title>
+        </ux-card-title>
         <h2>800 Items</h2>
-      </header>
-      <div class="ux-card__card-content">
+      </ux-card-header>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
 
-    <ux-card dense class="ux-card--accent-header" md="6" lg="4">
-      <header>
-        <div class="ux-card__title ux-card__title--small">
+    <ux-card class="ux-card--accent-header" md="6" lg="4">
+      <ux-card-header>
+        <ux-card-title>
           Accent Header
-          <div class="ux-card__sub-title">dense</div>
-        </div>
+          <ux-card-sub-title>dense</ux-card-sub-title>
+        </ux-card-title>
         <h2>800 Items</h2>
-      </header>
-      <div class="ux-card__card-content">
+      </ux-card-header>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
 
-    <ux-card dense class="ux-card--primary-header" md="6" lg="4">
-      <header>
-        <div class="ux-card__header-row">
-          <div class="ux-card__title">
+    <ux-card class="ux-card--primary-header" md="6" lg="4">
+      <ux-card-header>
+        <ux-card-header-row>
+          <ux-card-title>
             Primary Header Row
-          </div>
-          <div class="ux-card__spacer"></div>
+          </ux-card-title>
+          <ux-card-spacer></ux-card-spacer>
           <ux-button type="icon">
             <ux-icon icon="more_vert"></ux-icon>
           </ux-button>
-        </div>
+        </ux-card-header-row>
         <h2>800 Items</h2>
-      </header>
-      <div class="ux-card__card-content">
+      </ux-card-header>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
 
     <ux-card md="6" lg="4">
       <img src="https://images.pexels.com/photos/841286/pexels-photo-841286.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-      <header>
-        <div class="ux-card__title">
+      <ux-card-header>
+        <ux-card-title>
           Image Card
-        </div>
-      </header>
-      <div class="ux-card__card-content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+        </ux-card-title>
+      </ux-card-header>
+      <ux-card-content>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+      </ux-card-content>
     </ux-card>
 
-    <ux-card dense md="6" lg="4">
+    <ux-card md="6" lg="4">
       <img src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-      <header>
-        <div class="ux-card__title ux-card__title--small">
+      <ux-card-header>
+        <ux-card-title size="small">
           Image Card
-          <div div class="ux-card__sub-title">Subtitle</div>
-        </div>
-      </header>
-      <div class="ux-card__card-content">
+          <ux-card-sub-title>Subtitle</ux-card-sub-title>
+        </ux-card-title>
+      </ux-card-header>
+      <ux-card-content>
         Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
-      </div>
-      <footer>
+      </ux-card-content>
+      <ux-card-footer>
         <ux-button type="flat">Flat UX-Button</ux-button>
-        <a class="ux-card__footer-action">Anchor Action</a>
-      </footer>
+        <a class="ux-card__action">Anchor Action</a>
+      </ux-card-footer>
     </ux-card>
 
-    <ux-card dense md="6" lg="4">
+    <ux-card md="6" lg="4">
       <img src="https://images.pexels.com/photos/869258/pexels-photo-869258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-      <div class="action-row">
+      <ux-card-action-row>
         <ux-button type="icon">
           <ux-icon icon="share"></ux-icon>
         </ux-button>
@@ -176,10 +176,10 @@
         <ux-button type="icon">
           <ux-icon icon="star"></ux-icon>
         </ux-button>
-      </div>
-      <div class="ux-card__card-content">
+      </ux-card-action-row>
+      <ux-card-content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      </div>
+      </ux-card-content>
     </ux-card>
   </ux-grid>
 </template>
