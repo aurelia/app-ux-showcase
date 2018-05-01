@@ -95,7 +95,10 @@
       </code>
     </ux-grid-cell>
     <ux-grid-cell>
-      <input type="color" value.bind="ux.design[currentProperty]"> ${ux.design[currentProperty]}
+      <div class="theme-picker">
+        <input type="color" value.bind="ux.design[currentProperty]">
+        <ux-input value.bind="ux.design[currentProperty] & updateTrigger:'blur':'paste'"></ux-input>
+      </div>
     </ux-grid-cell>
 
     <ux-grid-cell>

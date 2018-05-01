@@ -10,7 +10,7 @@ export class App {
 
   constructor(private ux: AureliaUX) {
     this.ux.design.primary = '#9C27B0';
-    this.ux.design.controlBackground = '#fff';
+    this.ux.design.controlBackground = '#ffffff';
     this.ux.design.controlForeground = '#212121';
     this.ux.design.appBackground = '#fafafa';
     this.ux.design.appForeground = '#212121';
