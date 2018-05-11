@@ -14,7 +14,6 @@ body {
   background-color: var(--ux-design--app-background, #FAFAFA);
   color: #212121;
   color: var(--ux-design--app-foreground, #212121);
-
 }
 
 body {
