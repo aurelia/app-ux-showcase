@@ -4,7 +4,7 @@
 
   <ux-drawer type="permanent">
     <header>
-      <a href="#/introduction" style="max-width: 90px; width: 100%;">
+      <a href="/getting-started" style="max-width: 90px; width: 100%;">
         <img src="../images/aurelia-icon-128x128.png">
       </a>
       <h1>Aurelia UX</h1>
@@ -35,6 +35,8 @@
         <span class="title">
           ${router.currentInstruction.config.navModel.title}
         </span>
+        <span class="spacer"></span>
+        <span click.delegate="toggleTheme()" style="cursor: pointer;">Toggle Theme</span>
       </div>
     </ux-toolbar>
 

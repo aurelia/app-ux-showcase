@@ -6,10 +6,14 @@ import { routes } from './routes';
 @autoinject
 export class App {
   private router: Router;
+  private theme = 'light';
 
-  constructor(ux: AureliaUX) {
-    ux.design.primary = '#704794';
-    ux.design.accent = '#e62787';
+  constructor(private ux: AureliaUX) {
+    this.ux.design.primary = '#9C27B0';
+    this.ux.design.controlBackground = '#ffffff';
+    this.ux.design.controlForeground = '#212121';
+    this.ux.design.appBackground = '#fafafa';
+    this.ux.design.appForeground = '#212121';
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -19,6 +23,22 @@ export class App {
     config.options.root = '/';
 
     config.map(routes);
+  }
+
+  public toggleTheme() {
+    this.theme = this.theme == 'light' ? 'dark' : 'light';
+
+    if (this.theme == 'light') {
+      this.ux.design.controlBackground = '#fff';
+      this.ux.design.controlForeground = '#212121';
+      this.ux.design.appBackground = '#fafafa';
+      this.ux.design.appForeground = '#212121';
+    } else {
+      this.ux.design.controlBackground = '#424242';
+      this.ux.design.controlForeground = '#fff';
+      this.ux.design.appBackground = '#303030';
+      this.ux.design.appForeground = '#fff';
+    }
   }
 }
 

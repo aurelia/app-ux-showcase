@@ -85,17 +85,17 @@
         <div class="component-demo">
             <ux-chip-input type.bind="type"></ux-chip-input>
         </div>
-        <div class="main">
+        <ux-card-content>
           <ux-form>
             <label>Input Type</label>
             <div class="form-row">
-              <ux-radio id="tag" model="tag" checked.bind="type"></ux-radio>
+              <ux-radio id="tag" model.bind="'tag'" checked.bind="type"></ux-radio>
               <label for="chip">Tag</label>
-              <ux-radio id="chip" model="chip" checked.bind="type"></ux-radio>
+              <ux-radio id="chip" model.bind="'chip'" checked.bind="type"></ux-radio>
               <label for="chip">Chip</label>
             </div>
           </ux-form>
-        </div>
+        </ux-card-content>
         <code-block type="html">
             &lt;ux-chip-input&gt;&lt;/ux-chip-input&gt;
         </code-block>

@@ -67,31 +67,31 @@
             </ux-button>
           </template>
         </div>
-        <div class="main">
+        <ux-card-content>
           <ux-form>
             <label>Button Type</label>
             <div class="form-row">
-              <ux-radio id="type-raised" model="raised" checked.bind="buttontype"></ux-radio>
+              
+              <ux-radio id="type-raised" model.bind="'raised'" checked.bind="buttontype"></ux-radio>
               <label for="type-raised">Raised</label>
-              <ux-radio id="type-flat" model="flat" checked.bind="buttontype"></ux-radio>
+              <ux-radio id="type-flat" model.bind="'flat'" checked.bind="buttontype"></ux-radio>
               <label for="type-flat">Flat</label>
-              <ux-radio id="type-fab" model="fab" checked.bind="buttontype"></ux-radio>
+              <ux-radio id="type-fab" model.bind="'fab'" checked.bind="buttontype"></ux-radio>
               <label for="type-fab">Fab</label>
-              <ux-radio id="type-icon" model="icon" checked.bind="buttontype"></ux-radio>
+              <ux-radio id="type-icon" model.bind="'icon'" checked.bind="buttontype"></ux-radio>
               <label for="type-icon">Icon</label>
             </div>
             <label>Button Size</label>
             <div class="form-row">
-              <ux-radio id="size-small" model="small" checked.bind="buttonsize"></ux-radio>
+              <ux-radio id="size-small" model.bind="'small'" checked.bind="buttonsize"></ux-radio>
               <label for="size-small">Small</label>
-              <ux-radio id="size-medium" model="medium" checked.bind="buttonsize"></ux-radio>
+              <ux-radio id="size-medium" model.bind="'medium'" checked.bind="buttonsize"></ux-radio>
               <label for="size-medium">Medium</label>
-              <ux-radio id="size-large" model="large" checked.bind="buttonsize"></ux-radio>
+              <ux-radio id="size-large" model.bind="'large'" checked.bind="buttonsize"></ux-radio>
               <label for="size-large">Large</label>
             </div>
           </ux-form>
-        </div>
-
+        </ux-card-content>
       </ux-card>
     </ux-grid-cell>
   </ux-grid>

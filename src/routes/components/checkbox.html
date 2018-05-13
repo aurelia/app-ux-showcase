@@ -49,9 +49,9 @@
             </ux-form>
           </div>
         </div>
-        <div class="main">
+        <ux-card-content>
           <strong>Selected Products:</strong> ${selectedStringProducts}
-        </div>
+        </ux-card-content>
       </ux-card>
 
       <br>
@@ -72,12 +72,12 @@
             </ux-form>
           </div>
         </div>
-        <div class="main">
+        <ux-card-content>
           <strong>Selected Products:</strong>
           <ul>
             <li repeat.for="product of selectedProductObjects">${product.id} - ${product.name}</li>
           </ul>
-        </div>
+        </ux-card-content>
       </ux-card>
 
       <br>
@@ -97,12 +97,12 @@
             </div>
           </div>
         </div>
-        <div class="main">
+        <ux-card-content>
           <strong>Selected Products:</strong>
           <ul>
             <li repeat.for="product of selectedProductsWithMatcher">${product.id} - ${product.name}</li>
           </ul>
-        </div>
+        </ux-card-content>
       </ux-card>
 
     </ux-grid-cell>

@@ -10,7 +10,10 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color:#fcfcfc;
+  background-color: #FAFAFA;
+  background-color: var(--ux-design--app-background, #FAFAFA);
+  color: #212121;
+  color: var(--ux-design--app-foreground, #212121);
 }
 
 body {
@@ -95,8 +98,9 @@ small {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 124px;
-  background-color: #dedede;
+  min-height: 124px;
+  padding: 16px;
+  background-color: #00000010;
 }
 
 table.attribute-table {

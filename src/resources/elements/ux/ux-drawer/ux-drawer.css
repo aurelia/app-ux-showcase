@@ -11,7 +11,10 @@ ux-drawer header {
 ux-drawer[type=temporary] aside {
   position: fixed;
   z-index: 100;
-  background: #fff;
+  background-color: #fff;
+  background-color: var(--ux-design--control-background, #fff);
+  color: #212121;
+  color: var(--ux-design--control-foreground, #212121);
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -63,7 +66,10 @@ ux-drawer[type=temporary].open aside {
 
 ux-drawer[type=permanent] aside {
   position: relative;
-  background: #fff;
+  background-color: #fff;
+  background-color: var(--ux-design--control-background, #fff);
+  color: #212121;
+  color: var(--ux-design--control-foreground, #212121);
   width: 280px;
   height: 100%;
   display: flex;
@@ -71,6 +77,18 @@ ux-drawer[type=permanent] aside {
   overflow-y: auto;
   transition: 250ms;
   box-shadow: var(--ux-design--elevation2dp);
+}
+
+ux-drawer[type=permanent] aside ux-list {
+  background-color: #fff;
+  background-color: var(--ux-design--control-background, #fff);
+  color: #212121;
+  color: var(--ux-design--control-foreground, #212121);
+}
+
+ux-drawer[type=permanent] aside ux-list > .ux-list-item, ux-list > ux-list-item {
+  color: #212121;
+  color: var(--ux-design--control-foreground, #212121);
 }
 
 ux-drawer ux-list.drawer-menu {
