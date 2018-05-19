@@ -49,7 +49,7 @@
     
       <strong>Install Aurelia UX Core and Components</strong>
       <code-block type="shell">
-        npm install @aurelia-ux/core, @aurelia-ux/components --save
+        npm install @aurelia-ux/core @aurelia-ux/components --save
       </code-block>
     
       <strong>Setup the plugin in your application configuration</strong>
@@ -105,7 +105,7 @@
           "name": "@aurelia-ux/input",
           "path": "../node_modules/@aurelia-ux/input/dist/amd",
           "main": "index",
-          "resources": ["**/*.{css,html}"]
+          "resources": ["**/*.{js,css,html}"]
         },
         ...
         // Do this for each plugin so that all the modules can be resolved
