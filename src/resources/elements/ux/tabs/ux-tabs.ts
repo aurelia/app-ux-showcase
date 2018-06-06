@@ -9,9 +9,7 @@ export class UxTooltip implements UxComponent {
   @bindable public for: HTMLElement;
   @bindable public theme: UxTabsTheme;
 
-  constructor(public element: HTMLElement, private styleEngine: StyleEngine) {
-    styleEngine.ensureDefaultTheme(new UxTabsTheme());
-  }
+  constructor(public element: HTMLElement, private styleEngine: StyleEngine) { }
 
   public bind() {
     this.themeChanged(this.theme);

@@ -12,9 +12,7 @@ export class UxDrawer implements UxComponent {
   @bindable public position: string | null;
   @bindable public type: string | null;
 
-  constructor(public element: HTMLElement, private styleEngine: StyleEngine) {
-    styleEngine.ensureDefaultTheme(new UxDrawerTheme());
-  }
+  constructor(public element: HTMLElement, private styleEngine: StyleEngine) { }
 
   public bind() {
     if (this.theme != null) {
