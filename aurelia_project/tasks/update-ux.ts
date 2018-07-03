@@ -64,7 +64,7 @@ async function cleanDirectories(paths: string[]) {
 }
 
 export default async function updateUX() {
-  cleanDirectories([
+  await cleanDirectories([
     './node_modules/@aurelia-ux/button/dist/',
     './node_modules/@aurelia-ux/card/dist/',
     './node_modules/@aurelia-ux/checkbox/dist/',
