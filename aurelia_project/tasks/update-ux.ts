@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as rimraf from 'rimraf';
 
 function mkdir(dir) {
   // making directory without exception if exists
@@ -39,22 +40,66 @@ function copy(src, dest) {
   oldFile.pipe(newFile);
 };
 
-export default function updateUX() {
-  copyDir('../ux/packages/button/dist/native-modules', './node_modules/@aurelia-ux/button/dist/native-modules/');
-  copyDir('../ux/packages/card/dist/native-modules', './node_modules/@aurelia-ux/card/dist/native-modules/');
-  copyDir('../ux/packages/checkbox/dist/native-modules', './node_modules/@aurelia-ux/checkbox/dist/native-modules/');
-  copyDir('../ux/packages/chip-input/dist/native-modules', './node_modules/@aurelia-ux/chip-input/dist/native-modules/');
-  copyDir('../ux/packages/components/dist/native-modules', './node_modules/@aurelia-ux/components/dist/native-modules/');
-  copyDir('../ux/packages/core/dist/native-modules', './node_modules/@aurelia-ux/core/dist/native-modules/');
-  copyDir('../ux/packages/datepicker/dist/native-modules', './node_modules/@aurelia-ux/datepicker/dist/native-modules/');
-  copyDir('../ux/packages/form/dist/native-modules', './node_modules/@aurelia-ux/form/dist/native-modules/');
-  copyDir('../ux/packages/grid/dist/native-modules', './node_modules/@aurelia-ux/grid/dist/native-modules/');
-  copyDir('../ux/packages/icons/dist/native-modules', './node_modules/@aurelia-ux/icons/dist/native-modules/');
-  copyDir('../ux/packages/input/dist/native-modules', './node_modules/@aurelia-ux/input/dist/native-modules/');
-  copyDir('../ux/packages/input-info/dist/native-modules', './node_modules/@aurelia-ux/input-info/dist/native-modules/');
-  copyDir('../ux/packages/list/dist/native-modules', './node_modules/@aurelia-ux/list/dist/native-modules/');
-  copyDir('../ux/packages/radio/dist/native-modules', './node_modules/@aurelia-ux/radio/dist/native-modules/');
-  copyDir('../ux/packages/select/dist/native-modules', './node_modules/@aurelia-ux/select/dist/native-modules/');
-  copyDir('../ux/packages/switch/dist/native-modules', './node_modules/@aurelia-ux/switch/dist/native-modules/');
-  copyDir('../ux/packages/textarea/dist/native-modules', './node_modules/@aurelia-ux/textarea/dist/native-modules/');
+async function cleanDirectory(path: string) {
+  return new Promise((resolve, reject) => {
+
+    rimraf(path, () => {
+      resolve();
+    });
+  });
+}
+
+async function cleanDirectories(paths: string[]) {
+  const promises: any[] = [];
+
+  for (const path of paths) {
+    promises.push(cleanDirectory(`${path}/amd`));
+    promises.push(cleanDirectory(`${path}/commonjs`));
+    promises.push(cleanDirectory(`${path}/es2015`));
+    promises.push(cleanDirectory(`${path}/native-modules`));
+    promises.push(cleanDirectory(`${path}/system`));
+  }
+
+  return Promise.all(promises);
+}
+
+export default async function updateUX() {
+  cleanDirectories([
+    './node_modules/@aurelia-ux/button/dist/',
+    './node_modules/@aurelia-ux/card/dist/',
+    './node_modules/@aurelia-ux/checkbox/dist/',
+    './node_modules/@aurelia-ux/chip-input/dist/',
+    './node_modules/@aurelia-ux/components/dist/',
+    './node_modules/@aurelia-ux/dist/dist/',
+    './node_modules/@aurelia-ux/core/dist/',
+    './node_modules/@aurelia-ux/datepicker/dist/',
+    './node_modules/@aurelia-ux/form/dist/',
+    './node_modules/@aurelia-ux/grid/dist/',
+    './node_modules/@aurelia-ux/icons/dist/',
+    './node_modules/@aurelia-ux/input/dist/',
+    './node_modules/@aurelia-ux/input-info/dist/',
+    './node_modules/@aurelia-ux/list/dist/',
+    './node_modules/@aurelia-ux/radio/dist/',
+    './node_modules/@aurelia-ux/select/dist/',
+    './node_modules/@aurelia-ux/switch/dist/',
+    './node_modules/@aurelia-ux/textarea/dist/'
+  ]);
+
+  copyDir('../ux/packages/button/dist', './node_modules/@aurelia-ux/button/dist/');
+  copyDir('../ux/packages/card/dist', './node_modules/@aurelia-ux/card/dist/');
+  copyDir('../ux/packages/checkbox/dist', './node_modules/@aurelia-ux/checkbox/dist/');
+  copyDir('../ux/packages/chip-input/dist', './node_modules/@aurelia-ux/chip-input/dist/');
+  copyDir('../ux/packages/components/dist', './node_modules/@aurelia-ux/components/dist/');
+  copyDir('../ux/packages/core/dist', './node_modules/@aurelia-ux/core/dist/');
+  copyDir('../ux/packages/datepicker/dist', './node_modules/@aurelia-ux/datepicker/dist/');
+  copyDir('../ux/packages/form/dist', './node_modules/@aurelia-ux/form/dist/');
+  copyDir('../ux/packages/grid/dist', './node_modules/@aurelia-ux/grid/dist/');
+  copyDir('../ux/packages/icons/dist', './node_modules/@aurelia-ux/icons/dist/');
+  copyDir('../ux/packages/input/dist', './node_modules/@aurelia-ux/input/dist/');
+  copyDir('../ux/packages/input-info/dist', './node_modules/@aurelia-ux/input-info/dist/');
+  copyDir('../ux/packages/list/dist', './node_modules/@aurelia-ux/list/dist/');
+  copyDir('../ux/packages/radio/dist', './node_modules/@aurelia-ux/radio/dist/');
+  copyDir('../ux/packages/select/dist', './node_modules/@aurelia-ux/select/dist/');
+  copyDir('../ux/packages/switch/dist', './node_modules/@aurelia-ux/switch/dist/');
+  copyDir('../ux/packages/textarea/dist', './node_modules/@aurelia-ux/textarea/dist/');
 }
