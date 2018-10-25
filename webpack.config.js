@@ -66,7 +66,6 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       { test: /\.css$/i, issuer: [{ test: /\.html$/i }], use: cssRules },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.tsx?$/, loader: "ts-loader" },
-      { test: /\.json$/i, loader: 'json-loader' },
       // embed small images and fonts as Data Urls and larger ones as files:
       { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
@@ -82,9 +81,9 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
   },
   plugins: [
     new AureliaPlugin(),
-    new ProvidePlugin({
-      'Promise': 'bluebird'
-    }),
+    // new ProvidePlugin({
+    //   'Promise': 'bluebird'
+    // }),
     new ModuleDependenciesPlugin({
       'aurelia-testing': [ './compile-spy', './view-spy' ]
     }),
