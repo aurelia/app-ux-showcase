@@ -1,19 +1,17 @@
-import { AureliaUX } from '@aurelia-ux/core';
+import { StyleEngine } from '@aurelia-ux/core';
 import { autoinject } from 'aurelia-dependency-injection';
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { routes } from './routes';
+import * as themes from './themes.json';
+
 
 @autoinject
 export class App {
   private router: Router;
-  private theme = 'light';
+  private theme = localStorage.getItem('theme');
 
-  constructor(private ux: AureliaUX) {
-    this.ux.design.primary = '#9C27B0';
-    this.ux.design.controlBackground = '#ffffff';
-    this.ux.design.controlForeground = '#212121';
-    this.ux.design.appBackground = '#fafafa';
-    this.ux.design.appForeground = '#212121';
+  constructor(private styleEngine: StyleEngine) {
+    this.styleEngine.applyThemeGroup(this.theme == 'dark' ? themes.dark : themes.light);
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -26,19 +24,10 @@ export class App {
   }
 
   public toggleTheme() {
-    this.theme = this.theme == 'light' ? 'dark' : 'light';
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
 
-    if (this.theme == 'light') {
-      this.ux.design.controlBackground = '#fff';
-      this.ux.design.controlForeground = '#212121';
-      this.ux.design.appBackground = '#fafafa';
-      this.ux.design.appForeground = '#212121';
-    } else {
-      this.ux.design.controlBackground = '#424242';
-      this.ux.design.controlForeground = '#fff';
-      this.ux.design.appBackground = '#303030';
-      this.ux.design.appForeground = '#fff';
-    }
+    localStorage.setItem('theme', this.theme);
+    this.styleEngine.applyThemeGroup(this.theme == 'dark' ? themes.dark : themes.light);
   }
 }
 

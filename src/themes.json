@@ -1,0 +1,32 @@
+{
+  "light": [
+    {
+      "themeKey": "design",
+    
+      "controlBackground": "#fff",
+      "controlForeground": "#212121",
+      "appBackground": "#fafafa",
+      "appForeground": "#212121"
+    }, {
+    "themeKey": "toolbar",
+
+    "shadow": "none",
+    "background": "#333",
+    "foreground": "#fefefe"
+  }],
+  "dark": [
+    {
+      "themeKey": "design",
+    
+      "controlBackground": "#424242",
+      "controlForeground": "#fff",
+      "appBackground": "#303030",
+      "appForeground": "#fff"
+    }, {
+    "themeKey": "toolbar",
+
+    "shadow": "none",
+    "background": "transparent",
+    "foreground": "inherit"
+  }]
+}

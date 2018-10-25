@@ -3,7 +3,7 @@ header {
   font-weight: 400;
   line-height: 32px;
   margin-bottom: 30px;
-  color: var(--ux-design--primary);
+  color: var(--aurelia-ux--design-primary);
 }
 
 .description {

@@ -2,7 +2,7 @@ ux-tabs .indicator {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: var(--ux-theme--tabs-indicator-color, #fff);
+  background-color: var(--aurelia-ux--tabs-indicator-color, #fff);
 }
 
 .ux-tab {
@@ -17,8 +17,8 @@ ux-tabs .indicator {
   opacity: 0.7;
   padding: 14px 12px 20px 12px;
   text-align: center;
-  color: var(--ux-theme--tabs-foreground, #fff);
-  background-color: var(--ux-theme--tabs-background-color, transparent);
+  color: var(--aurelia-ux--tabs-foreground, #fff);
+  background-color: var(--aurelia-ux--tabs-background-color, transparent);
   font-family: Raleway, Arial, Helvetica, sans-serif;
   font-weight: 600;
   font-size: 15px;
@@ -39,5 +39,5 @@ ux-tabs .indicator {
 .ux-tab.active {
   opacity: 1;
   padding-bottom: 18px;
-  border-bottom: var(--ux-theme--tabs-indicator-color, #fff) solid 2px;
+  border-bottom: var(--aurelia-ux--tabs-indicator-color, #fff) solid 2px;
 }
