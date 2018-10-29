@@ -11,16 +11,25 @@
     "themeKey": "toolbar",
 
     "shadow": "none",
-    "background": "#333",
-    "foreground": "#fefefe"
+    "background": "transparent",
+    "foreground": "#333"
+  },{
+    "themeKey": "drawer",
+
+    "background": "#fff",
+    "foreground": "#333",
+    "border": "#e8e8e8",
+    "selectedBackground": "#f7f7f7",
+    "selectedForeground": "#333",
+    "activeForeground": "#777"
   }],
   "dark": [
     {
       "themeKey": "design",
     
-      "controlBackground": "#424242",
+      "controlBackground": "#373740",
       "controlForeground": "#fff",
-      "appBackground": "#303030",
+      "appBackground": "#33333d",
       "appForeground": "#fff"
     }, {
     "themeKey": "toolbar",
@@ -28,5 +37,13 @@
     "shadow": "none",
     "background": "transparent",
     "foreground": "inherit"
+  },{
+    "themeKey": "drawer",
+
+    "background": "#31313B",
+    "foreground": "#fff",
+    "border": "#40404e",
+    "selectedBackground": "#1E1E23",
+    "selectedForeground": "#fff"
   }]
 }

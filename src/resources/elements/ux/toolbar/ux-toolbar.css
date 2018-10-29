@@ -19,6 +19,7 @@ ux-toolbar .toolbar-row {
 
 ux-toolbar .toolbar-row .title {
   color: #fff;
+  color: var(--aurelia-ux--toolbar-foreground, #fff);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-size: 26px;

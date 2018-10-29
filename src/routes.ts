@@ -1,16 +1,10 @@
 import { PLATFORM } from "aurelia-pal";
 
-let coreFeatures = {
-  title: 'Core Features'
-};
+let coreFeatures = 'Core Features';
 
-let formComponents = {
-  title: 'Form Components'
-};
+let formComponents = 'Form Components';
 
-let layoutComponents = {
-  title: 'Layout Components'
-};
+let layoutComponents = 'Layout Components';
 
 export let routes = [
   { route: '', redirect: 'getting-started' },
